@@ -2,40 +2,65 @@ package Vectors;
 
 import Bases.VectorBase;
 
-public class Vector2D implements VectorBase {
-    public double x = 0;
-    public double y = 0;
+public class Vector2D extends VectorBase {
+    protected double x = 0;
+    protected double y = 0;
 
-    public Vector2D(double x, double y){
+    public Vector2D(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public double getMagnitude(){
+    @Override
+    public double getMagnitude() {
         return Math.sqrt((x * x) + (y * y));
     }
 
+    @Override
     public double getMax() {
-        return 0;
+        return maxMagnitude;
     }
 
+    @Override
     public double[] getAngles() {
-        return new double[0];
+        return new double[]{Math.atan2(y, x)};
     }
 
+    @Override
     public double get(int i) {
-        return 0;
+        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
     }
 
+    @Override
     public double unsafeGet(int i) {
-        return 0;
+        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
     }
 
+    @Override
     public double set(int i) {
-        return 0;
+        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
     }
 
+    @Override
     public double unsafeSet(int i) {
-        return 0;
+        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
+    }
+
+    @Override
+    public void updateVals() {
+        if (getMagnitude() <= maxMagnitude || maxMagnitude == 0) return;
+        double scalarMultiple = Math.min(getMagnitude(), maxMagnitude) / getMagnitude();
+        x *= scalarMultiple;
+        y *= scalarMultiple;
+    }
+
+    public double getX(){
+        updateVals();
+        return x;
+    }
+
+    public double getY(){
+        updateVals();
+        return y;
     }
 }
