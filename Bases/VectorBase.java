@@ -2,15 +2,31 @@ package Bases;
 
 public abstract class VectorBase {
     protected double maxMagnitude = 0;
+    protected int size;
+
+    protected VectorBase(int size){
+        this.size = size;
+    }
 
     public abstract double getMagnitude();
-    public abstract double getMax();
-    public abstract double[] getAngles();
+
+    public double getMax(){
+        return maxMagnitude;
+    }
+
     public abstract double get(int i);
+
     public abstract double unsafeGet(int i);
-    public abstract double set(int i);
-    public abstract double unsafeSet(int i);
+
+    public abstract boolean set(int i, double val);
+
+    public abstract boolean unsafeSet(int i, double val);
+
     public abstract void updateVals();
+
+    public int size(){
+        return size;
+    }
 
     public void setMax(double max){
         maxMagnitude = max;

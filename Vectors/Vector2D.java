@@ -6,7 +6,12 @@ public class Vector2D extends VectorBase {
     protected double x = 0;
     protected double y = 0;
 
+    public Vector2D(){
+        super(2);
+    }
+
     public Vector2D(double x, double y) {
+        super(2);
         this.x = x;
         this.y = y;
     }
@@ -17,18 +22,13 @@ public class Vector2D extends VectorBase {
     }
 
     @Override
-    public double getMax() {
-        return maxMagnitude;
-    }
-
-    @Override
-    public double[] getAngles() {
-        return new double[]{Math.atan2(y, x)};
-    }
-
-    @Override
     public double get(int i) {
-        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
+        updateVals();
+        switch(i) {
+            case 0: return x;
+            case 1: return y;
+            default: throw new IndexOutOfBoundsException(i);
+        }
     }
 
     @Override
@@ -37,12 +37,17 @@ public class Vector2D extends VectorBase {
     }
 
     @Override
-    public double set(int i) {
-        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
+    public boolean set(int i, double val) {
+        if(Double.isNaN(val)) throw new IllegalArgumentException("Input value is NaN");
+        switch(i) {
+            case 0: x = val; return x == val;
+            case 1: y = val; return x == val;
+            default: throw new IndexOutOfBoundsException(i);
+        }
     }
 
     @Override
-    public double unsafeSet(int i) {
+    public boolean unsafeSet(int i, double val) {
         throw new IllegalCallerException("Function call not allowed in " + this.getClass());
     }
 
@@ -52,15 +57,5 @@ public class Vector2D extends VectorBase {
         double scalarMultiple = Math.min(getMagnitude(), maxMagnitude) / getMagnitude();
         x *= scalarMultiple;
         y *= scalarMultiple;
-    }
-
-    public double getX(){
-        updateVals();
-        return x;
-    }
-
-    public double getY(){
-        updateVals();
-        return y;
     }
 }
