@@ -30,20 +30,19 @@ public class Vector1D extends VectorBase {
 
     @Override
     public double unsafeGet(int i) {
-        return 0;
+        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
     }
 
     @Override
     public boolean set(int i, double val) {
-        if(Double.isNaN(val)) throw new IllegalArgumentException("Input value is NaN");
-        if(i >= size) throw new IndexOutOfBoundsException(i);
+        generalValueCheck(i, val);
         magnitude = val;
         return magnitude == val;
     }
 
     @Override
     public boolean unsafeSet(int i, double val) {
-        return false;
+        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
     }
 
     @Override

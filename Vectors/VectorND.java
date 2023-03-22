@@ -10,6 +10,7 @@ public class VectorND extends VectorBase {
 
     private VectorND(){
         super(-1);
+        throw new IllegalCallerException("How the hell did you even call this?");
     }
 
     public VectorND(double... vals){
@@ -30,20 +31,19 @@ public class VectorND extends VectorBase {
 
     @Override
     public double unsafeGet(int i) {
-        return 0;
+        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
     }
 
     @Override
     public boolean set(int i, double val) {
-        if(i >= size) throw new IndexOutOfBoundsException(i);
-        if(Double.isNaN(val)) throw new IllegalArgumentException("Input value is NaN");
+        generalValueCheck(i, val);
         vals[i] = val;
         return vals[i] == val;
     }
 
     @Override
     public boolean unsafeSet(int i, double val) {
-        return false;
+        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
     }
 
     @Override

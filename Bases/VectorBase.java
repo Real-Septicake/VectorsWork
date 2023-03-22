@@ -33,4 +33,9 @@ public abstract class VectorBase {
     public void setMax(double max){
         maxMagnitude = max;
     }
+
+    public void generalValueCheck(int i, double val){
+        if(i >= size) throw new IndexOutOfBoundsException(i);
+        if(Double.isNaN(val)) throw new IllegalArgumentException("Input value is NaN");
+    }
 }
