@@ -28,6 +28,8 @@ public abstract class VectorBase {
         return size;
     }
 
+    public abstract double[] toDoubleArray();
+
     public void setMax(double max){
         maxMagnitude = max;
     }

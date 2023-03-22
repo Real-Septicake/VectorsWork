@@ -8,7 +8,7 @@ public class VectorND extends VectorBase {
 
     protected double[] vals;
 
-    public VectorND(){
+    private VectorND(){
         super(-1);
     }
 
@@ -35,7 +35,10 @@ public class VectorND extends VectorBase {
 
     @Override
     public boolean set(int i, double val) {
-        return false;
+        if(i >= size) throw new IndexOutOfBoundsException(i);
+        if(Double.isNaN(val)) throw new IllegalArgumentException("Input value is NaN");
+        vals[i] = val;
+        return vals[i] == val;
     }
 
     @Override
@@ -45,6 +48,13 @@ public class VectorND extends VectorBase {
 
     @Override
     public void updateVals() {
+        if (getMagnitude() <= maxMagnitude || maxMagnitude == 0) return;
+        double scalarMultiple = Math.min(getMagnitude(), maxMagnitude) / getMagnitude();
+        vals = Op1.scalarMultiplication(scalarMultiple, vals);
+    }
 
+    @Override
+    public double[] toDoubleArray(){
+        return vals;
     }
 }

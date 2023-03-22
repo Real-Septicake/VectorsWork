@@ -50,4 +50,9 @@ public class Vector1D extends VectorBase {
     public void updateVals() {
         magnitude = Math.min(getMagnitude(), maxMagnitude);
     }
+
+    @Override
+    public double[] toDoubleArray(){
+        return new double[]{magnitude};
+    }
 }

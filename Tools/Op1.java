@@ -18,4 +18,12 @@ public class Op1 {
         }
         return sum;
     }
+
+    public static double[] scalarMultiplication(double factor, double[] vals){
+        double[] returns = new double[vals.length];
+        for(int i = 0; i < vals.length; i++){
+            returns[i] = vals[i] * factor;
+        }
+        return returns;
+    }
 }

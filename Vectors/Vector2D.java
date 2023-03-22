@@ -58,4 +58,9 @@ public class Vector2D extends VectorBase {
         x *= scalarMultiple;
         y *= scalarMultiple;
     }
+
+    @Override
+    public double[] toDoubleArray(){
+        return new double[]{x, y};
+    }
 }
