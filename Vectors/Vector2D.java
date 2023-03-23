@@ -4,10 +4,10 @@ import Bases.VectorBase;
 import Tools.Op1;
 
 public class Vector2D extends VectorBase {
-    protected double x = 0;
-    protected double y = 0;
+    private double x = 0;
+    private double y = 0;
 
-    public Vector2D(){
+    public Vector2D() {
         super(2);
     }
 
@@ -18,49 +18,102 @@ public class Vector2D extends VectorBase {
     }
 
     @Override
-    public double getMagnitude() {
-        return Math.sqrt(Op1.wholeSquaresSum(toDoubleArray()));
-    }
-
-    @Override
     public double get(int i) {
         updateVals();
-        switch(i) {
-            case 0: return x;
-            case 1: return y;
-            default: throw new IndexOutOfBoundsException(i);
+        switch (i) {
+            case 0:
+                return x;
+            case 1:
+                return y;
+            default:
+                throw new IndexOutOfBoundsException(i);
         }
     }
 
     @Override
     public double unsafeGet(int i) {
-        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
+        return (i == 0) ? x : y;
     }
 
     @Override
     public boolean set(int i, double val) {
         generalValueCheck(i, val);
-        switch(i) {
-            case 0: x = val; return x == val;
-            case 1: y = val; return x == val;
-            default: throw new IndexOutOfBoundsException(i);
+        switch (i) {
+            case 0:
+                x = val;
+                return x == val;
+            case 1:
+                y = val;
+                return x == val;
+            default:
+                throw new IndexOutOfBoundsException(i);
         }
     }
 
     @Override
     public boolean unsafeSet(int i, double val) {
-        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
+        if (Double.isNaN(val)) throw new IllegalArgumentException("Input value is NaN");
+        if (i == 0) {
+            x = val;
+            return x == val;
+        } else {
+            y = val;
+            return y == val;
+        }
     }
 
     @Override
-    public void updateVals() {
-        double scalarMultiple = Op1.findScalarMultiple(getMagnitude(), maxMagnitude);
-        x *= scalarMultiple;
-        y *= scalarMultiple;
+    protected void updateVals() {
+        double scalarMultiple = Op1.findScalarMultiple(getMagnitude(), getMax());
+        multiply(scalarMultiple);
     }
 
     @Override
-    public double[] toDoubleArray(){
+    public double[] toDoubleArray() {
         return new double[]{x, y};
+    }
+
+    @Override
+    public void add(double val) {
+        x += val;
+        y += val;
+    }
+
+    @Override
+    public VectorBase addCopy(double val) {
+        return new Vector2D(x + val, y + val);
+    }
+
+    @Override
+    public void subtract(double val) {
+        x -= val;
+        y -= val;
+    }
+
+    @Override
+    public VectorBase subtractCopy(double val) {
+        return new Vector2D(x - val, y - val);
+    }
+
+    @Override
+    public void multiply(double val) {
+        x *= val;
+        y *= val;
+    }
+
+    @Override
+    public VectorBase multiplyCopy(double val) {
+        return new Vector2D(x * val, y * val);
+    }
+
+    @Override
+    public void divide(double val) {
+        x /= val;
+        y /= val;
+    }
+
+    @Override
+    public VectorBase divideCopy(double val) {
+        return new Vector2D(x / val, y / val);
     }
 }

@@ -4,33 +4,26 @@ import Bases.VectorBase;
 
 public class Vector1D extends VectorBase {
 
-    protected double magnitude = 0;
+    private double magnitude = 0;
 
-    public Vector1D(){
+    public Vector1D() {
         super(1);
     }
 
-    public Vector1D(double magnitude){
+    public Vector1D(double magnitude) {
         super(1);
         this.magnitude = magnitude;
     }
 
-
-
-    @Override
-    public double getMagnitude() {
-        return magnitude;
-    }
-
     @Override
     public double get(int i) {
-        if(i >= size) throw new IndexOutOfBoundsException(i);
+        if (i >= size()) throw new IndexOutOfBoundsException(i);
         return magnitude;
     }
 
     @Override
     public double unsafeGet(int i) {
-        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
+        return magnitude;
     }
 
     @Override
@@ -42,16 +35,58 @@ public class Vector1D extends VectorBase {
 
     @Override
     public boolean unsafeSet(int i, double val) {
-        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
+        if (Double.isNaN(val)) throw new IllegalArgumentException("Input value is NaN");
+        magnitude = val;
+        return magnitude == val;
     }
 
     @Override
-    public void updateVals() {
-        magnitude = Math.min(getMagnitude(), maxMagnitude);
+    protected void updateVals() {
+        magnitude = Math.min(getMagnitude(), getMax());
     }
 
     @Override
-    public double[] toDoubleArray(){
+    public double[] toDoubleArray() {
         return new double[]{magnitude};
+    }
+
+    @Override
+    public void add(double val) {
+        magnitude += val;
+    }
+
+    @Override
+    public VectorBase addCopy(double val) {
+        return new Vector1D(magnitude + val);
+    }
+
+    @Override
+    public void subtract(double val) {
+        magnitude -= val;
+    }
+
+    @Override
+    public VectorBase subtractCopy(double val) {
+        return new Vector1D(magnitude - val);
+    }
+
+    @Override
+    public void multiply(double val) {
+        magnitude *= val;
+    }
+
+    @Override
+    public VectorBase multiplyCopy(double val) {
+        return new Vector1D(magnitude * val);
+    }
+
+    @Override
+    public void divide(double val) {
+        magnitude /= val;
+    }
+
+    @Override
+    public VectorBase divideCopy(double val) {
+        return new Vector1D(magnitude / val);
     }
 }
