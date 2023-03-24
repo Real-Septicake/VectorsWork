@@ -16,28 +16,39 @@ public class Vector1D extends VectorBase {
         this.magnitude = magnitude;
     }
 
-    public Vector1D(double... values){
+    public Vector1D(double... values) {
         super(1);
-        if(values.length != size()) throw new IllegalArgumentException(ErrorMessages.invalidSourceArrayLength(values, this));
+        if (values.length != size())
+            throw new IllegalArgumentException(ErrorMessages.invalidSourceArrayLength(values, this));
         this.magnitude = values[0];
     }
 
-    public static Vector1D create(VectorBase source){
-        if(source.size() != 1) throw new IllegalArgumentException(ErrorMessages.sourceVectorTypeMismatch(new Vector1D(), source));
+    public static Vector1D create(VectorBase source) {
+        if (source.size() != 1)
+            throw new IllegalArgumentException(ErrorMessages.sourceVectorTypeMismatch(new Vector1D(), source));
         return new Vector1D(source.toDoubleArray());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double get(int i) {
         if (i >= size()) throw new IndexOutOfBoundsException(i);
         return magnitude;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double unsafeGet(int i) {
         return magnitude;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean set(int i, double val) {
         generalValueCheck(i, val);
@@ -45,6 +56,9 @@ public class Vector1D extends VectorBase {
         return magnitude == val;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean unsafeSet(int i, double val) {
         if (Double.isNaN(val)) throw new IllegalArgumentException("Input value is NaN");
@@ -52,11 +66,17 @@ public class Vector1D extends VectorBase {
         return magnitude == val;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void updateVals() {
         magnitude = Math.min(getMagnitude(), getMax());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double[] toDoubleArray() {
         return new double[]{magnitude};

@@ -2,6 +2,7 @@ package Vectors;
 
 import Bases.VectorBase;
 
+import Tools.ErrorMessages;
 import Tools.Op1;
 
 public class VectorND extends VectorBase {
@@ -22,17 +23,26 @@ public class VectorND extends VectorBase {
         return new VectorND(source.toDoubleArray());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double get(int i) {
         if (i >= size()) throw new IndexOutOfBoundsException(i);
         return vals[i];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double unsafeGet(int i) {
-        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
+        return vals[Math.min(i, vals.length - 1)];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean set(int i, double val) {
         generalValueCheck(i, val);
@@ -40,17 +50,29 @@ public class VectorND extends VectorBase {
         return vals[i] == val;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean unsafeSet(int i, double val) {
-        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
+        if(Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.NAN_INPUT);
+        int n = Math.min(i, vals.length - 1);
+        vals[n] = val;
+        return vals[n] == val;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateVals() {
         double scalarMultiple = Op1.findScalarMultiple(getMagnitude(), getMax());
         multiply(scalarMultiple);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double[] toDoubleArray() {
         return vals.clone();

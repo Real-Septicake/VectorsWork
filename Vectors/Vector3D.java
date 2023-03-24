@@ -34,6 +34,9 @@ public class Vector3D extends VectorBase {
         return new Vector3D(source.unsafeGet(0), source.unsafeGet(1), source.unsafeGet(2));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double get(int i) {
         updateVals();
@@ -49,6 +52,9 @@ public class Vector3D extends VectorBase {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double unsafeGet(int i) {
         switch(i){
@@ -58,6 +64,9 @@ public class Vector3D extends VectorBase {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean set(int i, double val) {
         generalValueCheck(i, val);
@@ -76,6 +85,9 @@ public class Vector3D extends VectorBase {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean unsafeSet(int i, double val) {
         switch(i){
@@ -85,12 +97,18 @@ public class Vector3D extends VectorBase {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateVals() {
         double scalarMultiple = Op1.findScalarMultiple(getMagnitude(), getMax());
         multiply(scalarMultiple);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double[] toDoubleArray() {
         return new double[]{x, y, z};

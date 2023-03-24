@@ -10,7 +10,7 @@ public class VectorTest {
         System.out.println(v);
         System.out.println(v + " magnitude: " + v.getMagnitude());
         v.setMax(1);
-        System.out.println(v + " magnitude: " + v.getMagnitude());
+        System.out.println(v + " magnitude: " + v.getMagnitude()); //Thread interrupts are mean >:(
         System.out.println("RERUN: magnitude: " + Math.sqrt(Op1.wholeSquaresSum(v)));
         v.setMax(0);
         System.out.println(v.set(0, 0));

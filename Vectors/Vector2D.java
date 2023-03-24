@@ -32,6 +32,9 @@ public class Vector2D extends VectorBase {
         return new Vector2D(source.toDoubleArray());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double get(int i) {
         updateVals();
@@ -45,11 +48,17 @@ public class Vector2D extends VectorBase {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double unsafeGet(int i) {
         return (i == 0) ? x : y;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean set(int i, double val) {
         generalValueCheck(i, val);
@@ -65,6 +74,9 @@ public class Vector2D extends VectorBase {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean unsafeSet(int i, double val) {
         if (Double.isNaN(val)) throw new IllegalArgumentException("Input value is NaN");
@@ -77,12 +89,18 @@ public class Vector2D extends VectorBase {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void updateVals() {
         double scalarMultiple = Op1.findScalarMultiple(getMagnitude(), getMax());
         multiply(scalarMultiple);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double[] toDoubleArray() {
         return new double[]{x, y};
