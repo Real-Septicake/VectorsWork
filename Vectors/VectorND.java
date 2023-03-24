@@ -18,6 +18,10 @@ public class VectorND extends VectorBase {
         this.vals = vals;
     }
 
+    public static VectorND create(VectorBase source){
+        return new VectorND(source.toDoubleArray());
+    }
+
     @Override
     public double get(int i) {
         if (i >= size()) throw new IndexOutOfBoundsException(i);
@@ -49,7 +53,7 @@ public class VectorND extends VectorBase {
 
     @Override
     public double[] toDoubleArray() {
-        return vals;
+        return vals.clone();
     }
 
     @Override

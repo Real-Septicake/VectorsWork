@@ -1,6 +1,7 @@
 package Vectors;
 
 import Bases.VectorBase;
+import Tools.ErrorMessages;
 import Tools.Op1;
 
 public class Vector2D extends VectorBase {
@@ -15,6 +16,20 @@ public class Vector2D extends VectorBase {
         super(2);
         this.x = x;
         this.y = y;
+    }
+
+
+
+    public Vector2D(double... values){
+        super(2);
+        if(values.length != size()) throw new IllegalArgumentException(ErrorMessages.invalidSourceArrayLength(values, this));
+        x = values[0];
+        y = values[1];
+    }
+
+    public static Vector2D create(VectorBase source){
+        if(source.size() != 2) throw new IllegalArgumentException(ErrorMessages.sourceVectorTypeMismatch(new Vector2D(), source));
+        return new Vector2D(source.toDoubleArray());
     }
 
     @Override

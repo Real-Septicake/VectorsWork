@@ -1,6 +1,7 @@
 package Vectors;
 
 import Bases.VectorBase;
+import Tools.ErrorMessages;
 
 public class Vector1D extends VectorBase {
 
@@ -13,6 +14,17 @@ public class Vector1D extends VectorBase {
     public Vector1D(double magnitude) {
         super(1);
         this.magnitude = magnitude;
+    }
+
+    public Vector1D(double... values){
+        super(1);
+        if(values.length != size()) throw new IllegalArgumentException(ErrorMessages.invalidSourceArrayLength(values, this));
+        this.magnitude = values[0];
+    }
+
+    public static Vector1D create(VectorBase source){
+        if(source.size() != 1) throw new IllegalArgumentException(ErrorMessages.sourceVectorTypeMismatch(new Vector1D(), source));
+        return new Vector1D(source.toDoubleArray());
     }
 
     @Override

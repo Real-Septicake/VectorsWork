@@ -1,6 +1,10 @@
 package Bases;
 
 import Tools.Op1;
+import Vectors.Vector1D;
+import Vectors.Vector2D;
+import Vectors.Vector3D;
+import Vectors.VectorND;
 
 //TODO: REALLY gonna have to organize this stuff
 public abstract class VectorBase {
@@ -59,4 +63,27 @@ public abstract class VectorBase {
     public abstract void divide(double val);
 
     public abstract VectorBase divideCopy(double val);
+
+    public static VectorBase of(double... values){
+        int n = values.length;
+        switch (n){
+            case 1: return new Vector1D(values);
+            case 2: return new Vector2D(values);
+            case 3: return new Vector3D(values);
+            default: return new VectorND(values);
+        }
+    }
+
+    public String toString(){
+        updateVals();
+        StringBuilder sb = new StringBuilder();
+        double[] d = toDoubleArray();
+        sb.append(this.getClass().getSimpleName() + ": [");
+        for(int i = 0; i < d.length; i++){
+            sb.append(d[i]);
+            if(i != d.length - 1) sb.append(", ");
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 }

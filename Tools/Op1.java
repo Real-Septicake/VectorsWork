@@ -1,7 +1,6 @@
 package Tools;
 
 import Bases.VectorBase;
-import Vectors.Vector3D;
 
 public class Op1 {
     private Op1() {
@@ -40,7 +39,7 @@ public class Op1 {
     }
 
     public static double findScalarMultiple(double magnitude, double maxMagnitude) {
-        if (magnitude <= maxMagnitude || maxMagnitude == 0) return magnitude;
+        if (magnitude <= maxMagnitude || maxMagnitude == 0) return 1;
         return Math.min(magnitude, maxMagnitude) / magnitude;
     }
 }

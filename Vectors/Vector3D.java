@@ -1,6 +1,7 @@
 package Vectors;
 
 import Bases.VectorBase;
+import Tools.ErrorMessages;
 import Tools.Op1;
 
 public class Vector3D extends VectorBase {
@@ -20,6 +21,19 @@ public class Vector3D extends VectorBase {
         this.z = z;
     }
 
+    public Vector3D(double... values){
+        super(3);
+        if(values.length != size()) throw new IllegalArgumentException(ErrorMessages.invalidSourceArrayLength(values, this));
+        x = values[0];
+        y = values[1];
+        z = values[2];
+    }
+
+    public static Vector3D create(VectorBase source){
+        if(source.size() != 3) throw new IllegalArgumentException(ErrorMessages.sourceVectorTypeMismatch(new Vector3D(), source));
+        return new Vector3D(source.unsafeGet(0), source.unsafeGet(1), source.unsafeGet(2));
+    }
+
     @Override
     public double get(int i) {
         updateVals();
@@ -37,7 +51,11 @@ public class Vector3D extends VectorBase {
 
     @Override
     public double unsafeGet(int i) {
-        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
+        switch(i){
+            case 0: return x;
+            case 1: return y;
+            default: return z;
+        }
     }
 
     @Override
@@ -60,7 +78,11 @@ public class Vector3D extends VectorBase {
 
     @Override
     public boolean unsafeSet(int i, double val) {
-        throw new IllegalCallerException("Function call not allowed in " + this.getClass());
+        switch(i){
+            case 0: x = val; return x == val;
+            case 1: y = val; return y == val;
+            default: z = val; return z == val;
+        }
     }
 
     @Override
