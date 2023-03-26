@@ -79,7 +79,7 @@ public class Vector2D extends VectorBase {
      */
     @Override
     public boolean unsafeSet(int i, double val) {
-        if (Double.isNaN(val)) throw new IllegalArgumentException("Input value is NaN");
+        if (Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.NAN_INPUT);
         if (i == 0) {
             x = val;
             return x == val;

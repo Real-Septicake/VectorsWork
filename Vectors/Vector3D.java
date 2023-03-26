@@ -90,6 +90,7 @@ public class Vector3D extends VectorBase {
      */
     @Override
     public boolean unsafeSet(int i, double val) {
+        if(Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.NAN_INPUT);
         switch(i){
             case 0: x = val; return x == val;
             case 1: y = val; return y == val;

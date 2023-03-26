@@ -27,7 +27,7 @@ public abstract class VectorBase {
     /**
      * Dimension of the {@code Vector}
      */
-    private int size;
+    private final int size;
 
     protected VectorBase(int size) {
         this.size = size;
@@ -73,8 +73,9 @@ public abstract class VectorBase {
      * @param val Value to set the index to
      * @return Whether the index was successfully set
      * @throws IndexOutOfBoundsException If specified index is greater than the {@code Vector}'s size
+     * @throws IllegalArgumentException If the input value is NaN
      */
-    public abstract boolean set(int i, double val) throws IndexOutOfBoundsException;
+    public abstract boolean set(int i, double val) throws IndexOutOfBoundsException, IllegalArgumentException;
 
     /**
      * Sets the value held by the {@code Vector} at the specified index, if the specified index is larger than the
@@ -83,8 +84,9 @@ public abstract class VectorBase {
      * @param i   Index to return the value of
      * @param val Value to set the index to
      * @return Whether the index was successfully set
+     * @throws IllegalArgumentException If the input value is NaN
      */
-    public abstract boolean unsafeSet(int i, double val);
+    public abstract boolean unsafeSet(int i, double val) throws IllegalArgumentException;
 
     /**
      * Called to check if the {@code Vector} has a maximum magnitude, and if so, alter the values to keep it within the
@@ -124,17 +126,65 @@ public abstract class VectorBase {
 
     public abstract VectorBase addCopy(double val);
 
+    public void addMultipleSafe(double val, int... indices){
+        for(int i : indices){
+            set(i, get(i) + val);
+        }
+    }
+
+    public void addMultipleUnsafe(double val, int... indices){
+        for(int i : indices){
+            unsafeSet(i, unsafeGet(i) + val);
+        }
+    }
+
     public abstract void subtract(double val);
 
     public abstract VectorBase subtractCopy(double val);
+
+    public void subtractMultipleSafe(double val, int... indices){
+        for(int i : indices){
+            set(i, get(i) - val);
+        }
+    }
+
+    public void subtractMultipleUnsafe(double val, int... indices){
+        for(int i : indices){
+            unsafeSet(i, unsafeGet(i) + val);
+        }
+    }
 
     public abstract void multiply(double val);
 
     public abstract VectorBase multiplyCopy(double val);
 
+    public void multiplyMultipleSafe(double val, int... indices){
+        for(int i : indices){
+            set(i, get(i) * val);
+        }
+    }
+
+    public void multiplyMultipleUnsafe(double val, int... indices){
+        for(int i : indices){
+            unsafeSet(i, unsafeGet(i) + val);
+        }
+    }
+
     public abstract void divide(double val);
 
     public abstract VectorBase divideCopy(double val);
+
+    public void divideMultipleSafe(double val, int... indices){
+        for(int i : indices){
+            set(i, get(i) + val);
+        }
+    }
+
+    public void divideMultipleUnsafe(double val, int... indices){
+        for(int i : indices){
+            unsafeSet(i, unsafeGet(i) + val);
+        }
+    }
 
     public static VectorBase of(double... values) {
         int n = values.length;
