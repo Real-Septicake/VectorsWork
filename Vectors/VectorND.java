@@ -11,7 +11,6 @@ public class VectorND extends VectorBase {
 
     private VectorND() {
         super(-1);
-        throw new IllegalCallerException("How the hell did you even call this?");
     }
 
     public VectorND(double... vals) {

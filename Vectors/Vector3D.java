@@ -48,7 +48,7 @@ public class Vector3D extends VectorBase {
             case 2:
                 return z;
             default:
-                throw new IndexOutOfBoundsException(i);
+                throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
         }
     }
 
@@ -81,7 +81,7 @@ public class Vector3D extends VectorBase {
                 z = val;
                 return z == val;
             default:
-                throw new IndexOutOfBoundsException(i);
+                throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
         }
     }
 

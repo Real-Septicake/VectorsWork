@@ -34,7 +34,7 @@ public class Vector1D extends VectorBase {
      */
     @Override
     public double get(int i) {
-        if (i >= size()) throw new IndexOutOfBoundsException(i);
+        if (i >= size()) throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
         return magnitude;
     }
 

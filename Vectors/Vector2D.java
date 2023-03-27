@@ -44,7 +44,7 @@ public class Vector2D extends VectorBase {
             case 1:
                 return y;
             default:
-                throw new IndexOutOfBoundsException(i);
+                throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
         }
     }
 
@@ -70,7 +70,7 @@ public class Vector2D extends VectorBase {
                 y = val;
                 return x == val;
             default:
-                throw new IndexOutOfBoundsException(i);
+                throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
         }
     }
 

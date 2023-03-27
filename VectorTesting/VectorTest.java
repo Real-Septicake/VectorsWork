@@ -11,18 +11,18 @@ public class VectorTest {
         System.out.println(v);
         System.out.println(v + " magnitude: " + v.getMagnitude());
         v.setMax(1);
-        /*
-        * HOLD THE FUCK UP
-        * YOU MEAN TO TELL ME THAT THE THREAD GETS INTERRUPTED ON MY ROBOTICS LAPTOP
-        * BUT NOT ON MY HOME PC??????????
-        * WHAT THE FUCK?????
-        */
         System.out.println(v + " magnitude: " + v.getMagnitude()); //Thread interrupts are mean >:(
         System.out.println("RERUN: magnitude: " + Math.sqrt(Op1.wholeSquaresSum(v)));
         v.setMax(0);
         System.out.println(v.set(0, 0));
         v.addMultipleSafe(2, 0, 0, 0);
         System.out.println(v);
+
+        VectorBase vA = VectorBase.of(3, 2, 17);
+        VectorBase vB = VectorBase.of(3, 17, 2, 6);
+
+        System.out.println(Op1.equalMagnitude(vA, vB));
+        System.out.println(Op1.equalValues(vA.toDoubleArray(), vB.toDoubleArray()));
 
         VectorND v2 = new VectorND(3, 8, 4);
         System.out.println(v2.size());
