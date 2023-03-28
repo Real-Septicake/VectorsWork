@@ -1,11 +1,13 @@
 package Bases;
 
 import Tools.ErrorMessages;
-import Tools.OpMain;
+import Tools.OpVectors;
 import Vectors.Vector1D;
 import Vectors.Vector2D;
 import Vectors.Vector3D;
 import Vectors.VectorND;
+
+import java.util.Arrays;
 
 //TODO: REALLY gonna have to organize this stuff
 
@@ -37,7 +39,7 @@ public abstract class VectorBase {
      * @return The current magnitude of this {@code Vector}
      */
     public double getMagnitude() {
-        return Math.sqrt(OpMain.wholeSquaresSum(toDoubleArray()));
+        return Math.sqrt(OpVectors.wholeSquaresSum(toDoubleArray()));
     }
 
     /**
@@ -202,14 +204,6 @@ public abstract class VectorBase {
 
     public String toString() {
         updateVals();
-        StringBuilder sb = new StringBuilder();
-        double[] d = toDoubleArray();
-        sb.append(this.getClass().getSimpleName() + ": [");
-        for (int i = 0; i < d.length; i++) {
-            sb.append(d[i]);
-            if (i != d.length - 1) sb.append(", ");
-        }
-        sb.append("]");
-        return sb.toString();
+        return this.getClass().getSimpleName() + ": " + Arrays.toString(toDoubleArray());
     }
 }

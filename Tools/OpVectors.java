@@ -2,8 +2,8 @@ package Tools;
 
 import Bases.VectorBase;
 
-public class OpMain {
-    private OpMain() {
+public class OpVectors {
+    private OpVectors() {
     }
 
     public static double wholeSum(double... vals) {
