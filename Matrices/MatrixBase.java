@@ -31,7 +31,7 @@ public class MatrixBase {
     }
 
     public MatrixBase of(MatrixBase mb){
-        return new MatrixBase(toDoubleMatrix());
+        return new MatrixBase(mb.toDoubleMatrix());
     }
 
     public double[][] toDoubleMatrix(){
@@ -39,13 +39,6 @@ public class MatrixBase {
     }
 
     public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for(int x = 0; x < data.length; x++){
-            sb.append(Arrays.toString(data[x]));
-            if(x != data.length - 1) sb.append(", ");
-        }
-        sb.append("]");
-        return sb.toString();
+        return Arrays.deepToString(data);
     }
 }
