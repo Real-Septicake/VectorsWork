@@ -19,7 +19,7 @@ public class Vector1D extends VectorBase {
     public Vector1D(double... values) {
         super(1);
         if (values.length != size())
-            throw new IllegalArgumentException(ErrorMessages.invalidSourceArrayLength(values, this));
+            throw new IllegalArgumentException(ErrorMessages.invalidSourceArrayLength(this, values));
         this.magnitude = values[0];
     }
 

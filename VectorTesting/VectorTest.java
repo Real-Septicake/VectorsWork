@@ -12,7 +12,7 @@ public class VectorTest {
         System.out.println(v + " magnitude: " + v.getMagnitude());
         v.setMax(1);
         System.out.println(v + " magnitude: " + v.getMagnitude()); //Thread interrupts are mean >:(
-        System.out.println("RERUN: magnitude: " + Math.sqrt(Op1.wholeSquaresSum(v)));
+        System.out.println("RERUN: magnitude: " + Math.sqrt(OpMain.wholeSquaresSum(v)));
         v.setMax(0);
         System.out.println(v.set(0, 0));
         v.addMultipleSafe(2, 0, 0, 0);
@@ -21,8 +21,8 @@ public class VectorTest {
         VectorBase vA = VectorBase.of(3, 2, 17);
         VectorBase vB = VectorBase.of(3, 17, 2, 6);
 
-        System.out.println(Op1.equalMagnitude(vA, vB));
-        System.out.println(Op1.equalValues(vA.toDoubleArray(), vB.toDoubleArray()));
+        System.out.println(OpMain.equalMagnitude(vA, vB));
+        System.out.println(OpMain.equalValues(vA.toDoubleArray(), vB.toDoubleArray()));
 
         VectorND v2 = new VectorND(3, 8, 4);
         System.out.println(v2.size());

@@ -2,7 +2,7 @@ package Vectors;
 
 import Bases.VectorBase;
 import Tools.ErrorMessages;
-import Tools.Op1;
+import Tools.OpMain;
 
 public class Vector2D extends VectorBase {
     private double x = 0;
@@ -22,7 +22,7 @@ public class Vector2D extends VectorBase {
 
     public Vector2D(double... values){
         super(2);
-        if(values.length != size()) throw new IllegalArgumentException(ErrorMessages.invalidSourceArrayLength(values, this));
+        if(values.length != size()) throw new IllegalArgumentException(ErrorMessages.invalidSourceArrayLength(this, values));
         x = values[0];
         y = values[1];
     }
@@ -38,14 +38,11 @@ public class Vector2D extends VectorBase {
     @Override
     public double get(int i) {
         updateVals();
-        switch (i) {
-            case 0:
-                return x;
-            case 1:
-                return y;
-            default:
-                throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
-        }
+        return switch (i) {
+            case 0 -> x;
+            case 1 -> y;
+            default -> throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
+        };
     }
 
     /**
@@ -63,14 +60,15 @@ public class Vector2D extends VectorBase {
     public boolean set(int i, double val) {
         generalValueCheck(i, val);
         switch (i) {
-            case 0:
+            case 0 -> {
                 x = val;
                 return x == val;
-            case 1:
+            }
+            case 1 -> {
                 y = val;
                 return x == val;
-            default:
-                throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
+            }
+            default -> throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
         }
     }
 
@@ -94,7 +92,7 @@ public class Vector2D extends VectorBase {
      */
     @Override
     protected void updateVals() {
-        double scalarMultiple = Op1.findScalarMultiple(getMagnitude(), getMax());
+        double scalarMultiple = OpMain.findScalarMultiple(getMagnitude(), getMax());
         multiply(scalarMultiple);
     }
 

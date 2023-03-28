@@ -2,7 +2,7 @@ package Vectors;
 
 import Bases.VectorBase;
 import Tools.ErrorMessages;
-import Tools.Op1;
+import Tools.OpMain;
 
 public class Vector3D extends VectorBase {
 
@@ -23,7 +23,7 @@ public class Vector3D extends VectorBase {
 
     public Vector3D(double... values){
         super(3);
-        if(values.length != size()) throw new IllegalArgumentException(ErrorMessages.invalidSourceArrayLength(values, this));
+        if(values.length != size()) throw new IllegalArgumentException(ErrorMessages.invalidSourceArrayLength(this, values));
         x = values[0];
         y = values[1];
         z = values[2];
@@ -40,16 +40,12 @@ public class Vector3D extends VectorBase {
     @Override
     public double get(int i) {
         updateVals();
-        switch (i) {
-            case 0:
-                return x;
-            case 1:
-                return y;
-            case 2:
-                return z;
-            default:
-                throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
-        }
+        return switch (i) {
+            case 0 -> x;
+            case 1 -> y;
+            case 2 -> z;
+            default -> throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
+        };
     }
 
     /**
@@ -57,11 +53,11 @@ public class Vector3D extends VectorBase {
      */
     @Override
     public double unsafeGet(int i) {
-        switch(i){
-            case 0: return x;
-            case 1: return y;
-            default: return z;
-        }
+        return switch (i) {
+            case 0 -> x;
+            case 1 -> y;
+            default -> z;
+        };
     }
 
     /**
@@ -71,17 +67,19 @@ public class Vector3D extends VectorBase {
     public boolean set(int i, double val) {
         generalValueCheck(i, val);
         switch (i) {
-            case 0:
+            case 0 -> {
                 x = val;
                 return x == val;
-            case 1:
+            }
+            case 1 -> {
                 y = val;
                 return y == val;
-            case 2:
+            }
+            case 2 -> {
                 z = val;
                 return z == val;
-            default:
-                throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
+            }
+            default -> throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
         }
     }
 
@@ -91,10 +89,19 @@ public class Vector3D extends VectorBase {
     @Override
     public boolean unsafeSet(int i, double val) {
         if(Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.NAN_INPUT);
-        switch(i){
-            case 0: x = val; return x == val;
-            case 1: y = val; return y == val;
-            default: z = val; return z == val;
+        switch (i) {
+            case 0 -> {
+                x = val;
+                return x == val;
+            }
+            case 1 -> {
+                y = val;
+                return y == val;
+            }
+            default -> {
+                z = val;
+                return z == val;
+            }
         }
     }
 
@@ -103,7 +110,7 @@ public class Vector3D extends VectorBase {
      */
     @Override
     public void updateVals() {
-        double scalarMultiple = Op1.findScalarMultiple(getMagnitude(), getMax());
+        double scalarMultiple = OpMain.findScalarMultiple(getMagnitude(), getMax());
         multiply(scalarMultiple);
     }
 

@@ -1,7 +1,7 @@
 package Bases;
 
 import Tools.ErrorMessages;
-import Tools.Op1;
+import Tools.OpMain;
 import Vectors.Vector1D;
 import Vectors.Vector2D;
 import Vectors.Vector3D;
@@ -37,7 +37,7 @@ public abstract class VectorBase {
      * @return The current magnitude of this {@code Vector}
      */
     public double getMagnitude() {
-        return Math.sqrt(Op1.wholeSquaresSum(toDoubleArray()));
+        return Math.sqrt(OpMain.wholeSquaresSum(toDoubleArray()));
     }
 
     /**

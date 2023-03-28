@@ -3,7 +3,7 @@ package Vectors;
 import Bases.VectorBase;
 
 import Tools.ErrorMessages;
-import Tools.Op1;
+import Tools.OpMain;
 
 public class VectorND extends VectorBase {
 
@@ -65,7 +65,7 @@ public class VectorND extends VectorBase {
      */
     @Override
     public void updateVals() {
-        double scalarMultiple = Op1.findScalarMultiple(getMagnitude(), getMax());
+        double scalarMultiple = OpMain.findScalarMultiple(getMagnitude(), getMax());
         multiply(scalarMultiple);
     }
 
