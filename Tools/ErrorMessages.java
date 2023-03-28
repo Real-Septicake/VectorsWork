@@ -6,6 +6,10 @@ public class ErrorMessages {
     private ErrorMessages() {
     }
 
+
+    // ========================================
+    // Vector Errors
+    // ========================================
     public static final String NAN_INPUT = "Input value cannot be NaN";
 
     public static String invalidSourceArrayLength(VectorBase offended, double[] data) {
@@ -31,4 +35,9 @@ public class ErrorMessages {
     public static String vectorArraySizeMismatch(VectorBase v, double[] a){
         return "Vector of length " + v.size() + " is not compatible with Array of length " + a.length;
     }
+
+    // ========================================
+    // Matrix Errors
+    // ========================================
+    public static String NON_UNIFORM_INPUT = "Input is not uniform";
 }

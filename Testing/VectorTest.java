@@ -1,4 +1,4 @@
-package VectorTesting;
+package Testing;
 
 import Bases.VectorBase;
 import Vectors.*;
@@ -16,17 +16,17 @@ public class VectorTest {
          * The gods will fear my wrath cause this is some real bullshit
          */
         System.out.println("CHECK: " + v + " magnitude: " + v.getMagnitude()); //Thread interrupts are mean >:(
-        System.out.println("RERUN: magnitude: " + Math.sqrt(OpMain.wholeSquaresSum(v)));
+        System.out.println("RERUN: magnitude: " + Math.sqrt(OpVectors.wholeSquaresSum(v)));
         v.setMax(0);
         System.out.println(v.set(0, 0));
         v.addMultipleSafe(2, 0, 0, 0);
         System.out.println(v);
 
-        VectorBase vA = VectorBase.of(3, 2, 17);
-        VectorBase vB = VectorBase.of(3, 17, 2, 6);
-
-        System.out.println(OpMain.equalMagnitude(vA, vB));
-        System.out.println(OpMain.equalValues(vA.toDoubleArray(), vB.toDoubleArray()));
+//        VectorBase vA = VectorBase.of(3, 2, 17);
+//        VectorBase vB = VectorBase.of(3, 17, 2, 6);
+//
+//        System.out.println(OpMain.equalMagnitude(vA, vB));
+//        System.out.println(OpMain.equalValues(vA.toDoubleArray(), vB.toDoubleArray()));
 
         VectorND v2 = new VectorND(3, 8, 4);
         System.out.println(v2.size());
