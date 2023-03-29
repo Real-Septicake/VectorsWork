@@ -1,5 +1,7 @@
 package Tools;
 
+import Matrices.MatrixBase;
+
 public class OpMatrices {
     private OpMatrices(){}
 
@@ -9,4 +11,8 @@ public class OpMatrices {
         }
         return true;
     }
+
+//    public static MatrixBase matrixMultiply(MatrixBase m1, MatrixBase m2){
+//
+//    }
 }
