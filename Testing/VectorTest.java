@@ -6,7 +6,7 @@ import Tools.*;
 
 //TODO: Cry over thread interrupts because they're mean and I don't like them
 public class VectorTest {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         VectorBase v = VectorBase.of(7, 14, 45, 6);
         System.out.println(v);
         System.out.println(v + " magnitude: " + v.getMagnitude());

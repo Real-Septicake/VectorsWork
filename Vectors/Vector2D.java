@@ -19,16 +19,17 @@ public class Vector2D extends VectorBase {
     }
 
 
-
-    public Vector2D(double... values){
+    public Vector2D(double... values) {
         super(2);
-        if(values.length != size()) throw new IllegalArgumentException(ErrorMessages.invalidSourceArrayLength(this, values));
+        if (values.length != size())
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.invalidSourceArrayLength(this, values));
         x = values[0];
         y = values[1];
     }
 
-    public static Vector2D create(VectorBase source){
-        if(source.size() != 2) throw new IllegalArgumentException(ErrorMessages.sourceVectorTypeMismatch(new Vector2D(), source));
+    public static Vector2D create(VectorBase source) {
+        if (source.size() != 2)
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.sourceVectorTypeMismatch(new Vector2D(), source));
         return new Vector2D(source.toDoubleArray());
     }
 
@@ -41,7 +42,7 @@ public class Vector2D extends VectorBase {
         return switch (i) {
             case 0 -> x;
             case 1 -> y;
-            default -> throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
+            default -> throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
         };
     }
 
@@ -68,7 +69,7 @@ public class Vector2D extends VectorBase {
                 y = val;
                 return x == val;
             }
-            default -> throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
+            default -> throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
         }
     }
 
@@ -77,7 +78,7 @@ public class Vector2D extends VectorBase {
      */
     @Override
     public boolean unsafeSet(int i, double val) {
-        if (Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.NAN_INPUT);
+        if (Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.VectorErrors.NAN_INPUT);
         if (i == 0) {
             x = val;
             return x == val;

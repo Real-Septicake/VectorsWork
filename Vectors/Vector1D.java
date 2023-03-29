@@ -19,13 +19,13 @@ public class Vector1D extends VectorBase {
     public Vector1D(double... values) {
         super(1);
         if (values.length != size())
-            throw new IllegalArgumentException(ErrorMessages.invalidSourceArrayLength(this, values));
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.invalidSourceArrayLength(this, values));
         this.magnitude = values[0];
     }
 
     public static Vector1D create(VectorBase source) {
         if (source.size() != 1)
-            throw new IllegalArgumentException(ErrorMessages.sourceVectorTypeMismatch(new Vector1D(), source));
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.sourceVectorTypeMismatch(new Vector1D(), source));
         return new Vector1D(source.toDoubleArray());
     }
 
@@ -34,7 +34,7 @@ public class Vector1D extends VectorBase {
      */
     @Override
     public double get(int i) {
-        if (i >= size()) throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
+        if (i >= size()) throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
         return magnitude;
     }
 
@@ -61,7 +61,7 @@ public class Vector1D extends VectorBase {
      */
     @Override
     public boolean unsafeSet(int i, double val) {
-        if (Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.NAN_INPUT);
+        if (Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.VectorErrors.NAN_INPUT);
         magnitude = val;
         return magnitude == val;
     }

@@ -18,7 +18,7 @@ public class VectorND extends VectorBase {
         this.vals = vals;
     }
 
-    public static VectorND create(VectorBase source){
+    public static VectorND create(VectorBase source) {
         return new VectorND(source.toDoubleArray());
     }
 
@@ -27,7 +27,7 @@ public class VectorND extends VectorBase {
      */
     @Override
     public double get(int i) {
-        if (i >= size()) throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
+        if (i >= size()) throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
         return vals[i];
     }
 
@@ -54,7 +54,7 @@ public class VectorND extends VectorBase {
      */
     @Override
     public boolean unsafeSet(int i, double val) {
-        if(Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.NAN_INPUT);
+        if (Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.VectorErrors.NAN_INPUT);
         int n = Math.min(i, vals.length - 1);
         vals[n] = val;
         return vals[n] == val;

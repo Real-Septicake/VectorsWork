@@ -21,16 +21,18 @@ public class Vector3D extends VectorBase {
         this.z = z;
     }
 
-    public Vector3D(double... values){
+    public Vector3D(double... values) {
         super(3);
-        if(values.length != size()) throw new IllegalArgumentException(ErrorMessages.invalidSourceArrayLength(this, values));
+        if (values.length != size())
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.invalidSourceArrayLength(this, values));
         x = values[0];
         y = values[1];
         z = values[2];
     }
 
-    public static Vector3D create(VectorBase source){
-        if(source.size() != 3) throw new IllegalArgumentException(ErrorMessages.sourceVectorTypeMismatch(new Vector3D(), source));
+    public static Vector3D create(VectorBase source) {
+        if (source.size() != 3)
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.sourceVectorTypeMismatch(new Vector3D(), source));
         return new Vector3D(source.unsafeGet(0), source.unsafeGet(1), source.unsafeGet(2));
     }
 
@@ -44,7 +46,7 @@ public class Vector3D extends VectorBase {
             case 0 -> x;
             case 1 -> y;
             case 2 -> z;
-            default -> throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
+            default -> throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
         };
     }
 
@@ -79,7 +81,7 @@ public class Vector3D extends VectorBase {
                 z = val;
                 return z == val;
             }
-            default -> throw new IndexOutOfBoundsException(ErrorMessages.indexOutOfBounds(this, i));
+            default -> throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
         }
     }
 
@@ -88,7 +90,7 @@ public class Vector3D extends VectorBase {
      */
     @Override
     public boolean unsafeSet(int i, double val) {
-        if(Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.NAN_INPUT);
+        if (Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.VectorErrors.NAN_INPUT);
         switch (i) {
             case 0 -> {
                 x = val;
