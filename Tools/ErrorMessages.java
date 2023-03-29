@@ -1,6 +1,7 @@
 package Tools;
 
 import Bases.VectorBase;
+import Matrices.MatrixBase;
 
 public class ErrorMessages {
     private ErrorMessages() {
@@ -40,4 +41,8 @@ public class ErrorMessages {
     // Matrix Errors
     // ========================================
     public static String NON_UNIFORM_INPUT = "Input is not uniform";
+
+    public static String matrixMultiplySizeMismatch(MatrixBase m1, MatrixBase m2){
+        return "Matrix of height " + m1.getRows() + " cannot be multiplied by Matrix of width " + m2.getCols();
+    }
 }
