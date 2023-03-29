@@ -39,11 +39,11 @@ public class Vector2D extends VectorBase {
     @Override
     public double get(int i) {
         updateVals();
-        return switch (i) {
-            case 0 -> x;
-            case 1 -> y;
-            default -> throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
-        };
+        switch (i) {
+            case 0: return x;
+            case 1: return y;
+            default: throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
+        }
     }
 
     /**
@@ -61,15 +61,15 @@ public class Vector2D extends VectorBase {
     public boolean set(int i, double val) {
         generalValueCheck(i, val);
         switch (i) {
-            case 0 -> {
+            case 0: {
                 x = val;
                 return x == val;
             }
-            case 1 -> {
+            case 1: {
                 y = val;
                 return x == val;
             }
-            default -> throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
+            default: throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
         }
     }
 
