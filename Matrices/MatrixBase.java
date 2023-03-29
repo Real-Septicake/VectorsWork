@@ -17,12 +17,6 @@ public class MatrixBase {
     private final int cols;
     private final int rows;
 
-    private MatrixBase(){
-        cols = 0;
-        rows = 0;
-        data = new double[rows][cols];
-    }
-
     public MatrixBase(int rows, int cols){
         data = new double[rows][cols];
         this.cols = cols;
