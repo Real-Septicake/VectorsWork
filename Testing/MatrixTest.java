@@ -18,5 +18,12 @@ public class MatrixTest {
         System.out.println("Matrix 2: " + Arrays.deepToString(m2.toDoubleMatrix()));
         System.out.println("M1M2: " + OpMatrices.matrixMultiply(m1, m2));
         //System.out.println("Matrix 2 x Matrix 1: " + OpMatrices.matrixMultiply(m2, m1));
+
+        double add = 5.40;
+        System.out.println("\nAddition");
+        System.out.println("Matrix Before: " + m1);
+        System.out.println("Value: " + add);
+        m1.add(add);
+        System.out.println("Matrix After: " + m1);
     }
 }

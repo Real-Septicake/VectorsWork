@@ -48,4 +48,9 @@ public class OpMatrices {
         }
         return m;
     }
+
+    public static double roundToDecimalCount(double val, int count){
+        val *= Math.pow(10, count);
+        return Math.floor(val) / Math.pow(10, count);
+    }
 }

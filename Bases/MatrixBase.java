@@ -6,7 +6,7 @@ import Tools.OpMatrices;
 import java.util.Arrays;
 
 /**
- * A class for creating and altering double matrices
+ * A class for creating and altering double precision matrices
  * <p>
  * Is this redundant? Yes, am I doing it anyway? I have some plans that need this sort of thing, so yes.
  * </p>
@@ -67,7 +67,35 @@ public class MatrixBase {
         return data[row][col];
     }
 
-    public MatrixBase of(MatrixBase mb) {
+    public void add(double val){
+        for(int i = 0; i < getRows(); i++){
+            for(int j = 0; j < getCols(); j++){
+                data[i][j] = OpMatrices.roundToDecimalCount(data[i][j] + val, 15);
+            }
+        }
+    }
+
+    public MatrixBase addCopy(double val){
+        MatrixBase copy = MatrixBase.of(this);
+        copy.add(val);
+        return copy;
+    }
+
+    public void subtract(double val){
+        for(int i = 0; i < getRows(); i++){
+            for(int j = 0; j < getCols(); j++){
+                data[i][j] = OpMatrices.roundToDecimalCount(data[i][j] - val, 15);
+            }
+        }
+    }
+
+    public MatrixBase subtractCopy(double val){
+        MatrixBase copy = MatrixBase.of(this);
+        copy.subtract(val);
+        return copy;
+    }
+
+    public static MatrixBase of(MatrixBase mb) {
         return new MatrixBase(mb.toDoubleMatrix());
     }
 
@@ -85,7 +113,11 @@ public class MatrixBase {
     }
 
     public double[][] toDoubleMatrix() {
-        return data;
+        double[][] clone = new double[data.length][];
+        for(int i = 0; i < data.length; i++){
+            clone[i] = data[i].clone();
+        }
+        return clone;
     }
 
     public String toString() {

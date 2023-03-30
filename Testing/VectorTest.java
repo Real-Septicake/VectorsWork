@@ -22,14 +22,16 @@ public class VectorTest {
         v.addMultipleSafe(2, 0, 0, 0);
         System.out.println(v);
 
-//        VectorBase vA = VectorBase.of(3, 2, 17);
-//        VectorBase vB = VectorBase.of(3, 17, 2, 6);
-//
-//        System.out.println(OpMain.equalMagnitude(vA, vB));
-//        System.out.println(OpMain.equalValues(vA.toDoubleArray(), vB.toDoubleArray()));
-
         VectorND v2 = new VectorND(3, 8, 4);
         System.out.println(v2.size());
         System.out.println("X: " + v2.get(0) + " Y: " + v2.get(1) + " Z: " + v2.get(2) + " | Magnitude: " + v2.getMagnitude());
+
+        VectorBase vv = VectorBase.of(3, 7, 1, 5, 8);
+        double val = 5.6;
+        System.out.println("Add:");
+        System.out.println("Before: " + vv);
+        System.out.println("Adding: " + val);
+        vv.add(val);
+        System.out.println("After: " + vv);
     }
 }
