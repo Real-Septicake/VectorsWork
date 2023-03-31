@@ -29,7 +29,7 @@ public class ErrorMessages {
         }
 
         public static String vectorSizeMismatch(VectorBase v1, VectorBase v2) {
-            return "Vector of length " + v1.size() + " is not compatible with Vector of length " + v2.size();
+            return "Vector of size " + v1.size() + " is not compatible with Vector of size " + v2.size();
         }
 
         public static String arraySizeMismatch(double[] a1, double[] a2) {
