@@ -3,37 +3,32 @@ package Tools;
 import Bases.VectorBase;
 
 /**
- * A class made specifically for operation pertaining to Vectors
+ * A class made specifically for operations pertaining to Vectors
  *
  * @author Septicake
  */
-public class OpVectors {
+public class OpVectors extends OpMain {
     private OpVectors() {
     }
 
-    public static double wholeSum(double... vals) {
-        double sum = 0;
-        for (double val : vals) {
-            sum += val;
-        }
-        return sum;
-    }
-
+    /**
+     * Returns the sum of the values in a Vector
+     * @param v Vector to find the sum of the values of
+     * @return The sum of the values in the Vector
+     */
     public static double wholeSum(VectorBase v) {
-        return wholeSum(v.toDoubleArray());
+        return sum(v.toDoubleArray());
     }
 
-    public static double wholeSquaresSum(double... vals) {
-        double sum = 0;
-        for (double val : vals) {
-            sum += val * val;
-        }
-        return sum;
-    }
-
+    /**
+     * Returns the sum of the squares of the values in a Vector
+     * @param v Vector to find the sum of the squares of the values of
+     * @return The sum of the squares of the values in a Vector
+     */
     public static double wholeSquaresSum(VectorBase v) {
-        return wholeSquaresSum(v.toDoubleArray());
+        return squareSum(v.toDoubleArray());
     }
+
 
     public static boolean equalValues(double[] a1, double[] a2) {
         if (a1.length != a2.length) throw new IllegalArgumentException(ErrorMessages.VectorErrors.arraySizeMismatch(a1, a2));
@@ -48,27 +43,31 @@ public class OpVectors {
         return equalValues(v1.toDoubleArray(), v2.toDoubleArray());
     }
 
-    public static boolean equalValues(VectorBase v, double[] a) {
-        if (v.size() != a.length) throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorArraySizeMismatch(v, a));
-        return equalValues(v.toDoubleArray(), a);
-    }
-
     public static boolean equalMagnitude(double[] a1, double[] a2) {
-        return Math.sqrt(wholeSquaresSum(a1)) == Math.sqrt(wholeSquaresSum(a2));
+        return Math.sqrt(squareSum(a1)) == Math.sqrt(squareSum(a2));
     }
 
     public static boolean equalMagnitude(VectorBase v1, VectorBase v2) {
         return equalMagnitude(v1.toDoubleArray(), v2.toDoubleArray());
     }
 
-    public static boolean equalMagnitude(VectorBase v, double[] a) {
-        return equalMagnitude(v.toDoubleArray(), a);
-    }
-
+    /**
+     * Finds the scalar multiple required to get the magnitude to the desired value
+     * <p>Special Cases:</p>
+     * <ul>
+     *     <li>If the desired value is 0, 1 is returned</li>
+     *     <li>If the current value is less than the desired value, 1 is returned</li>
+     *     <li>If either input is NaN, the result is NaN</li>
+     * </ul>
+     * @param current Current value of the magnitude
+     * @param desired Desired value of the magnitude
+     * @return The scalar multiple required to get the current magnitude to the desired value
+     */
     public static double findScalarMultiple(double current, double desired) {
         if (current <= desired || desired == 0) return 1;
         return Math.min(current, desired) / current;
     }
+
 
     public static double dotProduct(double[] a1, double[] a2) {
         if (a1.length != a2.length) throw new IllegalArgumentException(ErrorMessages.VectorErrors.arraySizeMismatch(a1, a2));

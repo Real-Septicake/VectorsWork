@@ -3,6 +3,12 @@ package Tools;
 import Bases.VectorBase;
 import Bases.MatrixBase;
 
+/**
+ * A class used for holding and creating error messages
+ *
+ * @author Septicake
+ */
+//TODO: Condense this, takes too long to call any method or value
 public class ErrorMessages {
     private ErrorMessages() {
     }
@@ -38,9 +44,13 @@ public class ErrorMessages {
 
     public static class MatrixErrors {
 
-        public static int HEIGHT_OFFENSE = 0;
+        public static final int HEIGHT_OFFENSE = 0;
 
-        public static int WIDTH_OFFENSE = 1;
+        public static final int WIDTH_OFFENSE = 1;
+
+        public static final int ADDITION_OFFENSE = 0;
+
+        public static final int SUBTRACTION_OFFENSE = 1;
 
         public static String NON_UNIFORM_INPUT = "Input is not uniform";
 
@@ -49,10 +59,26 @@ public class ErrorMessages {
         }
 
         public static String indexOutOfBounds(MatrixBase m, int offender, int offense){
-            if(offense == 0){
+            if(offense == HEIGHT_OFFENSE){
                 return "Index " + offender + " is out of bounds for Matrix of height " + m.getRows();
             }else{
                 return "Index " + offender + " is out of bounds for Matrix of width " + m.getCols();
+            }
+        }
+
+        public static String matrixSizeMismatch(MatrixBase offended, MatrixBase offender, int offense, int operation){
+            if(offense == HEIGHT_OFFENSE){
+                if(operation == ADDITION_OFFENSE){
+                    return "Matrix of height " + offender.getRows() + " cannot be added to Matrix of height " + offended.getRows();
+                }else{
+                    return "Matrix of height " + offender.getRows() + " cannot be subtracted from Matrix of height " + offended.getRows();
+                }
+            }else{
+                if(operation == ADDITION_OFFENSE){
+                    return "Matrix of width " + offender.getCols() + " cannot be added to Matrix of width " + offended.getCols();
+                }else{
+                    return "Matrix of width " + offender.getCols() + " cannot be subtracted from Matrix of width " + offended.getCols();
+                }
             }
         }
     }

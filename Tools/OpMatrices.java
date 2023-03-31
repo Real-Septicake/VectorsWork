@@ -7,26 +7,18 @@ import Bases.MatrixBase;
  *
  * @author Septicake
  */
-public class OpMatrices {
+public class OpMatrices extends OpMain {
     private OpMatrices() {
     }
 
-    public static boolean confirmRect(double[]... vals) {
+    public static void confirmRect(double[]... vals) {
         for (double[] a : vals) {
-            if (a.length != vals[0].length) return false;
+            if (a.length != vals[0].length) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.NON_UNIFORM_INPUT);
         }
-        return true;
     }
 
-    public static double sum(double[]... vals) {
-        if (!confirmRect(vals)) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.NON_UNIFORM_INPUT);
-        double sum = 0;
-        for (double[] a : vals) {
-            for (double i : a) {
-                sum += i;
-            }
-        }
-        return sum;
+    public static double invertedSum(MatrixBase m){
+        return -sum(m.toDoubleMatrix());
     }
 
     public static double sum(MatrixBase m) {
@@ -47,10 +39,5 @@ public class OpMatrices {
             }
         }
         return m;
-    }
-
-    public static double roundToDecimalCount(double val, int count){
-        val *= Math.pow(10, count);
-        return Math.floor(val) / Math.pow(10, count);
     }
 }
