@@ -35,11 +35,6 @@ public class ErrorMessages {
         public static String arraySizeMismatch(double[] a1, double[] a2) {
             return "Array of length " + a1.length + " is not compatible with Array of length " + a2.length;
         }
-
-        public static String vectorArraySizeMismatch(VectorBase v, double[] a) {
-            return "Vector of length " + v.size() + " is not compatible with Array of length " + a.length;
-        }
-
     }
 
     public static class MatrixErrors {

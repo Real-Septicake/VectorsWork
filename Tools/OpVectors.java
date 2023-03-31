@@ -82,9 +82,4 @@ public class OpVectors extends OpMain {
         if (v1.size() != v2.size()) throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(v1, v2));
         return dotProduct(v1.toDoubleArray(), v2.toDoubleArray());
     }
-
-    public static double dotProduct(VectorBase v, double[] a) {
-        if (v.size() != a.length) throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorArraySizeMismatch(v, a));
-        return dotProduct(v.toDoubleArray(), a);
-    }
 }
