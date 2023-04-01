@@ -115,7 +115,7 @@ public abstract class MatrixBase {
      * Adds the input value to the intersection of the specified row and column
      * @param row Row of the desired position
      * @param col Column of the desired position
-     * @param val Value to add to the index
+     * @param val Value to add to the specified index
      * @throws IndexOutOfBoundsException If the specified row or column is outside this {@code Matrix}'s height or width
      */
     public void addAtSafe(int row, int col, double val) throws IndexOutOfBoundsException {
@@ -193,10 +193,10 @@ public abstract class MatrixBase {
     }
 
     /**
-     * subtracts the input value from the intersection of the specified row and column
+     * Subtracts the input value from the intersection of the specified row and column
      * @param row Row of the desired position
      * @param col Column of the desired position
-     * @param val Value to subtract from the index
+     * @param val Value to subtract from the specified index
      * @throws IndexOutOfBoundsException If the specified row or column is outside this {@code Matrix}'s height or width
      */
     public void subtractAtSafe(int row, int col, double val) {
@@ -214,7 +214,7 @@ public abstract class MatrixBase {
     }
 
     /**
-     * subtracts the values of a {@code Matrix} of the same size from the corresponding values in this {@code Matrix}
+     * Subtracts the values of a {@code Matrix} of the same size from the corresponding values in this {@code Matrix}
      * @param m {@code Matrix} to subtract from this {@code Matrix}
      * @throws IllegalArgumentException If the input {@code Matrix} is a different size than this {@code Matrix}
      */
@@ -248,6 +248,94 @@ public abstract class MatrixBase {
         MatrixBase copy = of(this);
         copy.matrixSubtract(m);
         return copy;
+    }
+
+    /**
+     * Multiplies every index of this {@code Matrix} by the input value
+     * @param val The value to multiply the indices by
+     */
+    public void multiply(double val){
+        for(int i = 0; i < getRows(); i++){
+            for(int j = 0; j < getCols(); j++){
+                setSafe(i, j, getSafe(i, j) * val);
+            }
+        }
+    }
+
+    /**
+     * Similar to {@link Bases.MatrixBase#multiply(double)}, but returns a copy of this {@code Matrix}, leaving the original unchanged
+     * @param val The value to multiply the indices by
+     * @return The copy of this {@code Matrix} with the every index multiplied by the input value
+     */
+    public MatrixBase multiplyCopy(double val){
+        MatrixBase copy = of(this);
+        copy.multiply(val);
+        return copy;
+    }
+
+    /**
+     * Multiplies the intersection of the specified row and column by the input value
+     * @param row Row of the desired position
+     * @param col Column of the desired position
+     * @param val Value to multiply the specified index by
+     * @throws IndexOutOfBoundsException If the specified row or column is outside this {@code Matrix}'s height or width
+     */
+    public void multiplyAtSafe(int row, int col, double val){
+        setSafe(row, col, getSafe(row, col) * val);
+    }
+
+    /**
+     * Similar to {@link Bases.MatrixBase#multiplyAtSafe(int, int, double)}, but if a specified value is outside the bounds of this {@code Matrix}, the last index is changed instead
+     * @param row Row of the desired position
+     * @param col Column of the desired position
+     * @param val Value to multiply the specified index by
+     */
+    public void multiplyAtUnsafe(int row, int col, double val){
+        setUnsafe(row, col, getUnsafe(row, col) * val);
+    }
+
+    /**
+     * Divides every index of this {@code Matrix} by the input value
+     * @param val The value to divide the indices by
+     */
+    public void divide(double val){
+        for(int i = 0; i < getRows(); i++){
+            for(int j = 0; j < getCols(); j++){
+                setSafe(i, j, getSafe(i, j) / val);
+            }
+        }
+    }
+
+    /**
+     * Similar to {@link Bases.MatrixBase#divide(double)}, but returns a copy of this {@code Matrix}, leaving the original unchanged
+     * @param val The value to divide the indices by
+     * @return The copy of this {@code Matrix} with the every index divided by the input value
+     */
+    public MatrixBase divideCopy(double val){
+        MatrixBase copy = of(this);
+        copy.divide(val);
+        return copy;
+    }
+
+    /**
+     * Divides the intersection of the specified row and column by the input value
+     * @param row Row of the desired position
+     * @param col Column of the desired position
+     * @param val Value to divide the specified index by
+     * @throws IndexOutOfBoundsException If the specified row or column is outside this {@code Matrix}'s height or width
+     */
+    public void divideAtSafe(int row, int col, double val){
+        setSafe(row, col, getSafe(row, col) / val);
+    }
+
+    /**
+     * Similar to {@link Bases.MatrixBase#divideAtSafe(int, int, double)}, but if a specified value is outside the bounds of this {@code Matrix}, the last index is changed instead
+     * @param row Row of the desired position
+     * @param col Column of the desired position
+     * @param val Value to divide the specified index by
+     */
+    public void divideAtUnsafe(int row, int col, double val){
+        setUnsafe(row, col, getUnsafe(row, col) / val);
     }
 
     /**
