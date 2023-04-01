@@ -20,13 +20,23 @@ public class MatrixBase {
 
     private final int ROUND_DECIMALS = 14;
 
+    /**
+     * Creates an empty {@code Matrix} with a specified height and width
+     * @param rows The height of the {@code Matrix}
+     * @param cols The width of the {@code Matrix}
+     */
     public MatrixBase(int rows, int cols) {
         data = new double[rows][cols];
         this.COLS = cols;
         this.ROWS = rows;
     }
 
-    public MatrixBase(double[]... values) {
+    /**
+     * Creates a {@code Matrix} from the input matrix
+     * @param values The matrix to make the {@code Matrix} from
+     * @throws IllegalArgumentException If the input matrix is not rectangular
+     */
+    public MatrixBase(double[]... values) throws IllegalArgumentException {
         OpMatrices.confirmRect(values);
         data = new double[values.length][];
         ROWS = values.length;
@@ -37,20 +47,41 @@ public class MatrixBase {
         }
     }
 
+    /**
+     * @return The width of this {@code Matrix}
+     */
     public int getCols() {
         return COLS;
     }
 
+    /**
+     * @return The height of this {@code Matrix}
+     */
     public int getRows() {
         return ROWS;
     }
 
-    public boolean setSafe(int row, int col, double val) {
+    /**
+     * Sets the value at the intersection of the specified row and column
+     * @param row Row of the desired position
+     * @param col Column of the desired position
+     * @param val Value to set the index to
+     * @return If the index was successfully set
+     * @throws IndexOutOfBoundsException If the specified row or column is outside this {@code Matrix}'s height or width
+     */
+    public boolean setSafe(int row, int col, double val) throws IndexOutOfBoundsException {
         boundsCheck(row, col);
         data[row][col] = val;
         return data[row][col] == val;
     }
 
+    /**
+     * Similar to {@link Bases.MatrixBase#setSafe(int, int, double)}, but if a specified value is outside the bounds of this {@code Matrix}, the last index is changed instead
+     * @param row Row of the desired position
+     * @param col Column of the desired position
+     * @param val Value to set the index to
+     * @return If the index was successfully set
+     */
     public boolean setUnsafe(int row, int col, double val) {
         row = Math.min(row, getRows());
         col = Math.min(col, getCols());
@@ -58,17 +89,34 @@ public class MatrixBase {
         return data[row][col] == val;
     }
 
-    public double getSafe(int row, int col) {
+    /**
+     * Gets the value at the intersection of the specified row and column
+     * @param row Row of the desired value
+     * @param col Column of the desired value
+     * @return The value at the specified index
+     * @throws IndexOutOfBoundsException If the specified row or column is outside this {@code Matrix}'s height or width
+     */
+    public double getSafe(int row, int col) throws IndexOutOfBoundsException {
         boundsCheck(row, col);
         return data[row][col];
     }
 
+    /**
+     * Similar to {@link Bases.MatrixBase#getSafe(int, int)}, but if a specified value is outside the bounds of this {@code Matrix}, the last index is selected instead
+     * @param row Row of the desired value
+     * @param col Column of the desired value
+     * @return The value at the specified index
+     */
     public double getUnsafe(int row, int col) {
         row = Math.min(row, getRows());
         col = Math.min(col, getCols());
         return data[row][col];
     }
 
+    /**
+     * Adds the input value to every index of this {@code Matrix}
+     * @param val The value to add to the indices
+     */
     public void add(double val) {
         for (int i = 0; i < getRows(); i++) {
             for (int j = 0; j < getCols(); j++) {
@@ -77,21 +125,44 @@ public class MatrixBase {
         }
     }
 
+    /**
+     * Similar to {@link Bases.MatrixBase#add(double)}, but returns a copy of this {@code Matrix}, leaving the original unchanged
+     * @param val The value to add to the indices
+     * @return The copy of this {@code Matrix} with the input value added to every index
+     */
     public MatrixBase addCopy(double val) {
         MatrixBase copy = of(this);
         copy.add(val);
         return copy;
     }
 
-    public void addAtSafe(int row, int col, double val) {
+    /**
+     * Adds the input value to the intersection of the specified row and column
+     * @param row Row of the desired position
+     * @param col Column of the desired position
+     * @param val Value to add to the index
+     * @throws IndexOutOfBoundsException If the specified row or column is outside this {@code Matrix}'s height or width
+     */
+    public void addAtSafe(int row, int col, double val) throws IndexOutOfBoundsException {
         setSafe(row, col, OpMatrices.roundToDecimalCount(getSafe(row, col) + val, ROUND_DECIMALS));
     }
 
+    /**
+     * Similar to {@link Bases.MatrixBase#addAtSafe(int, int, double)}, but if a specified value is outside the bounds of this {@code Matrix}, the last index is changed instead
+     * @param row Row of the desired position
+     * @param col Column of the desired position
+     * @param val Value to add to the specified index
+     */
     public void addAtUnsafe(int row, int col, double val) {
         setUnsafe(row, col, OpMatrices.roundToDecimalCount(getUnsafe(row, col) + val, ROUND_DECIMALS));
     }
 
-    public void matrixAdd(MatrixBase m) {
+    /**
+     * Adds the values of a {@code Matrix} of the same size to the corresponding values in this {@code Matrix}
+     * @param m {@code Matrix} to add to this {@code Matrix}
+     * @throws IllegalArgumentException If the input {@code Matrix} is a different size than this {@code Matrix}
+     */
+    public void matrixAdd(MatrixBase m) throws IllegalArgumentException{
         if (m.getRows() != getRows())
             throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixSizeMismatch(
                     this,
@@ -111,12 +182,22 @@ public class MatrixBase {
         }
     }
 
-    public MatrixBase matrixAddCopy(MatrixBase m){
+    /**
+     * Similar to {@link Bases.MatrixBase#matrixAdd(MatrixBase)}, but returns a copy of this {@code Matrix}, leaving the original unchanged
+     * @param m {@code Matrix} to add to this {@code Matrix}
+     * @return A copy of this {@code Matrix} with the values of the input {@code Matrix} added to the corresponding values of this {@code Matrix}
+     * @throws IllegalArgumentException If the input {@code Matrix} is a different size than this {@code Matrix}
+     */
+    public MatrixBase matrixAddCopy(MatrixBase m) throws  IllegalArgumentException{
         MatrixBase copy = of(this);
         copy.matrixAdd(m);
         return copy;
     }
 
+    /**
+     * Subtracts the input value form every index of this {@code Matrix}
+     * @param val The value to subtract from the indices
+     */
     public void subtract(double val) {
         for (int i = 0; i < getRows(); i++) {
             for (int j = 0; j < getCols(); j++) {
@@ -125,20 +206,43 @@ public class MatrixBase {
         }
     }
 
+    /**
+     * Similar to {@link Bases.MatrixBase#subtract(double)}, but returns a copy of this {@code Matrix}, leaving the original unchanged
+     * @param val The value to subtract from the indices
+     * @return The copy of this {@code Matrix} with the input value subtracted from every index
+     */
     public MatrixBase subtractCopy(double val) {
         MatrixBase copy = of(this);
         copy.subtract(val);
         return copy;
     }
 
+    /**
+     * subtracts the input value from the intersection of the specified row and column
+     * @param row Row of the desired position
+     * @param col Column of the desired position
+     * @param val Value to subtract from the index
+     * @throws IndexOutOfBoundsException If the specified row or column is outside this {@code Matrix}'s height or width
+     */
     public void subtractAtSafe(int row, int col, double val) {
         setSafe(row, col, OpMatrices.roundToDecimalCount(getSafe(row, col) - val, ROUND_DECIMALS));
     }
 
+    /**
+     * Similar to {@link Bases.MatrixBase#subtractAtSafe(int, int, double)}, but if a specified value is outside the bounds of this {@code Matrix}, the last index is changed instead
+     * @param row Row of the desired position
+     * @param col Column of the desired position
+     * @param val Value to subtract from the specified index
+     */
     public void subtractAtUnsafe(int row, int col, double val) {
         setUnsafe(row, col, OpMatrices.roundToDecimalCount(getUnsafe(row, col) - val, ROUND_DECIMALS));
     }
 
+    /**
+     * subtracts the values of a {@code Matrix} of the same size from the corresponding values in this {@code Matrix}
+     * @param m {@code Matrix} to subtract from this {@code Matrix}
+     * @throws IllegalArgumentException If the input {@code Matrix} is a different size than this {@code Matrix}
+     */
     public void matrixSubtract(MatrixBase m){
         if (m.getRows() != getRows())
             throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixSizeMismatch(
@@ -159,12 +263,23 @@ public class MatrixBase {
         }
     }
 
+    /**
+     * Similar to {@link Bases.MatrixBase#matrixSubtract(MatrixBase)}, but returns a copy of this {@code Matrix}, leaving the original unchanged
+     * @param m {@code Matrix} to subtract from this {@code Matrix}
+     * @return A copy of this {@code Matrix} with the values of the input {@code Matrix} subtracted from the corresponding values of this {@code Matrix}
+     * @throws IllegalArgumentException If the input {@code Matrix} is a different size than this {@code Matrix}
+     */
     public MatrixBase matrixSubtractCopy(MatrixBase m){
         MatrixBase copy = of(this);
         copy.matrixSubtract(m);
         return copy;
     }
 
+    /**
+     * Creates a {@code Matrix} with the same values of the input {@code Matrix}
+     * @param mb {@code Matrix} to copy the values from
+     * @return The copy of the input {@code Matrix}
+     */
     public static MatrixBase of(MatrixBase mb) {
         return new MatrixBase(mb.toDoubleMatrix());
     }
@@ -177,6 +292,10 @@ public class MatrixBase {
         }
     }
 
+    /**
+     * Returns a matrix with the same values as this {@code Matrix}
+     * @return a double matrix with the same values as this {@code Matrix}
+     */
     public double[][] toDoubleMatrix() {
         double[][] clone = new double[data.length][];
         for (int i = 0; i < data.length; i++) {
