@@ -5,7 +5,7 @@ import Tools.ErrorMessages;
 
 public class Vector0D extends VectorBase {
 
-    public static Vector0D INSTANCE = new Vector0D();
+    public static final Vector0D INSTANCE = new Vector0D();
 
     private Vector0D(){
         super(0);
