@@ -84,10 +84,10 @@ public class OpVectors extends OpMain {
     }
 
     /**
-     * The same as {@link Tools.OpVectors#dotProduct(double[], double[])}, but with {@code Vector}s as inputs
+     * The same as {@link Tools.OpVectors#dotProduct(double[], double[])}, but with {@code Vectors} as inputs
      * @param v1 First {@code Vector}
      * @param v2 Second {@code Vector}
-     * @return The dot product of the two input {@code Vector}s
+     * @return The dot product of the two input {@code Vectors}
      */
     public static double dotProduct(VectorBase v1, VectorBase v2) {
         if (v1.size() != v2.size()) throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(v1, v2));
