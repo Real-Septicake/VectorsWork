@@ -124,70 +124,155 @@ public abstract class VectorBase {
         if (Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.VectorErrors.NAN_INPUT);
     }
 
+    /**
+     * Adds the input value to every value in the {@code Vector}
+     * @param val The value to add to the values
+     */
     public abstract void add(double val);
 
+    /**
+     * Adds the input value to every value in a copy of the {@code Vector}
+     * @param val The value to add to the values
+     * @return A copy of the original {@code Vector} with the input value added
+     */
     public abstract VectorBase addCopy(double val);
 
+    /**
+     * Adds the input value to the values at specified indices
+     * @param val The value to add to the indices
+     * @param indices The indices to add the input value to
+     * @throws IndexOutOfBoundsException If an index is out of bounds for the {@code Vector}
+     */
     public void addMultipleSafe(double val, int... indices) {
         for (int i : indices) {
             set(i, get(i) + val);
         }
     }
 
+    /**
+     * Adds the input value to the values at specified indices without doing bounds checks
+     * @param val The value to add to the indices
+     * @param indices The indices to add the input value to
+     */
     public void addMultipleUnsafe(double val, int... indices) {
         for (int i : indices) {
             unsafeSet(i, unsafeGet(i) + val);
         }
     }
 
+    /**
+     * Subtracts the input value from every value in the {@code Vector}
+     * @param val The value to subtract from the values
+     */
     public abstract void subtract(double val);
 
+    /**
+     * Subtracts the input value from every value in a copy of the {@code Vector}
+     * @param val The value to subtract from the values
+     * @return A copy of the original {@code Vector} with the input value subtracted
+     */
     public abstract VectorBase subtractCopy(double val);
 
+    /**
+     * Subtracts the input value from the values at specified indices
+     * @param val The value to subtract from the indices
+     * @param indices The indices to subtract the input value from
+     * @throws IndexOutOfBoundsException If an index is out of bounds for the {@code Vector}
+     */
     public void subtractMultipleSafe(double val, int... indices) {
         for (int i : indices) {
             set(i, get(i) - val);
         }
     }
 
+    /**
+     * Subtracts the input value from the values at specified indices without doing bounds checks
+     * @param val The value to subtract from the indices
+     * @param indices The indices to subtract the input value from
+     */
     public void subtractMultipleUnsafe(double val, int... indices) {
         for (int i : indices) {
-            unsafeSet(i, unsafeGet(i) + val);
+            unsafeSet(i, unsafeGet(i) - val);
         }
     }
 
+    /**
+     * Multiplies every value in the {@code Vector} by the input value
+     * @param val The value to multiply the values by
+     */
     public abstract void multiply(double val);
 
+    /**
+     * Multiplies every value in a copy of the {@code Vector} by the input value
+     * @param val The value to multiply the values by
+     * @return A copy of the original {@code Vector} with the input value multiplied
+     */
     public abstract VectorBase multiplyCopy(double val);
 
-    public void multiplyMultipleSafe(double val, int... indices) {
+    /**
+     * Multiplies the values at specified indices by the input value
+     * @param val The value to multiply the indices by
+     * @param indices The indices to multiply by the input value
+     * @throws IndexOutOfBoundsException If an index is out of bounds for the {@code Vector}
+     */
+    public void multiplyMultipleSafe(double val, int... indices) throws IndexOutOfBoundsException{
         for (int i : indices) {
             set(i, get(i) * val);
         }
     }
 
+    /**
+     * Multiplies the values at specified indices by the input value without doing bounds checks
+     * @param val The value to multiply the indices by
+     * @param indices The indices to multiply by the input value
+     */
     public void multiplyMultipleUnsafe(double val, int... indices) {
         for (int i : indices) {
-            unsafeSet(i, unsafeGet(i) + val);
+            unsafeSet(i, unsafeGet(i) * val);
         }
     }
 
+    /**
+     * Divides every value in the {@code Vector} by the input value
+     * @param val The value to divide the values by
+     */
     public abstract void divide(double val);
 
+    /**
+     * Multiplies every value in a copy of the {@code Vector} by the input value
+     * @param val The value to multiply the values by
+     * @return A copy of the original vector with the input value multiplied
+     */
     public abstract VectorBase divideCopy(double val);
 
-    public void divideMultipleSafe(double val, int... indices) {
+    /**
+     * Divides the values at specified indices by the input value
+     * @param val The value to divide the indices by
+     * @param indices The indices to divide by the input value
+     * @throws IndexOutOfBoundsException If an index is out of bounds for the {@code Vector}
+     */
+    public void divideMultipleSafe(double val, int... indices) throws IndexOutOfBoundsException{
         for (int i : indices) {
-            set(i, get(i) + val);
+            set(i, get(i) / val);
         }
     }
 
+    /**
+     * Divides the values at specified indices by the input value without doing bounds checks
+     * @param val The value to divide the indices by
+     * @param indices The indices to divide by the input value
+     */
     public void divideMultipleUnsafe(double val, int... indices) {
         for (int i : indices) {
-            unsafeSet(i, unsafeGet(i) + val);
+            unsafeSet(i, unsafeGet(i) / val);
         }
     }
 
+    /**
+     * Creates a Vector based on the input values
+     * @param values The values to create a {@code Vector} from
+     * @return The Vector containing the input values
+     */
     public static VectorBase of(double... values) {
         int n = values.length;
         switch (n) {
