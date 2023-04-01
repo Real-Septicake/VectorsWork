@@ -2,10 +2,7 @@ package Bases;
 
 import Tools.ErrorMessages;
 import Tools.OpMain;
-import Vectors.Vector1D;
-import Vectors.Vector2D;
-import Vectors.Vector3D;
-import Vectors.VectorND;
+import Vectors.*;
 
 import java.util.Arrays;
 
@@ -276,6 +273,8 @@ public abstract class VectorBase {
     public static VectorBase of(double... values) {
         int n = values.length;
         switch (n) {
+            case 0:
+                return Vector0D.INSTANCE;
             case 1:
                 return new Vector1D(values);
             case 2:

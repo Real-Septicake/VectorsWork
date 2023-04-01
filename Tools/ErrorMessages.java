@@ -14,6 +14,8 @@ public class ErrorMessages {
     }
 
     public static class VectorErrors {
+        public static final String ILLEGAL_0D_METHOD_CALL = "Method cannot be called on Vector0D";
+
         public static final String NAN_INPUT = "Input value cannot be NaN";
 
         public static String invalidSourceArrayLength(VectorBase offended, double[] data) {

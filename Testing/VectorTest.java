@@ -33,7 +33,5 @@ public class VectorTest {
         System.out.println("Adding: " + val);
         vv.add(val);
         System.out.println("After: " + vv);
-
-        System.out.println(OpVectors.findScalarMultiple(1, 1.0%0));
     }
 }
