@@ -1,5 +1,8 @@
 package Bases;
 
+import Matrices.Matrix11;
+import Matrices.Matrix22;
+import Matrices.MatrixNM;
 import Tools.ErrorMessages;
 import Tools.OpMatrices;
 
@@ -13,12 +16,11 @@ import java.util.Arrays;
  *
  * @author Septicake
  */
-public class MatrixBase {
-    protected double[][] data;
+public abstract class MatrixBase {
     private final int COLS;
     private final int ROWS;
 
-    private final int ROUND_DECIMALS = 14;
+    protected final int ROUND_DECIMALS = 14;
 
     /**
      * Creates an empty {@code Matrix} with a specified height and width
@@ -26,26 +28,15 @@ public class MatrixBase {
      * @param cols The width of the {@code Matrix}
      */
     public MatrixBase(int rows, int cols) {
-        data = new double[rows][cols];
         this.COLS = cols;
         this.ROWS = rows;
     }
 
-    /**
-     * Creates a {@code Matrix} from the input matrix
-     * @param values The matrix to make the {@code Matrix} from
-     * @throws IllegalArgumentException If the input matrix is not rectangular
-     */
-    public MatrixBase(double[]... values) throws IllegalArgumentException {
-        OpMatrices.confirmRect(values);
-        data = new double[values.length][];
-        ROWS = values.length;
-        COLS = values[0].length;
-        for (int i = 0; i < values.length; i++) {
-            data[i] = new double[values[0].length];
-            System.arraycopy(values[i], 0, data[i], 0, values[i].length);
-        }
-    }
+//    /**
+//     * Creates a {@code Matrix} from the input matrix
+//     * @param values The matrix to make the {@code Matrix} from
+//     * @throws IllegalArgumentException If the input matrix is not rectangular
+//     */
 
     /**
      * @return The width of this {@code Matrix}
@@ -69,11 +60,7 @@ public class MatrixBase {
      * @return If the index was successfully set
      * @throws IndexOutOfBoundsException If the specified row or column is outside this {@code Matrix}'s height or width
      */
-    public boolean setSafe(int row, int col, double val) throws IndexOutOfBoundsException {
-        boundsCheck(row, col);
-        data[row][col] = val;
-        return data[row][col] == val;
-    }
+    public abstract boolean setSafe(int row, int col, double val) throws IndexOutOfBoundsException;
 
     /**
      * Similar to {@link Bases.MatrixBase#setSafe(int, int, double)}, but if a specified value is outside the bounds of this {@code Matrix}, the last index is changed instead
@@ -82,12 +69,7 @@ public class MatrixBase {
      * @param val Value to set the index to
      * @return If the index was successfully set
      */
-    public boolean setUnsafe(int row, int col, double val) {
-        row = Math.min(row, getRows());
-        col = Math.min(col, getCols());
-        data[row][col] = val;
-        return data[row][col] == val;
-    }
+    public abstract boolean setUnsafe(int row, int col, double val);
 
     /**
      * Gets the value at the intersection of the specified row and column
@@ -96,10 +78,7 @@ public class MatrixBase {
      * @return The value at the specified index
      * @throws IndexOutOfBoundsException If the specified row or column is outside this {@code Matrix}'s height or width
      */
-    public double getSafe(int row, int col) throws IndexOutOfBoundsException {
-        boundsCheck(row, col);
-        return data[row][col];
-    }
+    public abstract double getSafe(int row, int col) throws IndexOutOfBoundsException;
 
     /**
      * Similar to {@link Bases.MatrixBase#getSafe(int, int)}, but if a specified value is outside the bounds of this {@code Matrix}, the last index is selected instead
@@ -107,11 +86,7 @@ public class MatrixBase {
      * @param col Column of the desired value
      * @return The value at the specified index
      */
-    public double getUnsafe(int row, int col) {
-        row = Math.min(row, getRows());
-        col = Math.min(col, getCols());
-        return data[row][col];
-    }
+    public abstract double getUnsafe(int row, int col);
 
     /**
      * Adds the input value to every index of this {@code Matrix}
@@ -120,7 +95,7 @@ public class MatrixBase {
     public void add(double val) {
         for (int i = 0; i < getRows(); i++) {
             for (int j = 0; j < getCols(); j++) {
-                data[i][j] = OpMatrices.roundToDecimalCount(data[i][j] + val, ROUND_DECIMALS);
+                setSafe(i, j, OpMatrices.roundToDecimalCount(getSafe(i, j) + val, ROUND_DECIMALS));
             }
         }
     }
@@ -188,7 +163,7 @@ public class MatrixBase {
      * @return A copy of this {@code Matrix} with the values of the input {@code Matrix} added to the corresponding values of this {@code Matrix}
      * @throws IllegalArgumentException If the input {@code Matrix} is a different size than this {@code Matrix}
      */
-    public MatrixBase matrixAddCopy(MatrixBase m) throws  IllegalArgumentException{
+    public MatrixBase matrixAddCopy(MatrixBase m) throws IllegalArgumentException{
         MatrixBase copy = of(this);
         copy.matrixAdd(m);
         return copy;
@@ -201,7 +176,7 @@ public class MatrixBase {
     public void subtract(double val) {
         for (int i = 0; i < getRows(); i++) {
             for (int j = 0; j < getCols(); j++) {
-                data[i][j] = OpMatrices.roundToDecimalCount(data[i][j] - val, ROUND_DECIMALS);
+                setSafe(i, j, OpMatrices.roundToDecimalCount(getSafe(i, j) - val, ROUND_DECIMALS));
             }
         }
     }
@@ -281,30 +256,52 @@ public class MatrixBase {
      * @return The copy of the input {@code Matrix}
      */
     public static MatrixBase of(MatrixBase mb) {
-        return new MatrixBase(mb.toDoubleMatrix());
+        return of(mb.toDoubleMatrix());
     }
 
-    private void boundsCheck(int row, int col) {
-        if (row >= getRows()) {
-            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
-        } else if (col >= getCols()) {
-            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+    public static MatrixBase of(int rows, int cols){
+        if(rows == 1 && cols == 1){
+            return new Matrix11();
+        }else if(rows == 2 && cols == 2){
+            return new Matrix22();
+        }else{
+            return new MatrixNM(rows, cols);
         }
+    }
+
+    public static MatrixBase of(double[]... vals){
+        OpMatrices.confirmRect(vals);
+        if(vals.length == 1 && vals[0].length == 1){
+            return new Matrix11(vals);
+        }else if(vals.length == 2 && vals[0].length == 2) {
+            return new Matrix22(vals);
+        }else{
+            return new MatrixNM(vals);
+        }
+    }
+
+    protected void boundsCheck(int row, int col) {
+        if (row >= getRows()) {
+            throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+        } else if (col >= getCols()) {
+            throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+        }
+    }
+
+    protected void sizeCheck(double[][] test){
+        if(test.length >= getRows())
+            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.sourceMatrixSizeMismatch(this, test, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+        if(test[0].length >= getCols())
+            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.sourceMatrixSizeMismatch(this, test, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
     }
 
     /**
      * Returns a matrix with the same values as this {@code Matrix}
      * @return a double matrix with the same values as this {@code Matrix}
      */
-    public double[][] toDoubleMatrix() {
-        double[][] clone = new double[data.length][];
-        for (int i = 0; i < data.length; i++) {
-            clone[i] = data[i].clone();
-        }
-        return clone;
-    }
+    public abstract double[][] toDoubleMatrix();
 
     public String toString() {
-        return getRows() + "x" + getCols() + " Matrix: " + Arrays.deepToString(data);
+        return getRows() + "x" + getCols() + " Matrix: " + Arrays.deepToString(toDoubleMatrix());
     }
 }

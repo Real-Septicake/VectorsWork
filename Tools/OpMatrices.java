@@ -3,7 +3,7 @@ package Tools;
 import Bases.MatrixBase;
 
 /**
- * A class made specifically for operations pertaining to Matrices
+ * A class made specifically for operations pertaining to {@code Matrices}
  *
  * @author Septicake
  */
@@ -12,9 +12,9 @@ public class OpMatrices extends OpMain {
     }
 
     /**
-     * Used to confirm that the input matrix is rectangular
-     * @param vals The matrix to check
-     * @throws IllegalArgumentException If the input matrix is not rectangular
+     * Used to confirm that the input {@code Matrix} is rectangular
+     * @param vals The {@code Matrix} to check
+     * @throws IllegalArgumentException If the input {@code Matrix} is not rectangular
      */
     public static void confirmRect(double[]... vals) throws IllegalArgumentException {
         for (double[] a : vals) {
@@ -50,7 +50,7 @@ public class OpMatrices extends OpMain {
     public static MatrixBase matrixMultiply(MatrixBase multiplied, MatrixBase multiplier) throws IllegalArgumentException{
         if (multiplied.getCols() != multiplier.getRows())
             throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixMultiplySizeMismatch(multiplied, multiplier));
-        MatrixBase m = new MatrixBase(multiplied.getRows(), multiplier.getCols());
+        MatrixBase m = MatrixBase.of(multiplied.getRows(), multiplier.getCols());
         for(int i = 0; i < m.getRows(); i++){
             for(int j = 0; j < m.getCols(); j++){
                 double sum = 0;

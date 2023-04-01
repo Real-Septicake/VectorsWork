@@ -13,6 +13,8 @@ public class ErrorMessages {
     private ErrorMessages() {
     }
 
+    public static final String IMPOSSIBLE_ERROR = "This should never happen! If it does, post an issue on the Github with how it was caused.";
+
     public static class VectorErrors {
         public static final String ILLEGAL_0D_METHOD_CALL = "Method cannot be called on Vector0D";
 
@@ -76,6 +78,14 @@ public class ErrorMessages {
                 }else{
                     return "Matrix of width " + offender.getCols() + " cannot be subtracted from Matrix of width " + offended.getCols();
                 }
+            }
+        }
+
+        public static String sourceMatrixSizeMismatch(MatrixBase offended, double[][] offender, int offense){
+            if(offense == HEIGHT_OFFENSE){
+                return "Matrix of height " + offended.getRows() + " cannot be created from matrix of height " + offender.length;
+            }else{
+                return "Matrix of width " + offended.getCols() + " cannot be created from matrix of width " + offender[0].length;
             }
         }
     }
