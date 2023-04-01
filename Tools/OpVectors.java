@@ -68,7 +68,12 @@ public class OpVectors extends OpMain {
         return Math.min(current, desired) / current;
     }
 
-
+    /**
+     * Returns the dot product of two same-sized arrays
+     * @param a1 First array
+     * @param a2 Second array
+     * @return The dot product of the two input arrays
+     */
     public static double dotProduct(double[] a1, double[] a2) {
         if (a1.length != a2.length) throw new IllegalArgumentException(ErrorMessages.VectorErrors.arraySizeMismatch(a1, a2));
         double sum = 0;
@@ -78,6 +83,12 @@ public class OpVectors extends OpMain {
         return sum;
     }
 
+    /**
+     * The same as {@link Tools.OpVectors#dotProduct(double[], double[])}, but with {@code Vector}s as inputs
+     * @param v1 First {@code Vector}
+     * @param v2 Second {@code Vector}
+     * @return The dot product of the two input {@code Vector}s
+     */
     public static double dotProduct(VectorBase v1, VectorBase v2) {
         if (v1.size() != v2.size()) throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(v1, v2));
         return dotProduct(v1.toDoubleArray(), v2.toDoubleArray());

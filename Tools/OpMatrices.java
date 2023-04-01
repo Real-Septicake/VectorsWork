@@ -11,21 +11,43 @@ public class OpMatrices extends OpMain {
     private OpMatrices() {
     }
 
-    public static void confirmRect(double[]... vals) {
+    /**
+     * Used to confirm that the input matrix is rectangular
+     * @param vals The matrix to check
+     * @throws IllegalArgumentException If the input matrix is not rectangular
+     */
+    public static void confirmRect(double[]... vals) throws IllegalArgumentException {
         for (double[] a : vals) {
             if (a.length != vals[0].length) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.NON_UNIFORM_INPUT);
         }
     }
 
+    /**
+     * Returns the inverse of the sum of the values in a {@code Matrix}
+     * @param m The {@code Matrix} to find the inverse of the sum of
+     * @return The inverse of the sum of the values in the {@code Matrix}
+     */
     public static double invertedSum(MatrixBase m){
         return -sum(m.toDoubleMatrix());
     }
 
+    /**
+     * The same as {@link Tools.OpMain#sum(double[]...)}, but with a {@code Matrix} as the input
+     * @param m The {@code Matrix} to find the sum of
+     * @return The sum of values in the {@code Matrix}
+     */
     public static double sum(MatrixBase m) {
         return sum(m.toDoubleMatrix());
     }
 
-    public static MatrixBase matrixMultiply(MatrixBase multiplied, MatrixBase multiplier) {
+    /**
+     * Multiplies two {@code Matrices} together
+     * @param multiplied The {@code Matrix} to be multiplied
+     * @param multiplier The {@code Matrix} to multiply by
+     * @return The {@code Matrix} resulting from the multiplication of the two input {@code Matrices}
+     * @throws IllegalArgumentException If the width of {@code multiplied} is not equal to the height of {@code multiplier}
+     */
+    public static MatrixBase matrixMultiply(MatrixBase multiplied, MatrixBase multiplier) throws IllegalArgumentException{
         if (multiplied.getCols() != multiplier.getRows())
             throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixMultiplySizeMismatch(multiplied, multiplier));
         MatrixBase m = new MatrixBase(multiplied.getRows(), multiplier.getCols());
