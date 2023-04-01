@@ -1,5 +1,10 @@
 package Tools;
 
+/**
+ * A class for operations shared between Vectors and Matrices
+ *
+ * @author Septicake
+ */
 public class OpMain {
     /**
      * Returns the sum of the values of a matrix of doubles
