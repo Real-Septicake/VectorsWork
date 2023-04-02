@@ -338,6 +338,15 @@ public abstract class MatrixBase {
         setUnsafe(row, col, getUnsafe(row, col) / val);
     }
 
+    public MatrixBase getIdentityMatrix() throws IllegalCallerException {
+        if(getCols() != getRows()) throw new IllegalCallerException("Matrix is not square");
+        MatrixBase id = of(getRows(), getCols());
+        for(int i = 0; i < id.getCols(); i++){
+            id.setUnsafe(i, i, 1);
+        }
+        return id;
+    }
+
     /**
      * Creates a {@code Matrix} with the same values of the input {@code Matrix}
      * @param mb {@code Matrix} to copy the values from
@@ -377,9 +386,9 @@ public abstract class MatrixBase {
     }
 
     protected void sizeCheck(double[][] test){
-        if(test.length >= getRows())
+        if(test.length > getRows())
             throw new IllegalArgumentException(ErrorMessages.MatrixErrors.sourceMatrixSizeMismatch(this, test, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
-        if(test[0].length >= getCols())
+        if(test[0].length > getCols())
             throw new IllegalArgumentException(ErrorMessages.MatrixErrors.sourceMatrixSizeMismatch(this, test, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
     }
 

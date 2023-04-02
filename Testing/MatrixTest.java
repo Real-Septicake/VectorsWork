@@ -50,5 +50,11 @@ public class MatrixTest {
         System.out.println("Matrix: " + m2);
         System.out.println("Sum: " + OpMatrices.sum(m2));
         System.out.println("Inverted Sum: " + OpMatrices.invertedSum(m2));
+
+        MatrixBase id = MatrixBase.of(new double[][]{{4, 6},{23, 18}});
+        System.out.println("\nIdentity");
+        System.out.println("Matrix: " + id);
+        System.out.println("Identity: " + id.getIdentityMatrix());
+        System.out.println("Matrix multiplied by Identity: " + OpMatrices.matrixMultiply(id.getIdentityMatrix(), id));
     }
 }
