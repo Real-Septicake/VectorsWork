@@ -29,13 +29,21 @@ public class OpVectors extends OpMain {
         return squareSum(v.toDoubleArray());
     }
 
-
-    public static boolean equalValues(double[] a1, double[] a2) {
+    public static boolean equalValues(double[] a1, double[] a2, double threshold){
         if (a1.length != a2.length) throw new IllegalArgumentException(ErrorMessages.VectorErrors.arraySizeMismatch(a1, a2));
         for (int i = 0; i < a1.length; i++) {
-            if (a1[i] != a2[i]) return false;
+            if (Math.abs(a1[i] - a2[i]) > threshold) return false;
         }
         return true;
+    }
+
+    public static boolean equalValues(double[] a1, double[] a2) {
+        return equalValues(a1, a2, 0);
+    }
+
+    public static boolean equalValues(VectorBase v1, VectorBase v2, double threshold){
+        if (v1.size() != v2.size()) throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(v1, v2));
+        return equalValues(v1.toDoubleArray(), v2.toDoubleArray(), threshold);
     }
 
     public static boolean equalValues(VectorBase v1, VectorBase v2) {
