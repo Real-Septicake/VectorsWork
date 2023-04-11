@@ -7,6 +7,8 @@ public class Matrix22 extends MatrixBase {
     private double v00, v01,
                    v10, v11;
 
+    public static final Matrix22 IDENTITY = new Matrix22(new double[][]{{1, 0}, {0, 1}});
+
     public Matrix22(){
         super(2, 2);
         v00 = 0; v01 = 0;
@@ -81,6 +83,47 @@ public class Matrix22 extends MatrixBase {
         row = Math.min(row, getRows());
         col = Math.min(col, getCols());
         return getSafe(row, col);
+    }
+
+    @Override
+    public double[] getRowSafe(int row) {
+        if(row >= 2 || row < 0) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+        return switch (row) {
+            case 0 -> new double[]{v00, v01};
+            case 1 -> new double[]{v10, v11};
+            default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+        };
+    }
+
+    @Override
+    public double[] getRowUnsafe(int row) {
+        if (row == 0) {
+            return new double[]{v00, v01};
+        }
+        return new double[]{v10, v11};
+    }
+
+    @Override
+    public double[] getColSafe(int col) {
+        if(col >= 2 || col < 0) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+        return switch (col) {
+            case 0 -> new double[]{v00, v10};
+            case 1 -> new double[]{v01, v11};
+            default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+        };
+    }
+
+    @Override
+    public double[] getColUnsafe(int col) {
+        if(col == 0){
+            return new double[]{v00, v10};
+        }
+        return new double[]{v01, v11};
+    }
+
+    @Override
+    public MatrixBase getIdentityMatrix(){
+        return IDENTITY;
     }
 
     @Override

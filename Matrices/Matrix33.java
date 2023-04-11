@@ -9,6 +9,8 @@ public class Matrix33 extends MatrixBase {
                    v10, v11, v12,
                    v20, v21, v22;
 
+    public static final Matrix33 IDENTITY = new Matrix33(new double[][]{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}});
+
     public Matrix33(){
         super(3, 3);
         v00 = 0; v01 = 0; v02 = 0;
@@ -131,6 +133,51 @@ public class Matrix33 extends MatrixBase {
         row = Math.min(row, getRows());
         col = Math.min(col, getCols());
         return getSafe(row, col);
+    }
+
+    @Override
+    public double[] getRowSafe(int row) {
+        if(row >= 3 || row < 0) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+        return switch (row) {
+            case 0 -> new double[]{v00, v01, v02};
+            case 1 -> new double[]{v10, v11, v12};
+            case 2 -> new double[]{v20, v21, v22};
+            default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+        };
+    }
+
+    @Override
+    public double[] getRowUnsafe(int row) {
+        return switch(row){
+            case 0 -> new double[]{v00, v01, v02};
+            case 1 -> new double[]{v10, v11, v12};
+            default -> new double[]{v20, v21, v22};
+        };
+    }
+
+    @Override
+    public double[] getColSafe(int col) {
+        if(col >= 3 || col < 0) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+        return switch (col) {
+            case 0 -> new double[]{v00, v10, v20};
+            case 1 -> new double[]{v01, v11, v21};
+            case 2 -> new double[]{v02, v12, v22};
+            default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+        };
+    }
+
+    @Override
+    public double[] getColUnsafe(int col) {
+        return switch (col) {
+            case 0 -> new double[]{v00, v10, v20};
+            case 1 -> new double[]{v01, v11, v21};
+            default -> new double[]{v02, v12, v22};
+        };
+    }
+
+    @Override
+    public MatrixBase getIdentityMatrix(){
+        return IDENTITY;
     }
 
     @Override

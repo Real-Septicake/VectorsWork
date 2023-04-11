@@ -1,6 +1,7 @@
 package Matrices;
 
 import Bases.MatrixBase;
+import Tools.ErrorMessages;
 import Tools.OpMatrices;
 
 public class MatrixNM extends MatrixBase {
@@ -47,6 +48,34 @@ public class MatrixNM extends MatrixBase {
         row = Math.min(row, getRows());
         col = Math.min(col, getCols());
         return data[row][col];
+    }
+
+    @Override
+    public double[] getRowSafe(int row) {
+        if(row >= getRows() || row < getRows()) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+        return data[row];
+    }
+
+    @Override
+    public double[] getRowUnsafe(int row) {
+        row = Math.min(row, getRows());
+        return data[row];
+    }
+
+    @Override
+    public double[] getColSafe(int col) {
+        if(col >= getCols() || col < getCols()) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+        double[] vals = new double[getCols()];
+        for(int i = 0; i < getCols(); i++){
+            vals[i] = data[i][col];
+        }
+        return vals;
+    }
+
+    @Override
+    public double[] getColUnsafe(int col) {
+        col = Math.min(col, getCols());
+        return getColSafe(col);
     }
 
     public double[][] toDoubleMatrix() {

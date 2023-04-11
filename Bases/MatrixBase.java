@@ -88,6 +88,14 @@ public abstract class MatrixBase {
      */
     public abstract double getUnsafe(int row, int col);
 
+    public abstract double[] getRowSafe(int row);
+
+    public abstract double[] getRowUnsafe(int row);
+
+    public abstract double[] getColSafe(int col);
+
+    public abstract double[] getColUnsafe(int col);
+
     /**
      * Adds the input value to every index of this {@code Matrix}
      * @param val The value to add to the indices
