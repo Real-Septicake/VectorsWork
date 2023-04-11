@@ -2,6 +2,7 @@ package Vectors;
 
 import Bases.VectorBase;
 import Tools.ErrorMessages;
+import Tools.OpMain;
 import Tools.OpVectors;
 
 public class Vector3D extends VectorBase {
@@ -34,6 +35,19 @@ public class Vector3D extends VectorBase {
         if (source.size() != 3)
             throw new IllegalArgumentException(ErrorMessages.VectorErrors.sourceVectorTypeMismatch(new Vector3D(), source));
         return new Vector3D(source.unsafeGet(0), source.unsafeGet(1), source.unsafeGet(2));
+    }
+
+    /**
+     * @return The value of the angle on the YZ plane rising from Y in radians
+     */
+    public double getTheta(){
+        return Math.acos(z / (Math.sqrt(OpMain.squareSum(toDoubleArray()))));
+    }
+    /**
+     * @return The value of the angle on the XZ plane rising from X in radians
+     */
+    public double getPhi(){
+        return Math.signum(y) * Math.acos(x / Math.sqrt((x * x) + (y * y)));
     }
 
     /**

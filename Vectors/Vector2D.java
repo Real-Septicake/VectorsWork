@@ -33,6 +33,10 @@ public class Vector2D extends VectorBase {
         return new Vector2D(source.toDoubleArray());
     }
 
+    public double getTheta(){
+        return Math.tan(y/x);
+    }
+
     /**
      * {@inheritDoc}
      */
