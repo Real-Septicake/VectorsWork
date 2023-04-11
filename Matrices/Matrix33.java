@@ -1,0 +1,140 @@
+package Matrices;
+
+import Bases.MatrixBase;
+import Tools.ErrorMessages;
+
+public class Matrix33 extends MatrixBase {
+
+    private double v00, v01, v02,
+                   v10, v11, v12,
+                   v20, v21, v22;
+
+    public Matrix33(){
+        super(3, 3);
+        v00 = 0; v01 = 0; v02 = 0;
+        v10 = 0; v11 = 0; v12 = 0;
+        v20 = 0; v21 = 0; v22 = 0;
+    }
+
+    public Matrix33(double[]... vals){
+        this();
+        sizeCheck(vals);
+        v00 = vals[0][0]; v01 = vals[0][1]; v02 = vals[0][2];
+        v10 = vals[1][0]; v11 = vals[1][1]; v12 = vals[1][2];
+        v20 = vals[2][0]; v21 = vals[2][1]; v22 = vals[2][2];
+    }
+
+    public Matrix33(MatrixBase source){
+        this(source.toDoubleMatrix());
+    }
+
+    @Override
+    public boolean setSafe(int row, int col, double val) throws IndexOutOfBoundsException {
+        boundsCheck(row, col);
+        switch (row) {
+            case 0 -> {
+                switch (col) {
+                    case 0 -> {
+                        v00 = val;
+                        return v00 == val;
+                    }
+                    case 1 -> {
+                        v01 = val;
+                        return v01 == val;
+                    }
+                    case 2 -> {
+                        v02 = val;
+                        return v02 == val;
+                    }
+                    default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+                }
+            }
+            case 1 -> {
+                switch (col) {
+                    case 0 -> {
+                        v10 = val;
+                        return v10 == val;
+                    }
+                    case 1 -> {
+                        v11 = val;
+                        return v11 == val;
+                    }
+                    case 2 -> {
+                        v12 = val;
+                        return v12 == val;
+                    }
+                    default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+                }
+            }
+            case 2 -> {
+                switch (col) {
+                    case 0 -> {
+                        v20 = val;
+                        return v20 == val;
+                    }
+                    case 1 -> {
+                        v21 = val;
+                        return v21 == val;
+                    }
+                    case 2 -> {
+                        v22 = val;
+                        return v22 == val;
+                    }
+                    default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+                }
+            }
+            default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+        }
+    }
+
+    @Override
+    public boolean setUnsafe(int row, int col, double val) {
+        row = Math.min(row, getRows());
+        col = Math.min(col, getCols());
+        return setSafe(row, col, val);
+    }
+
+    @Override
+    public double getSafe(int row, int col) throws IndexOutOfBoundsException {
+        boundsCheck(row, col);
+        switch (row) {
+            case 0 -> {
+                return switch (col) {
+                    case 0 -> v00;
+                    case 1 -> v01;
+                    case 2 -> v02;
+                    default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+                };
+            }
+            case 1 -> {
+                return switch (col) {
+                    case 0 -> v10;
+                    case 1 -> v11;
+                    case 2 -> v12;
+                    default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+                };
+            }
+            case 2 -> {
+                return switch (col) {
+                    case 0 -> v20;
+                    case 1 -> v21;
+                    case 2 -> v22;
+                    default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+                };
+            }
+            default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+        }
+    }
+
+    @Override
+    public double getUnsafe(int row, int col) {
+        row = Math.min(row, getRows());
+        col = Math.min(col, getCols());
+        return getSafe(row, col);
+    }
+
+    @Override
+    public double[][] toDoubleMatrix() {
+        return new double[][]{{v00, v01, v02},{v10, v11, v12},{v20, v21, v22}};
+    }
+}
