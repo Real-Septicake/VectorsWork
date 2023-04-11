@@ -9,10 +9,6 @@ public class VectorND extends VectorBase {
 
     private double[] vals;
 
-    private VectorND() {
-        super(-1);
-    }
-
     public VectorND(double... vals) {
         super(vals.length);
         this.vals = vals;

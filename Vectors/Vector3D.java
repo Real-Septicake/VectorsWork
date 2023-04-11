@@ -42,12 +42,12 @@ public class Vector3D extends VectorBase {
     @Override
     public double get(int i) {
         updateVals();
-        switch (i) {
-            case 0: return x;
-            case 1: return y;
-            case 2: return z;
-            default: throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
-        }
+        return switch (i) {
+            case 0 -> x;
+            case 1 -> y;
+            case 2 -> z;
+            default -> throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
+        };
     }
 
     /**
@@ -55,11 +55,11 @@ public class Vector3D extends VectorBase {
      */
     @Override
     public double unsafeGet(int i) {
-        switch (i) {
-            case 0: return x;
-            case 1: return y;
-            default: return z;
-        }
+        return switch (i) {
+            case 0 -> x;
+            case 1 -> y;
+            default -> z;
+        };
     }
 
     /**
@@ -69,19 +69,19 @@ public class Vector3D extends VectorBase {
     public boolean set(int i, double val) {
         generalValueCheck(i, val);
         switch (i) {
-            case 0: {
+            case 0 -> {
                 x = val;
                 return x == val;
             }
-            case 1: {
+            case 1 -> {
                 y = val;
                 return y == val;
             }
-            case 2: {
+            case 2 -> {
                 z = val;
                 return z == val;
             }
-            default: throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
+            default -> throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
         }
     }
 
@@ -92,15 +92,15 @@ public class Vector3D extends VectorBase {
     public boolean unsafeSet(int i, double val) {
         if (Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.VectorErrors.NAN_INPUT);
         switch (i) {
-            case 0: {
+            case 0 -> {
                 x = val;
                 return x == val;
             }
-            case 1: {
+            case 1 -> {
                 y = val;
                 return y == val;
             }
-            default: {
+            default -> {
                 z = val;
                 return z == val;
             }

@@ -27,20 +27,22 @@ public class Matrix22 extends MatrixBase {
     @Override
     public boolean setSafe(int row, int col, double val) {
         boundsCheck(row, col);
-        switch(row){
-            case 0:
-                switch(col){
-                    case 0: v00 = val; break;
-                    case 1: v01 = val; break;
-                    default: throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
-                } break;
-            case 1:
-                switch(col){
-                    case 0: v10 = val; break;
-                    case 1: v11 = val; break;
-                    default: throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
-                } break;
-            default: throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+        switch (row) {
+            case 0 -> {
+                switch (col) {
+                    case 0 -> v00 = val;
+                    case 1 -> v01 = val;
+                    default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+                }
+            }
+            case 1 -> {
+                switch (col) {
+                    case 0 -> v10 = val;
+                    case 1 -> v11 = val;
+                    default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+                }
+            }
+            default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
         }
         return getSafe(row, col) == val;
     }
@@ -54,21 +56,23 @@ public class Matrix22 extends MatrixBase {
 
     @Override
     public double getSafe(int row, int col) throws IndexOutOfBoundsException {
-        //boundsCheck(row, col);
+        boundsCheck(row, col);
         switch (row) {
-            case 0:
-                switch (col) {
-                    case 0: return v00;
-                    case 1: return v01;
-                    default: throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
-                }
-            case 1:
-                switch (col) {
-                    case 0: return v10;
-                    case 1: return v11;
-                    default: throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
-                }
-            default: throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+            case 0 -> {
+                return switch (col) {
+                    case 0 -> v00;
+                    case 1 -> v01;
+                    default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+                };
+            }
+            case 1 -> {
+                return switch (col) {
+                    case 0 -> v10;
+                    case 1 -> v11;
+                    default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
+                };
+            }
+            default -> throw new UnknownError(ErrorMessages.IMPOSSIBLE_ERROR);
         }
     }
 
