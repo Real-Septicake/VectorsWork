@@ -28,10 +28,17 @@ public class VectorTest {
 
         VectorBase vv = VectorBase.of(3, 7, 1, 5, 8);
         double val = 5.6;
-        System.out.println("Add:");
+        System.out.println("\nAdd:");
         System.out.println("Before: " + vv);
         System.out.println("Adding: " + val);
         vv.add(val);
         System.out.println("After: " + vv);
+
+        VectorBase comp1 = VectorBase.of(4,5,2,3,7,1);
+        VectorBase comp2 = VectorBase.of(3);
+        System.out.println("\nCompare:");
+        System.out.println("Vector 1 magnitude: " + comp1.getMagnitude());
+        System.out.println("Vector 2 magnitude: " + comp2.getMagnitude());
+        System.out.println("Compare result: " + comp1.compareTo(comp2));
     }
 }

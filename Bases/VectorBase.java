@@ -2,6 +2,7 @@ package Bases;
 
 import Tools.ErrorMessages;
 import Tools.OpMain;
+import Tools.OpVectors;
 import Vectors.*;
 
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import java.util.Arrays;
  *
  * @author Septicake
  */
-public abstract class VectorBase {
+public abstract class VectorBase implements Comparable<VectorBase> {
     /**
      * Max value that this {@code Vector}'s magnitude can be
      *
@@ -265,6 +266,11 @@ public abstract class VectorBase {
         }
     }
 
+    @Override
+    public int compareTo(VectorBase vb){
+        return (int) Math.signum(getMagnitude() - vb.getMagnitude());
+    }
+
     /**
      * Creates a Vector based on the input values
      * @param values The values to create a {@code Vector} from
@@ -272,18 +278,13 @@ public abstract class VectorBase {
      */
     public static VectorBase of(double... values) {
         int n = values.length;
-        switch (n) {
-            case 0:
-                return Vector0D.INSTANCE;
-            case 1:
-                return new Vector1D(values);
-            case 2:
-                return new Vector2D(values);
-            case 3:
-                return new Vector3D(values);
-            default:
-                return new VectorND(values);
-        }
+        return switch (n) {
+            case 0 -> Vector0D.INSTANCE;
+            case 1 -> new Vector1D(values);
+            case 2 -> new Vector2D(values);
+            case 3 -> new Vector3D(values);
+            default -> new VectorND(values);
+        };
     }
 
     public String toString() {

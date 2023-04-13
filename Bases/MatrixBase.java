@@ -16,7 +16,7 @@ import java.util.Arrays;
  *
  * @author Septicake
  */
-public abstract class MatrixBase {
+public abstract class MatrixBase implements Comparable<MatrixBase> {
     private final int COLS;
     private final int ROWS;
 
@@ -405,6 +405,11 @@ public abstract class MatrixBase {
      * @return a double matrix with the same values as this {@code Matrix}
      */
     public abstract double[][] toDoubleMatrix();
+
+    @Override
+    public int compareTo(MatrixBase mb){
+        return (int) Math.signum(OpMatrices.sum(this) - OpMatrices.sum(mb));
+    }
 
     public String toString() {
         return getRows() + "x" + getCols() + " Matrix: " + Arrays.deepToString(toDoubleMatrix());

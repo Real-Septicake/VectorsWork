@@ -52,9 +52,16 @@ public class MatrixTest {
         System.out.println("Inverted Sum: " + OpMatrices.invertedSum(m2));
 
         MatrixBase id = MatrixBase.of(new double[][]{{4, 6},{23, 18}});
-        System.out.println("\nIdentity");
+        System.out.println("\nIdentity:");
         System.out.println("Matrix: " + id);
         System.out.println("Identity: " + id.getIdentityMatrix());
         System.out.println("Matrix multiplied by Identity: " + OpMatrices.matrixMultiply(id.getIdentityMatrix(), id));
+
+        MatrixBase comp1 = MatrixBase.of(new double[][]{{8, 3, 6, 2, 4}, {3, 3, 3, 3, 3}});
+        MatrixBase comp2 = MatrixBase.of(new double[][]{{2}});
+        System.out.println("\nCompare:");
+        System.out.println("Matrix 1 sum: " + OpMatrices.sum(comp1));
+        System.out.println("Matrix 2 sum: " + OpMatrices.sum(comp2));
+        System.out.println("Compare: " + comp1.compareTo(comp2));
     }
 }
