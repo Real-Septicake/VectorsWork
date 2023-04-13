@@ -16,7 +16,7 @@ public class VectorTest {
          * The gods will fear my wrath cause this is some real bullshit
          */
         System.out.println("CHECK: " + v + " magnitude: " + v.getMagnitude()); //Thread interrupts are mean >:(
-        System.out.println("RERUN: magnitude: " + Math.sqrt(OpVectors.wholeSquaresSum(v)));
+        System.out.println("RERUN: magnitude: " + Math.sqrt(OpVectors.squareSum(v)));
         v.setMax(0);
         System.out.println(v.set(0, 0));
         v.addMultipleSafe(2, 0, 0, 0);

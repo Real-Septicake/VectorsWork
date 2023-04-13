@@ -57,11 +57,22 @@ public class MatrixTest {
         System.out.println("Identity: " + id.getIdentityMatrix());
         System.out.println("Matrix multiplied by Identity: " + OpMatrices.matrixMultiply(id.getIdentityMatrix(), id));
 
-        MatrixBase comp1 = MatrixBase.of(new double[][]{{8, 3, 6, 2, 4}, {3, 3, 3, 3, 3}});
+        MatrixBase comp1 = MatrixBase.of(new double[][]{{8, -3, 6, 2, 4}, {3, 3, 3, 3, 3}});
         MatrixBase comp2 = MatrixBase.of(new double[][]{{2}});
         System.out.println("\nCompare:");
         System.out.println("Matrix 1 sum: " + OpMatrices.sum(comp1));
         System.out.println("Matrix 2 sum: " + OpMatrices.sum(comp2));
         System.out.println("Compare: " + comp1.compareTo(comp2));
+
+        MatrixBase test11 = MatrixBase.of(new double[][]{{1, -1, 0}, {1, 0, -1}, {6, -2, -3}});
+        MatrixBase test12 = MatrixBase.of(new double[][]{{-2, -3, 1}, {-3, -3, 1}, {-2, -4, 1}});
+        System.out.println("\nTEST 1:");
+        System.out.println(OpMatrices.matrixMultiply(test11, test12));
+
+        MatrixBase test21 = MatrixBase.of(new double[][]{{1, -2, -1}, {0, -1, 2}, {1, -2, 0}});
+        MatrixBase test22 = MatrixBase.of(new double[][]{{-4, -2, 5}, {-2, -1, 2}, {-1, 0, 1}});
+        System.out.println("\nTEST 2:");
+        System.out.println(OpMatrices.matrixMultiply(test21, test22));
+
     }
 }

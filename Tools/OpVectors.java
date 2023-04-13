@@ -12,21 +12,39 @@ public class OpVectors extends OpMain {
     }
 
     /**
-     * Returns the sum of the values in a Vector
-     * @param v Vector to find the sum of the values of
-     * @return The sum of the values in the Vector
+     * The same as {@link Tools.OpMain#sum(double[]...)}, but with a {@code Vector} as the input
+     * @param v The {@code Vector} to find the sum of
+     * @return The sum of values in the {@code Vector}
      */
-    public static double wholeSum(VectorBase v) {
+    public static double sum(VectorBase v) {
         return sum(v.toDoubleArray());
     }
 
     /**
-     * Returns the sum of the squares of the values in a Vector
-     * @param v Vector to find the sum of the squares of the values of
-     * @return The sum of the squares of the values in a Vector
+     * The same as {@link Tools.OpMain#squareSum(double[]...)}, but with a {@code Vector} as the input
+     * @param v The {@code Vector} to find the sum of the squares of the values of
+     * @return The sum of the squares of the values in the {@code Vector}
      */
-    public static double wholeSquaresSum(VectorBase v) {
+    public static double squareSum(VectorBase v) {
         return squareSum(v.toDoubleArray());
+    }
+
+    /**
+     * The same as {@link Tools.OpMain#sumSign(double[]...)}, but with a {@code Vector} as the input
+     * @param v The {@code Vector} to find the sign of the sum of
+     * @return The sign of the sum of values in the {@code Vector}
+     */
+    public static double sumSign(VectorBase v){
+        return sumSign(v.toDoubleArray());
+    }
+
+    /**
+     * The same as {@link Tools.OpMain#signSum(double[]...)}, but with a {@code Vector} as the input
+     * @param v The {@code Vector} to find the sum of the signs of the values of
+     * @return The sum of the signs of the values in the {@code Vector}
+     */
+    public static double signSum(VectorBase v){
+        return signSum(v.toDoubleArray());
     }
 
     public static boolean equalValues(double[] a1, double[] a2, double threshold){
@@ -63,8 +81,6 @@ public class OpVectors extends OpMain {
      * Finds the scalar multiple required to get the magnitude to the desired value
      * <p>Special Cases:</p>
      * <ul>
-     *     <li>If the desired value is 0, 1 is returned</li>
-     *     <li>If the current value is less than the desired value, 1 is returned</li>
      *     <li>If either input is NaN, the result is NaN</li>
      * </ul>
      * @param current Current value of the magnitude
@@ -72,8 +88,24 @@ public class OpVectors extends OpMain {
      * @return The scalar multiple required to get the current magnitude to the desired value
      */
     public static double findScalarMultiple(double current, double desired) {
-        if (current <= desired || desired == 0) return 1;
         return Math.min(current, desired) / current;
+    }
+
+    /**
+     * Finds the scalar multiple required to get the magnitude to a desired maximum value
+     * <p>Special Cases:</p>
+     * <ul>
+     *     <li>If the desired value is 0, 1 is returned</li>
+     *     <li>If the current value is less than the desired value, 1 is returned</li>
+     *     <li>If either input is NaN, the result is NaN</li>
+     * </ul>
+     * @param current Current value of the magnitude
+     * @param max Maximum value of the magnitude
+     * @return The scalar multiple required to get the current magnitude within the specified maximum
+     */
+    public static double clampMax(double current, double max){
+        if (current <= max || max == 0) return 1;
+        return findScalarMultiple(current, max);
     }
 
     /**

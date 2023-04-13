@@ -32,12 +32,6 @@ public abstract class MatrixBase implements Comparable<MatrixBase> {
         this.ROWS = rows;
     }
 
-//    /**
-//     * Creates a {@code Matrix} from the input matrix
-//     * @param values The matrix to make the {@code Matrix} from
-//     * @throws IllegalArgumentException If the input matrix is not rectangular
-//     */
-
     /**
      * @return The width of this {@code Matrix}
      */

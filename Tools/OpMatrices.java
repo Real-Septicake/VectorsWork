@@ -41,6 +41,33 @@ public class OpMatrices extends OpMain {
     }
 
     /**
+     * The same as {@link Tools.OpMain#sumSign(double[]...)}, but with a {@code Matrix} as the input
+     * @param m The {@code Matrix} to find the sum of the signs of the values of
+     * @return The sum of signs of the values in the {@code Matrix}
+     */
+    public static double sumSign(MatrixBase m){
+        return sumSign(m.toDoubleMatrix());
+    }
+
+    /**
+     * The same as {@link Tools.OpMain#signSum(double[]...)}, but with a {@code Matrix} as the input
+     * @param m The {@code Matrix} to find the sign of the sum of
+     * @return The sign of the sum of values in the {@code Matrix}
+     */
+    public static double signSum(MatrixBase m){
+        return signSum(m.toDoubleMatrix());
+    }
+
+    /**
+     * The same as {@link Tools.OpMain#squareSum(double[]...)}, but with a {@code Matrix} as the input
+     * @param m The {@code Matrix} to find the sum of
+     * @return The sum of values in the {@code Matrix}
+     */
+    public static double squareSum(MatrixBase m){
+        return squareSum(m.toDoubleMatrix());
+    }
+
+    /**
      * Multiplies two {@code Matrices} together
      * @param multiplied The {@code Matrix} to be multiplied
      * @param multiplier The {@code Matrix} to multiply by
