@@ -13,14 +13,14 @@ public class Vector2D extends VectorBase {
     }
 
     public Vector2D(double x, double y) {
-        super(2);
+        this();
         this.x = x;
         this.y = y;
     }
 
 
     public Vector2D(double... values) {
-        super(2);
+        this();
         if (values.length != size())
             throw new IllegalArgumentException(ErrorMessages.VectorErrors.invalidSourceArrayLength(this, values));
         x = values[0];

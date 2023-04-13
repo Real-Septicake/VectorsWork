@@ -16,14 +16,14 @@ public class Vector3D extends VectorBase {
     }
 
     public Vector3D(double x, double y, double z) {
-        super(3);
+        this();
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
     public Vector3D(double... values) {
-        super(3);
+        this();
         if (values.length != size())
             throw new IllegalArgumentException(ErrorMessages.VectorErrors.invalidSourceArrayLength(this, values));
         x = values[0];

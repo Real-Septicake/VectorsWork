@@ -12,12 +12,12 @@ public class Vector1D extends VectorBase {
     }
 
     public Vector1D(double magnitude) {
-        super(1);
+        this();
         this.magnitude = magnitude;
     }
 
     public Vector1D(double... values) {
-        super(1);
+        this();
         if (values.length != size())
             throw new IllegalArgumentException(ErrorMessages.VectorErrors.invalidSourceArrayLength(this, values));
         this.magnitude = values[0];
