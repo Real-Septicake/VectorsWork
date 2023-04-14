@@ -15,6 +15,10 @@ public class ErrorMessages {
 
     public static final String IMPOSSIBLE_ERROR = "This should never happen! If it does, post an issue on the Github with how it was caused.";
 
+    public static String unknownOffense(int i){
+        return "No offense with value " + i;
+    }
+
     public static class VectorErrors {
         public static final String ILLEGAL_0D_METHOD_CALL = "Method cannot be called on Vector0D";
 
