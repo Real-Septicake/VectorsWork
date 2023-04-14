@@ -83,11 +83,9 @@ public class VectorND extends VectorBase {
 
     @Override
     public VectorBase addCopy(double val) {
-        double[] d = new double[size()];
-        for (int i = 0; i < size(); i++) {
-            d[i] = vals[i] + val;
-        }
-        return new VectorND(d);
+        VectorBase copy = of(toDoubleArray());
+        copy.add(val);
+        return copy;
     }
 
     @Override
@@ -99,11 +97,9 @@ public class VectorND extends VectorBase {
 
     @Override
     public VectorBase subtractCopy(double val) {
-        double[] d = new double[size()];
-        for (int i = 0; i < size(); i++) {
-            d[i] = vals[i] - val;
-        }
-        return new VectorND(d);
+        VectorBase copy = of(toDoubleArray());
+        copy.subtract(val);
+        return copy;
     }
 
     @Override
@@ -115,11 +111,9 @@ public class VectorND extends VectorBase {
 
     @Override
     public VectorBase multiplyCopy(double val) {
-        double[] d = new double[size()];
-        for (int i = 0; i < size(); i++) {
-            d[i] = vals[i] * val;
-        }
-        return new VectorND(d);
+        VectorBase copy = of(toDoubleArray());
+        copy.multiply(val);
+        return copy;
     }
 
     @Override
@@ -131,10 +125,8 @@ public class VectorND extends VectorBase {
 
     @Override
     public VectorBase divideCopy(double val) {
-        double[] d = new double[size()];
-        for (int i = 0; i < size(); i++) {
-            d[i] = vals[i] / val;
-        }
-        return new VectorND(d);
+        VectorBase copy = of(toDoubleArray());
+        copy.divide(val);
+        return copy;
     }
 }
