@@ -2,7 +2,6 @@ package Bases;
 
 import Tools.ErrorMessages;
 import Tools.OpMain;
-import Tools.OpVectors;
 import Vectors.*;
 
 import java.util.Arrays;
@@ -117,9 +116,12 @@ public abstract class VectorBase implements Comparable<VectorBase> {
         maxMagnitude = max;
     }
 
-    protected void generalValueCheck(int i, double val) {
-        if (i >= size()) throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
+    protected void NaNCheck(double val) {
         if (Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.VectorErrors.NAN_INPUT);
+    }
+
+    protected void boundsCheck(int i){
+        if (i >= size() || i < 0) throw new IndexOutOfBoundsException(ErrorMessages.VectorErrors.indexOutOfBounds(this, i));
     }
 
     /**
@@ -266,9 +268,23 @@ public abstract class VectorBase implements Comparable<VectorBase> {
         }
     }
 
+    public void fill(double val) throws IllegalArgumentException{
+        NaNCheck(val);
+        for(int i = 0; i < size(); i++){
+            set(i, val);
+        }
+    }
+
     @Override
     public int compareTo(VectorBase vb){
         return (int) Math.signum(getMagnitude() - vb.getMagnitude());
+    }
+
+    public VectorBase getUnit(){
+        VectorBase unit = of(toDoubleArray());
+        unit.setMax(1);
+        unit.updateVals();
+        return unit;
     }
 
     /**
@@ -284,6 +300,16 @@ public abstract class VectorBase implements Comparable<VectorBase> {
             case 2 -> new Vector2D(values);
             case 3 -> new Vector3D(values);
             default -> new VectorND(values);
+        };
+    }
+
+    public static VectorBase ofLength(int size){
+        return switch (size) {
+            case 0 -> Vector0D.INSTANCE;
+            case 1 -> new Vector1D();
+            case 2 -> new Vector2D();
+            case 3 -> new Vector3D();
+            default -> new VectorND();
         };
     }
 

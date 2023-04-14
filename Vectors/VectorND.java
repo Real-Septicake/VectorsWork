@@ -40,7 +40,8 @@ public class VectorND extends VectorBase {
      */
     @Override
     public boolean set(int i, double val) {
-        generalValueCheck(i, val);
+        boundsCheck(i);
+        NaNCheck(val);
         vals[i] = val;
         return vals[i] == val;
     }
@@ -61,7 +62,7 @@ public class VectorND extends VectorBase {
      */
     @Override
     public void updateVals() {
-        double scalarMultiple = OpVectors.findScalarMultiple(getMagnitude(), getMax());
+        double scalarMultiple = OpVectors.clampMax(getMagnitude(), getMax());
         multiply(scalarMultiple);
     }
 

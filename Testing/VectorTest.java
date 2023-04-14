@@ -40,5 +40,13 @@ public class VectorTest {
         System.out.println("Vector 1 magnitude: " + comp1.getMagnitude());
         System.out.println("Vector 2 magnitude: " + comp2.getMagnitude());
         System.out.println("Compare result: " + comp1.compareTo(comp2));
+
+
+        VectorBase unitTest = VectorBase.of(3, 2, 7, 4, 5);
+        System.out.println("\nUnit Vector Creation:");
+        System.out.println("Base Vector: " + unitTest);
+        VectorBase unit = unitTest.getUnit();
+        System.out.println("Unit Output: " + unit);
+        System.out.println("Unit Magnitude: " + unit.getMagnitude());
     }
 }

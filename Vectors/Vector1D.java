@@ -51,7 +51,8 @@ public class Vector1D extends VectorBase {
      */
     @Override
     public boolean set(int i, double val) {
-        generalValueCheck(i, val);
+        boundsCheck(i);
+        NaNCheck(val);
         magnitude = val;
         return magnitude == val;
     }
@@ -120,5 +121,16 @@ public class Vector1D extends VectorBase {
     @Override
     public VectorBase divideCopy(double val) {
         return new Vector1D(magnitude / val);
+    }
+
+    @Override
+    public void fill(double val){
+        NaNCheck(val);
+        magnitude = val;
+    }
+
+    @Override
+    public VectorBase getUnit(){
+        return new Vector1D(1);
     }
 }

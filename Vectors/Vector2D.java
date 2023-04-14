@@ -63,7 +63,8 @@ public class Vector2D extends VectorBase {
      */
     @Override
     public boolean set(int i, double val) {
-        generalValueCheck(i, val);
+        boundsCheck(i);
+        NaNCheck(val);
         switch (i) {
             case 0 -> {
                 x = val;
@@ -97,7 +98,7 @@ public class Vector2D extends VectorBase {
      */
     @Override
     protected void updateVals() {
-        double scalarMultiple = OpVectors.findScalarMultiple(getMagnitude(), getMax());
+        double scalarMultiple = OpVectors.clampMax(getMagnitude(), getMax());
         multiply(scalarMultiple);
     }
 
@@ -151,5 +152,12 @@ public class Vector2D extends VectorBase {
     @Override
     public VectorBase divideCopy(double val) {
         return new Vector2D(x / val, y / val);
+    }
+
+    @Override
+    public void fill(double val){
+        NaNCheck(val);
+        x = val;
+        y = val;
     }
 }

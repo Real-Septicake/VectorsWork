@@ -81,7 +81,8 @@ public class Vector3D extends VectorBase {
      */
     @Override
     public boolean set(int i, double val) {
-        generalValueCheck(i, val);
+        boundsCheck(i);
+        NaNCheck(val);
         switch (i) {
             case 0 -> {
                 x = val;
@@ -126,7 +127,7 @@ public class Vector3D extends VectorBase {
      */
     @Override
     public void updateVals() {
-        double scalarMultiple = OpVectors.findScalarMultiple(getMagnitude(), getMax());
+        double scalarMultiple = OpVectors.clampMax(getMagnitude(), getMax());
         multiply(scalarMultiple);
     }
 
@@ -184,5 +185,13 @@ public class Vector3D extends VectorBase {
     @Override
     public VectorBase divideCopy(double val) {
         return new Vector3D(x / val, y / val, z / val);
+    }
+
+    @Override
+    public void fill(double val){
+        NaNCheck(val);
+        x = val;
+        y = val;
+        z = val;
     }
 }
