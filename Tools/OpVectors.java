@@ -92,7 +92,7 @@ public class OpVectors extends OpMain {
     }
 
     /**
-     * Finds the scalar multiple required to get the magnitude to a desired maximum value
+     * Finds the scalar multiple required to get the magnitude within a desired maximum value
      * <p>Special Cases:</p>
      * <ul>
      *     <li>If the desired value is 0, 1 is returned</li>
