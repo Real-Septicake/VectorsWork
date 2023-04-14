@@ -27,6 +27,11 @@ public class Matrix22 extends MatrixBase {
     }
 
     @Override
+    public int elementCount(){
+        return 4;
+    }
+
+    @Override
     public boolean setSafe(int row, int col, double val) {
         boundsCheck(row, col);
         switch (row) {
@@ -87,7 +92,7 @@ public class Matrix22 extends MatrixBase {
 
     @Override
     public double[] getRowSafe(int row) {
-        if(row >= 2 || row < 0) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+        boundsCheck(row, getRows(), ErrorMessages.MatrixErrors.HEIGHT_OFFENSE);
         return switch (row) {
             case 0 -> new double[]{v00, v01};
             case 1 -> new double[]{v10, v11};
@@ -105,7 +110,7 @@ public class Matrix22 extends MatrixBase {
 
     @Override
     public double[] getColSafe(int col) {
-        if(col >= 2 || col < 0) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+        boundsCheck(col, getCols(), ErrorMessages.MatrixErrors.WIDTH_OFFENSE);
         return switch (col) {
             case 0 -> new double[]{v00, v10};
             case 1 -> new double[]{v01, v11};

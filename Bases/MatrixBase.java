@@ -2,6 +2,7 @@ package Bases;
 
 import Matrices.Matrix11;
 import Matrices.Matrix22;
+import Matrices.Matrix33;
 import Matrices.MatrixNM;
 import Tools.ErrorMessages;
 import Tools.OpMatrices;
@@ -44,6 +45,18 @@ public abstract class MatrixBase implements Comparable<MatrixBase> {
      */
     public int getRows() {
         return ROWS;
+    }
+
+    public int elementCount(){
+        return ROWS * COLS;
+    }
+
+    protected void boundsCheck(int i, int  size, int offense){
+        switch(offense){
+            case 0: if(i >= size || i < 0) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, i, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+            case 1: if(i >= size || i < 0) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, i, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+            default: throw new IllegalArgumentException(ErrorMessages.unknownOffense(offense));
+        }
     }
 
     /**
@@ -342,7 +355,7 @@ public abstract class MatrixBase implements Comparable<MatrixBase> {
 
     public MatrixBase getIdentityMatrix() throws IllegalCallerException {
         if(getCols() != getRows()) throw new IllegalCallerException("Matrix is not square");
-        MatrixBase id = of(getRows(), getCols());
+        MatrixBase id = ofSize(getRows(), getCols());
         for(int i = 0; i < id.getCols(); i++){
             id.setUnsafe(i, i, 1);
         }
@@ -358,11 +371,13 @@ public abstract class MatrixBase implements Comparable<MatrixBase> {
         return of(mb.toDoubleMatrix());
     }
 
-    public static MatrixBase of(int rows, int cols){
+    public static MatrixBase ofSize(int rows, int cols){
         if(rows == 1 && cols == 1){
             return new Matrix11();
         }else if(rows == 2 && cols == 2){
             return new Matrix22();
+        }else if(rows == 3 && cols == 3) {
+            return new Matrix33();
         }else{
             return new MatrixNM(rows, cols);
         }
@@ -374,6 +389,8 @@ public abstract class MatrixBase implements Comparable<MatrixBase> {
             return new Matrix11(vals);
         }else if(vals.length == 2 && vals[0].length == 2) {
             return new Matrix22(vals);
+        }else if(vals.length == 3 && vals[0].length == 3) {
+            return new Matrix33(vals);
         }else{
             return new MatrixNM(vals);
         }

@@ -77,7 +77,7 @@ public class OpMatrices extends OpMain {
     public static MatrixBase matrixMultiply(MatrixBase multiplied, MatrixBase multiplier) throws IllegalArgumentException{
         if (multiplied.getCols() != multiplier.getRows())
             throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixMultiplySizeMismatch(multiplied, multiplier));
-        MatrixBase m = MatrixBase.of(multiplied.getRows(), multiplier.getCols());
+        MatrixBase m = MatrixBase.ofSize(multiplied.getRows(), multiplier.getCols());
         for(int i = 0; i < m.getRows(); i++){
             for(int j = 0; j < m.getCols(); j++){
                 double sum = 0;

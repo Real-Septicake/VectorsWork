@@ -52,7 +52,7 @@ public class MatrixNM extends MatrixBase {
 
     @Override
     public double[] getRowSafe(int row) {
-        if(row >= getRows() || row < getRows()) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+        boundsCheck(row, getRows(), ErrorMessages.MatrixErrors.HEIGHT_OFFENSE);
         return data[row];
     }
 
@@ -64,7 +64,7 @@ public class MatrixNM extends MatrixBase {
 
     @Override
     public double[] getColSafe(int col) {
-        if(col >= getCols() || col < getCols()) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+        boundsCheck(col, getCols(), ErrorMessages.MatrixErrors.WIDTH_OFFENSE);
         double[] vals = new double[getCols()];
         for(int i = 0; i < getCols(); i++){
             vals[i] = data[i][col];

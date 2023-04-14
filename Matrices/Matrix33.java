@@ -31,6 +31,11 @@ public class Matrix33 extends MatrixBase {
     }
 
     @Override
+    public int elementCount(){
+        return 9;
+    }
+
+    @Override
     public boolean setSafe(int row, int col, double val) throws IndexOutOfBoundsException {
         boundsCheck(row, col);
         switch (row) {
