@@ -69,6 +69,11 @@ public class Matrix11 extends MatrixBase {
     }
 
     @Override
+    public void fillRow(int row, double val) {
+        value = val;
+    }
+
+    @Override
     public double[] getColSafe(int col) {
         if(col != 0) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
         return new double[]{value};
@@ -80,8 +85,22 @@ public class Matrix11 extends MatrixBase {
     }
 
     @Override
+    public void fillCol(int col, double val) {
+        value = val;
+    }
+
+    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
+    }
+
+    @Override
+    public void copy(MatrixBase mb){
+        if(mb instanceof Matrix11){
+            value = getUnsafe(1, 1);
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixCopySizeMismatch(this, mb));
+        }
     }
 
     @Override

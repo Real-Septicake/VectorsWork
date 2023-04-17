@@ -142,7 +142,7 @@ public class Matrix33 extends MatrixBase {
 
     @Override
     public double[] getRowSafe(int row) {
-        if(row >= 3 || row < 0) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+        boundsCheck(row, getRows(), ErrorMessages.MatrixErrors.HEIGHT_OFFENSE);
         return switch (row) {
             case 0 -> new double[]{v00, v01, v02};
             case 1 -> new double[]{v10, v11, v12};
@@ -161,8 +161,17 @@ public class Matrix33 extends MatrixBase {
     }
 
     @Override
+    public void fillRow(int row, double val) {
+        switch(row){
+            case 0: v00 = val; v01 = val; v02 = val;
+            case 1: v10 = val; v11 = val; v12 = val;
+            default: v20 = val; v21 = val; v22 = val;
+        }
+    }
+
+    @Override
     public double[] getColSafe(int col) {
-        if(col >= 3 || col < 0) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+        boundsCheck(col, getCols(), ErrorMessages.MatrixErrors.WIDTH_OFFENSE);
         return switch (col) {
             case 0 -> new double[]{v00, v10, v20};
             case 1 -> new double[]{v01, v11, v21};
@@ -181,8 +190,28 @@ public class Matrix33 extends MatrixBase {
     }
 
     @Override
+    public void fillCol(int col, double val) {
+        switch(col){
+            case 0: v00 = val; v10 = val; v20 = val;
+            case 1: v01 = val; v11 = val; v21 = val;
+            default: v02 = val; v12 = val; v22 = val;
+        }
+    }
+
+    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
+    }
+
+    @Override
+    public void copy(MatrixBase mb){
+        if(mb instanceof Matrix33){
+            v00 = mb.getUnsafe(0, 0); v01 = mb.getUnsafe(0, 1); v02 = mb.getUnsafe(0, 2);
+            v10 = mb.getUnsafe(1, 0); v11 = mb.getUnsafe(1, 1); v12 = mb.getUnsafe(1, 2);
+            v20 = mb.getUnsafe(2, 0); v21 = mb.getUnsafe(2, 1); v22 = mb.getUnsafe(2, 2);
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixCopySizeMismatch(this, mb));
+        }
     }
 
     @Override

@@ -19,6 +19,10 @@ public class ErrorMessages {
         return "No offense with value " + i;
     }
 
+    public static String unknownOperation(int i){
+        return "No operation with value " + i;
+    }
+
     public static class VectorErrors {
         public static final String ILLEGAL_0D_METHOD_CALL = "Method cannot be called on Vector0D";
 
@@ -62,35 +66,39 @@ public class ErrorMessages {
         }
 
         public static String indexOutOfBounds(MatrixBase m, int offender, int offense){
-            if(offense == HEIGHT_OFFENSE){
-                return "Index " + offender + " is out of bounds for Matrix of height " + m.getRows();
-            }else{
-                return "Index " + offender + " is out of bounds for Matrix of width " + m.getCols();
-            }
+            return switch(offense) {
+                case HEIGHT_OFFENSE -> "Index " + offender + " is out of bounds for Matrix of height " + m.getRows();
+                case WIDTH_OFFENSE ->  "Index " + offender + " is out of bounds for Matrix of width " + m.getCols();
+                default -> throw new IllegalArgumentException(unknownOffense(offense));
+            };
         }
 
         public static String matrixSizeMismatch(MatrixBase offended, MatrixBase offender, int offense, int operation){
-            if(offense == HEIGHT_OFFENSE){
-                if(operation == ADDITION_OFFENSE){
-                    return "Matrix of height " + offender.getRows() + " cannot be added to Matrix of height " + offended.getRows();
-                }else{
-                    return "Matrix of height " + offender.getRows() + " cannot be subtracted from Matrix of height " + offended.getRows();
-                }
-            }else{
-                if(operation == ADDITION_OFFENSE){
-                    return "Matrix of width " + offender.getCols() + " cannot be added to Matrix of width " + offended.getCols();
-                }else{
-                    return "Matrix of width " + offender.getCols() + " cannot be subtracted from Matrix of width " + offended.getCols();
-                }
-            }
+            return switch(offense) {
+                case HEIGHT_OFFENSE -> switch(operation) {
+                    case ADDITION_OFFENSE -> "Matrix of height " + offender.getRows() + " cannot be added to Matrix of height " + offended.getRows();
+                    case SUBTRACTION_OFFENSE -> "Matrix of height " + offender.getRows() + " cannot be subtracted from Matrix of height " + offended.getRows();
+                    default -> throw new IllegalArgumentException(unknownOperation(operation));
+                };
+                case WIDTH_OFFENSE -> switch(operation) {
+                    case ADDITION_OFFENSE -> "Matrix of width " + offender.getCols() + " cannot be added to Matrix of width " + offended.getCols();
+                    case SUBTRACTION_OFFENSE -> "Matrix of width " + offender.getCols() + " cannot be subtracted from Matrix of width " + offended.getCols();
+                    default -> throw new IllegalArgumentException(unknownOperation(operation));
+                };
+                default -> throw new IllegalArgumentException(unknownOffense(offense));
+            };
         }
 
         public static String sourceMatrixSizeMismatch(MatrixBase offended, double[][] offender, int offense){
-            if(offense == HEIGHT_OFFENSE){
-                return "Matrix of height " + offended.getRows() + " cannot be created from matrix of height " + offender.length;
-            }else{
-                return "Matrix of width " + offended.getCols() + " cannot be created from matrix of width " + offender[0].length;
-            }
+            return switch(offense){
+                case HEIGHT_OFFENSE ->  "Matrix of height " + offended.getRows() + " cannot be created from matrix of height " + offender.length;
+                case WIDTH_OFFENSE ->  "Matrix of width " + offended.getCols() + " cannot be created from matrix of width " + offender[0].length;
+                default -> throw new IllegalArgumentException(unknownOffense(offense));
+            };
+        }
+
+        public static String matrixCopySizeMismatch(MatrixBase offended, MatrixBase offender){
+            return "Matrix of size " + offender.getRows() + "x" + offender.getCols() + " cannot be copied to Matrix of size " + offended.getRows() + "x" + offended.getCols();
         }
     }
 }

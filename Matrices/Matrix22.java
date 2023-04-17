@@ -109,6 +109,17 @@ public class Matrix22 extends MatrixBase {
     }
 
     @Override
+    public void fillRow(int row, double val) {
+        if(row == 0){
+            v00 = val;
+            v01 = val;
+        }else{
+            v10 = val;
+            v11 = val;
+        }
+    }
+
+    @Override
     public double[] getColSafe(int col) {
         boundsCheck(col, getCols(), ErrorMessages.MatrixErrors.WIDTH_OFFENSE);
         return switch (col) {
@@ -127,8 +138,29 @@ public class Matrix22 extends MatrixBase {
     }
 
     @Override
+    public void fillCol(int col, double val) {
+        if(col == 0){
+            v00 = val;
+            v10 = val;
+        }else{
+            v01 = val;
+            v11 = val;
+        }
+    }
+
+    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
+    }
+
+    @Override
+    public void copy(MatrixBase mb){
+        if(mb instanceof Matrix22){
+            v00 = mb.getUnsafe(0, 0); v10 = mb.getUnsafe(1, 0);
+            v01 = mb.getUnsafe(0, 1); v11 = mb.getUnsafe(1, 1);
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixCopySizeMismatch(this, mb));
+        }
     }
 
     @Override

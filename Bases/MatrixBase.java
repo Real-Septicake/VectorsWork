@@ -99,9 +99,13 @@ public abstract class MatrixBase implements Comparable<MatrixBase> {
 
     public abstract double[] getRowUnsafe(int row);
 
+    public abstract void fillRow(int row, double val);
+
     public abstract double[] getColSafe(int col);
 
     public abstract double[] getColUnsafe(int col);
+
+    public abstract void fillCol(int col, double val);
 
     /**
      * Adds the input value to every index of this {@code Matrix}
@@ -360,6 +364,15 @@ public abstract class MatrixBase implements Comparable<MatrixBase> {
             id.setUnsafe(i, i, 1);
         }
         return id;
+    }
+
+    public void copy(MatrixBase mb){
+        if(ROWS != mb.getRows() || COLS != mb.getCols()) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixCopySizeMismatch(this, mb));
+        for(int i = 0; i < ROWS; i++){
+            for(int j = 0; j < COLS; j++){
+                setUnsafe(i, j, getUnsafe(i, j));
+            }
+        }
     }
 
     /**

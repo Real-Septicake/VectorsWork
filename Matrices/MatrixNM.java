@@ -63,6 +63,13 @@ public class MatrixNM extends MatrixBase {
     }
 
     @Override
+    public void fillRow(int row, double val) {
+        for(int i = 0; i < getRows(); i++){
+            setUnsafe(row, i, val);
+        }
+    }
+
+    @Override
     public double[] getColSafe(int col) {
         boundsCheck(col, getCols(), ErrorMessages.MatrixErrors.WIDTH_OFFENSE);
         double[] vals = new double[getCols()];
@@ -76,6 +83,13 @@ public class MatrixNM extends MatrixBase {
     public double[] getColUnsafe(int col) {
         col = Math.min(col, getCols());
         return getColSafe(col);
+    }
+
+    @Override
+    public void fillCol(int col, double val) {
+        for(int i = 0; i < getCols(); i++){
+            setUnsafe(i, col, val);
+        }
     }
 
     public double[][] toDoubleMatrix() {
