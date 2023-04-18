@@ -64,7 +64,7 @@ public class MatrixTest {
         System.out.println("Matrix 2 sum: " + OpMatrices.sum(comp2));
         System.out.println("Compare: " + comp1.compareTo(comp2));
 
-        MatrixBase copied = MatrixBase.of(new double[][]{{12, 16, 4, 36, 4}, {345, 987, 341, 77777}});
+        MatrixBase copied = MatrixBase.of(new double[][]{{12, 16, 4, 36, 4}, {345, 987, 341, 77777, 0}});
         MatrixBase copy = MatrixBase.ofSize(2, 4);
         
     }
