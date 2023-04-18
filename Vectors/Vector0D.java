@@ -79,4 +79,9 @@ public class Vector0D extends VectorBase {
     public VectorBase divideCopy(double val) {
         throw new IllegalCallerException(ErrorMessages.VectorErrors.ILLEGAL_0D_METHOD_CALL);
     }
+
+    @Override
+    public VectorBase clone() {
+        return INSTANCE;
+    }
 }

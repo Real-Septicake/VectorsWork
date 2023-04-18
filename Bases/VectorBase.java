@@ -13,7 +13,7 @@ import java.util.Arrays;
  *
  * @author Septicake
  */
-public abstract class VectorBase implements Comparable<VectorBase> {
+public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
     /**
      * Max value that this {@code Vector}'s magnitude can be
      *
@@ -312,6 +312,9 @@ public abstract class VectorBase implements Comparable<VectorBase> {
             default -> new VectorND();
         };
     }
+
+    @Override
+    public abstract VectorBase clone();
 
     public String toString() {
         updateVals();

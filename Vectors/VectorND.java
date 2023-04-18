@@ -7,7 +7,7 @@ import Tools.OpVectors;
 
 public class VectorND extends VectorBase {
 
-    private double[] vals;
+    private final double[] vals;
 
     public VectorND(double... vals) {
         super(vals.length);
@@ -128,5 +128,10 @@ public class VectorND extends VectorBase {
         VectorBase copy = of(toDoubleArray());
         copy.divide(val);
         return copy;
+    }
+
+    @Override
+    public VectorBase clone() {
+        return create(this);
     }
 }

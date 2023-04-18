@@ -133,4 +133,9 @@ public class Vector1D extends VectorBase {
     public VectorBase getUnit(){
         return new Vector1D(1);
     }
+
+    @Override
+    public VectorBase clone() {
+        return new Vector1D(magnitude);
+    }
 }

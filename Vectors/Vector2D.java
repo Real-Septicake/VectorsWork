@@ -18,7 +18,6 @@ public class Vector2D extends VectorBase {
         this.y = y;
     }
 
-
     public Vector2D(double... values) {
         this();
         if (values.length != size())
@@ -159,5 +158,10 @@ public class Vector2D extends VectorBase {
         NaNCheck(val);
         x = val;
         y = val;
+    }
+
+    @Override
+    public VectorBase clone() {
+        return new Vector2D(x, y);
     }
 }

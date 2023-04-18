@@ -194,4 +194,9 @@ public class Vector3D extends VectorBase {
         y = val;
         z = val;
     }
+
+    @Override
+    public VectorBase clone() {
+        return new Vector3D(x, y, z);
+    }
 }
