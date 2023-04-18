@@ -109,4 +109,10 @@ public class ErrorMessages {
             return "Matrix of size " + offender.getRows() + "x" + offender.getCols() + " cannot be copied to Matrix of size " + offended.getRows() + "x" + offended.getCols();
         }
     }
+
+    public static class AugMatErrors{
+        public static String matrixSizeMismatch(MatrixBase m1, MatrixBase m2){
+            return "Cannot create Augmented Matrix from matrices of heights " + m1.getRows() + " and " + m2.getRows();
+        }
+    }
 }
