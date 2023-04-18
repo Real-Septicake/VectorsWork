@@ -37,7 +37,7 @@ public class AugMatNMO {
         if(row >= ROWS) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(ROWS, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
         if(col >= COLSTOTAL) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(COLSMAIN + COLSAUG, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
         if(col >= COLSMAIN){
-            col %= COLSMAIN;
+            col -= COLSMAIN;
             return augment.setSafe(row, col, val);
         }
         return main.setSafe(row, col, val);
@@ -47,6 +47,39 @@ public class AugMatNMO {
         row = Math.min(row, ROWS);
         col = Math.min(col, COLSTOTAL);
         return setSafe(row, col, val);
+    }
+
+    public double getSafe(int row, int col){
+        if(row >= ROWS) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(ROWS, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+        if(col >= COLSTOTAL) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(COLSMAIN + COLSAUG, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+        if(col >= COLSMAIN){
+            col -= COLSMAIN;
+            return augment.getSafe(row, col);
+        }
+        return main.getSafe(row, col);
+    }
+
+    public double getUnsafe(int row, int col){
+        row = Math.min(row, ROWS);
+        col = Math.min(col, COLSTOTAL);
+        return getSafe(row, col);
+    }
+
+    public double[] getRowSafe(int row){
+        if(row >= ROWS) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(ROWS, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+        double[] copy = new double[COLSTOTAL];
+        System.arraycopy(main.getRowSafe(row), 0, copy, 0, COLSMAIN);
+        System.arraycopy(augment.getRowSafe(row), 0, copy, COLSMAIN, COLSAUG);
+        return copy;
+    }
+
+    public double[] getColSafe(int col){
+        if(col >= COLSTOTAL) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(COLSMAIN + COLSAUG, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+        if(col >= COLSMAIN){
+            col -= COLSMAIN;
+            return augment.getColSafe(col);
+        }
+        return main.getColSafe(col);
     }
 
     public int getRows(){
