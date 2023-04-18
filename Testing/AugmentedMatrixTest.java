@@ -1,9 +1,16 @@
 package Testing;
 
-import Matrices.AugmentedMatrices.AugMatNMO;
+import Matrices.AugmentedMatrices.*;
+
+import java.util.Arrays;
 
 public class AugmentedMatrixTest {
+
     public static void main(String[] args){
-        System.out.println(new AugMatNMO(2, 1, 3));
+        AugMatNMO test = new AugMatNMO(2, 2, 3);
+        test.setSafe(0, 4, 10);
+        System.out.println(test);
+
+        System.out.println(Arrays.deepToString(test.toDoubleMatrix()));
     }
 }

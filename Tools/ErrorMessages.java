@@ -65,10 +65,18 @@ public class ErrorMessages {
             return "Matrix of width " + m1.getCols() + " cannot be multiplied by Matrix of height " + m2.getRows();
         }
 
-        public static String indexOutOfBounds(MatrixBase m, int offender, int offense){
+        public static String indexOutOfBounds(MatrixBase offended, int offender, int offense){
             return switch(offense) {
-                case HEIGHT_OFFENSE -> "Index " + offender + " is out of bounds for Matrix of height " + m.getRows();
-                case WIDTH_OFFENSE ->  "Index " + offender + " is out of bounds for Matrix of width " + m.getCols();
+                case HEIGHT_OFFENSE -> "Index " + offender + " is out of bounds for Matrix of height " + offended.getRows();
+                case WIDTH_OFFENSE ->  "Index " + offender + " is out of bounds for Matrix of width " + offended.getCols();
+                default -> throw new IllegalArgumentException(unknownOffense(offense));
+            };
+        }
+
+        public static String indexOutOfBounds(int offended, int offender, int offense){
+            return switch(offense) {
+                case HEIGHT_OFFENSE -> "Index " + offender + " is out of bounds for Matrix of height " + offended;
+                case WIDTH_OFFENSE -> "Index " + offender + " is out of bounds for Matrix of width " + offended;
                 default -> throw new IllegalArgumentException(unknownOffense(offense));
             };
         }
