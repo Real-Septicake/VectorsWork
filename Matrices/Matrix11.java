@@ -107,4 +107,9 @@ public class Matrix11 extends MatrixBase {
     public double[][] toDoubleMatrix(){
         return new double[][]{{value}};
     }
+
+    @Override
+    public MatrixBase clone() {
+        return new Matrix11(value);
+    }
 }

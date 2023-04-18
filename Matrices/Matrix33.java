@@ -218,4 +218,9 @@ public class Matrix33 extends MatrixBase {
     public double[][] toDoubleMatrix() {
         return new double[][]{{v00, v01, v02},{v10, v11, v12},{v20, v21, v22}};
     }
+
+    @Override
+    public MatrixBase clone() {
+        return new Matrix33(this);
+    }
 }

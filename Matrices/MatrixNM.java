@@ -5,7 +5,7 @@ import Tools.ErrorMessages;
 import Tools.OpMatrices;
 
 public class MatrixNM extends MatrixBase {
-    private double[][] data;
+    private final double[][] data;
 
     public MatrixNM(int rows, int cols){
         super(rows, cols);
@@ -99,5 +99,10 @@ public class MatrixNM extends MatrixBase {
             clone[i] = data[i].clone();
         }
         return clone;
+    }
+
+    @Override
+    public MatrixBase clone() {
+        return new MatrixNM(this);
     }
 }

@@ -167,4 +167,9 @@ public class Matrix22 extends MatrixBase {
     public double[][] toDoubleMatrix() {
         return new double[][]{{v00, v01}, {v10, v11}};
     }
+
+    @Override
+    public MatrixBase clone() {
+        return new Matrix22(this);
+    }
 }

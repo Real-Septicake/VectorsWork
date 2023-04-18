@@ -17,7 +17,7 @@ import java.util.Arrays;
  *
  * @author Septicake
  */
-public abstract class MatrixBase implements Comparable<MatrixBase> {
+public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
     private final int COLS;
     private final int ROWS;
 
@@ -435,6 +435,9 @@ public abstract class MatrixBase implements Comparable<MatrixBase> {
      * @return a double matrix with the same values as this {@code Matrix}
      */
     public abstract double[][] toDoubleMatrix();
+
+    @Override
+    public abstract MatrixBase clone();
 
     @Override
     public int compareTo(MatrixBase mb){
