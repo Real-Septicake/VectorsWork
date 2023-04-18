@@ -52,10 +52,16 @@ public abstract class MatrixBase implements Comparable<MatrixBase> {
     }
 
     protected void boundsCheck(int i, int  size, int offense){
-        switch(offense){
-            case 0: if(i >= size || i < 0) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, i, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
-            case 1: if(i >= size || i < 0) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, i, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
-            default: throw new IllegalArgumentException(ErrorMessages.unknownOffense(offense));
+        switch (offense) {
+            case 0 -> {
+                if (i >= size || i < 0)
+                    throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, i, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+            }
+            case 1 -> {
+                if (i >= size || i < 0)
+                    throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, i, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+            }
+            default -> throw new IllegalArgumentException(ErrorMessages.unknownOffense(offense));
         }
     }
 
