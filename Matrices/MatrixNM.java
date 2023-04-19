@@ -72,8 +72,8 @@ public class MatrixNM extends MatrixBase {
     @Override
     public double[] getColSafe(int col) {
         boundsCheck(col, getCols(), ErrorMessages.MatrixErrors.WIDTH_OFFENSE);
-        double[] vals = new double[getCols()];
-        for(int i = 0; i < getCols(); i++){
+        double[] vals = new double[getRows()];
+        for(int i = 0; i < getRows(); i++){
             vals[i] = data[i][col];
         }
         return vals;
