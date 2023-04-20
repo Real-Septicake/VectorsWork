@@ -20,7 +20,12 @@ public class AugmentedMatrixTest {
         System.out.println("\nGet Row:");
         System.out.println(Arrays.toString(test.getRowSafe(0)));
 
-        System.out.println("\nGet Column");
+        System.out.println("\nGet Column:");
         System.out.println(Arrays.toString(test.getColSafe(4)));
+
+        System.out.println("\nRow Addition:");
+        System.out.println("Before: " + test);
+        test.addRows(0, 1);
+        System.out.println("After: " + test);
     }
 }

@@ -114,5 +114,9 @@ public class ErrorMessages {
         public static String matrixSizeMismatch(MatrixBase m1, MatrixBase m2){
             return "Cannot create Augmented Matrix from matrices of heights " + m1.getRows() + " and " + m2.getRows();
         }
+
+        public static String arraySizeMismatch(double[] a, int length){
+            return "Cannot multiply row of length " + length + " by array of length " + a.length;
+        }
     }
 }

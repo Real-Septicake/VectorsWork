@@ -34,8 +34,8 @@ public class AugMatNMO {
     }
 
     public boolean setSafe(int row, int col, double val){
-        if(row >= ROWS) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(ROWS, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
-        if(col >= COLSTOTAL) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(COLSMAIN + COLSAUG, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+        boundHigh(row);
+        boundWide(col);
         if(col >= COLSMAIN){
             col -= COLSMAIN;
             return augment.setSafe(row, col, val);
@@ -50,13 +50,45 @@ public class AugMatNMO {
     }
 
     public double getSafe(int row, int col){
-        if(row >= ROWS) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(ROWS, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
-        if(col >= COLSTOTAL) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(COLSMAIN + COLSAUG, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+        boundHigh(row);
+        boundWide(col);
         if(col >= COLSMAIN){
             col -= COLSMAIN;
             return augment.getSafe(row, col);
         }
         return main.getSafe(row, col);
+    }
+
+    public void addRows(int row1, int row2){
+        boundHigh(row1);
+        boundHigh(row2);
+        for(int i = 0; i < COLSTOTAL; i++){
+            setUnsafe(row2, i, getUnsafe(row2, i) + getUnsafe(row1, i));
+        }
+    }
+
+    public void addRows(double[] row1, int row2){
+        arraySize(row1);
+        boundHigh(row2);
+        for(int i = 0; i < COLSTOTAL; i++) {
+            setUnsafe(row2, i, getSafe(row2, i) + row1[i]);
+        }
+    }
+
+    public void multiplyRow(int row, double val){
+        boundHigh(row);
+        for(int i = 0; i < COLSTOTAL; i++){
+            setUnsafe(row, i, getUnsafe(row, i) * val);
+        }
+    }
+
+    public double[] falseMultiplyRow(int row, double val){
+        boundHigh(row);
+        double[] copy = getRowSafe(row);
+        for(int i = 0; i < COLSTOTAL; i++){
+            copy[i] *= val;
+        }
+        return copy;
     }
 
     public double getUnsafe(int row, int col){
@@ -66,20 +98,30 @@ public class AugMatNMO {
     }
 
     public double[] getRowSafe(int row){
-        if(row >= ROWS) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(ROWS, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+        boundHigh(row);
         double[] copy = new double[COLSTOTAL];
         System.arraycopy(main.getRowSafe(row), 0, copy, 0, COLSMAIN);
         System.arraycopy(augment.getRowSafe(row), 0, copy, COLSMAIN, COLSAUG);
         return copy;
     }
 
+    public double[] getRowUnsafe(int row){
+        row = Math.min(row, ROWS);
+        return getRowSafe(row);
+    }
+
     public double[] getColSafe(int col){
-        if(col >= COLSTOTAL) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(COLSMAIN + COLSAUG, col, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+        boundWide(col);
         if(col >= COLSMAIN){
             col -= COLSMAIN;
             return augment.getColSafe(col);
         }
         return main.getColSafe(col);
+    }
+
+    public double[] getColUnsafe(int col){
+        col = Math.min(col, getCols());
+        return getColSafe(col);
     }
 
     public int getRows(){
@@ -104,6 +146,18 @@ public class AugMatNMO {
 
     public double[][] augToDoubleMatrix(){
         return augment.toDoubleMatrix();
+    }
+
+    public void boundWide(int check){
+        if(check >= COLSTOTAL) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(COLSMAIN + COLSAUG, check, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+    }
+
+    public void boundHigh(int check){
+        if(check >= ROWS) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(ROWS, check, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+    }
+
+    public void arraySize(double[] a){
+        if(a.length != COLSTOTAL) throw new IllegalArgumentException(ErrorMessages.AugMatErrors.arraySizeMismatch(a, COLSTOTAL));
     }
 
     public double[][] toDoubleMatrix(){
