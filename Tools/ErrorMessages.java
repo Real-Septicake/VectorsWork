@@ -111,7 +111,7 @@ public class ErrorMessages {
     }
 
     public static class AugMatErrors{
-        public static String matrixSizeMismatch(MatrixBase m1, MatrixBase m2){
+        public static String matricesSizeMismatch(MatrixBase m1, MatrixBase m2){
             return "Cannot create Augmented Matrix from matrices of heights " + m1.getRows() + " and " + m2.getRows();
         }
 
