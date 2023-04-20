@@ -24,7 +24,7 @@ public class AugMatNMO {
     }
 
     public AugMatNMO(MatrixBase main, MatrixBase aug){
-        if(main.getRows() != aug.getRows()) throw new IllegalArgumentException(ErrorMessages.AugMatErrors.matrixSizeMismatch(main, aug));
+        if(main.getRows() != aug.getRows()) throw new IllegalArgumentException(ErrorMessages.AugMatErrors.matricesSizeMismatch(main, aug));
         ROWS = main.getRows();
         COLSMAIN = main.getCols();
         COLSAUG = aug.getCols();
@@ -142,6 +142,14 @@ public class AugMatNMO {
 
     public double[][] mainToDoubleMatrix(){
         return main.toDoubleMatrix();
+    }
+
+    public MatrixBase getMainClone(){
+        return main.clone();
+    }
+
+    public MatrixBase getAugClone(){
+        return augment.clone();
     }
 
     public double[][] augToDoubleMatrix(){
