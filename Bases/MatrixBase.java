@@ -84,6 +84,8 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
      */
     public abstract boolean setUnsafe(int row, int col, double val);
 
+    public abstract void setRow(int row, VectorBase v);
+
     /**
      * Gets the value at the intersection of the specified row and column
      * @param row Row of the desired value
@@ -101,9 +103,15 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
      */
     public abstract double getUnsafe(int row, int col);
 
+    public abstract VectorBase[] toVectorArray();
+
     public abstract double[] getRowSafe(int row);
 
     public abstract double[] getRowUnsafe(int row);
+
+    public VectorBase getRowVector(int row) {
+        return VectorBase.of(getRowSafe(row));
+    }
 
     public abstract void fillRow(int row, double val);
 
@@ -124,6 +132,8 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
             }
         }
     }
+
+    public abstract void addRows(int row1, int row2);
 
     /**
      * Similar to {@link Bases.MatrixBase#add(double)}, but returns a copy of this {@code Matrix}, leaving the original unchanged
@@ -372,7 +382,7 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
         return id;
     }
 
-    public void copy(MatrixBase mb){
+    public void copyVals(MatrixBase mb){
         if(ROWS != mb.getRows() || COLS != mb.getCols()) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixCopySizeMismatch(this, mb));
         for(int i = 0; i < ROWS; i++){
             for(int j = 0; j < COLS; j++){
@@ -413,6 +423,14 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
         }else{
             return new MatrixNM(vals);
         }
+    }
+
+    public static MatrixBase of(VectorBase... vals){
+        double[][] copy = new double[vals.length][];
+        for(int i = 0; i < vals.length; i++){
+            copy[i] = vals[i].toDoubleArray();
+        }
+        return of(copy);
     }
 
     protected void boundsCheck(int row, int col) {

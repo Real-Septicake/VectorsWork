@@ -17,7 +17,7 @@ public class Vector0D extends VectorBase {
     }
 
     @Override
-    public double unsafeGet(int i) {
+    public double getUnsafe(int i) {
         throw new IllegalCallerException(ErrorMessages.VectorErrors.ILLEGAL_0D_METHOD_CALL);
     }
 
@@ -27,7 +27,7 @@ public class Vector0D extends VectorBase {
     }
 
     @Override
-    public boolean unsafeSet(int i, double val) throws IllegalArgumentException {
+    public boolean setUnsafe(int i, double val) throws IllegalArgumentException {
         throw new IllegalCallerException(ErrorMessages.VectorErrors.ILLEGAL_0D_METHOD_CALL);
     }
 
@@ -46,6 +46,13 @@ public class Vector0D extends VectorBase {
     }
 
     @Override
+    public void add(VectorBase source) {
+        if(!(source instanceof Vector0D)){
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(INSTANCE, source));
+        }
+    }
+
+    @Override
     public VectorBase addCopy(double val) {
         throw new IllegalCallerException(ErrorMessages.VectorErrors.ILLEGAL_0D_METHOD_CALL);
     }
@@ -53,6 +60,13 @@ public class Vector0D extends VectorBase {
     @Override
     public void subtract(double val) {
         throw new IllegalCallerException(ErrorMessages.VectorErrors.ILLEGAL_0D_METHOD_CALL);
+    }
+
+    @Override
+    public void subtract(VectorBase source) {
+        if(!(source instanceof Vector0D)){
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(INSTANCE, source));
+        }
     }
 
     @Override
@@ -66,6 +80,13 @@ public class Vector0D extends VectorBase {
     }
 
     @Override
+    public void multiply(VectorBase source) {
+        if(!(source instanceof Vector0D)){
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(INSTANCE, source));
+        }
+    }
+
+    @Override
     public VectorBase multiplyCopy(double val) {
         throw new IllegalCallerException(ErrorMessages.VectorErrors.ILLEGAL_0D_METHOD_CALL);
     }
@@ -73,6 +94,13 @@ public class Vector0D extends VectorBase {
     @Override
     public void divide(double val) {
         throw new IllegalCallerException(ErrorMessages.VectorErrors.ILLEGAL_0D_METHOD_CALL);
+    }
+
+    @Override
+    public void divide(VectorBase source) {
+        if(!(source instanceof Vector0D)){
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(INSTANCE, source));
+        }
     }
 
     @Override

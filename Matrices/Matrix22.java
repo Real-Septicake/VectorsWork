@@ -1,7 +1,9 @@
 package Matrices;
 
 import Bases.MatrixBase;
+import Bases.VectorBase;
 import Tools.ErrorMessages;
+import Vectors.Vector2D;
 
 public class Matrix22 extends MatrixBase {
     private double v00, v01,
@@ -62,6 +64,18 @@ public class Matrix22 extends MatrixBase {
     }
 
     @Override
+    public void setRow(int row, VectorBase v) {
+        boundsCheck(row, getRows(), ErrorMessages.MatrixErrors.HEIGHT_OFFENSE);
+        if(v instanceof Vector2D){
+            for(int i = 0; i < v.size(); i++){
+                setUnsafe(row, i, v.getUnsafe(i));
+            }
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.vectorSizeMismatch(this, v));
+        }
+    }
+
+    @Override
     public double getSafe(int row, int col) throws IndexOutOfBoundsException {
         boundsCheck(row, col);
         switch (row) {
@@ -88,6 +102,11 @@ public class Matrix22 extends MatrixBase {
         row = Math.min(row, getRows());
         col = Math.min(col, getCols());
         return getSafe(row, col);
+    }
+
+    @Override
+    public VectorBase[] toVectorArray() {
+        return new VectorBase[]{VectorBase.of(v00, v01), VectorBase.of(v10, v11)};
     }
 
     @Override
@@ -149,12 +168,17 @@ public class Matrix22 extends MatrixBase {
     }
 
     @Override
+    public void addRows(int row1, int row2) {
+
+    }
+
+    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
     }
 
     @Override
-    public void copy(MatrixBase mb){
+    public void copyVals(MatrixBase mb){
         if(mb instanceof Matrix22){
             v00 = mb.getUnsafe(0, 0); v10 = mb.getUnsafe(1, 0);
             v01 = mb.getUnsafe(0, 1); v11 = mb.getUnsafe(1, 1);

@@ -34,7 +34,7 @@ public class Vector3D extends VectorBase {
     public static Vector3D create(VectorBase source) {
         if (source.size() != 3)
             throw new IllegalArgumentException(ErrorMessages.VectorErrors.sourceVectorTypeMismatch(new Vector3D(), source));
-        return new Vector3D(source.unsafeGet(0), source.unsafeGet(1), source.unsafeGet(2));
+        return new Vector3D(source.getUnsafe(0), source.getUnsafe(1), source.getUnsafe(2));
     }
 
     /**
@@ -68,7 +68,7 @@ public class Vector3D extends VectorBase {
      * {@inheritDoc}
      */
     @Override
-    public double unsafeGet(int i) {
+    public double getUnsafe(int i) {
         return switch (i) {
             case 0 -> x;
             case 1 -> y;
@@ -104,7 +104,7 @@ public class Vector3D extends VectorBase {
      * {@inheritDoc}
      */
     @Override
-    public boolean unsafeSet(int i, double val) {
+    public boolean setUnsafe(int i, double val) {
         if (Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.VectorErrors.NAN_INPUT);
         switch (i) {
             case 0 -> {
@@ -141,50 +141,94 @@ public class Vector3D extends VectorBase {
 
     @Override
     public void add(double val) {
-        x += val;
-        y += val;
-        z += val;
+        x = round(x + val);
+        y = round(y + val);
+        z = round(z + val);
+    }
+
+    @Override
+    public void add(VectorBase source) {
+        if(source instanceof Vector3D){
+            x = round(x + source.getUnsafe(0));
+            y = round(y + source.getUnsafe(1));
+            z = round(z + source.getUnsafe(2));
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
+        }
     }
 
     @Override
     public VectorBase addCopy(double val) {
-        return new Vector3D(x + val, y + val, z + val);
+        return new Vector3D(round(x + val), round(y + val), round(z + val));
     }
 
     @Override
     public void subtract(double val) {
-        x -= val;
-        y -= val;
-        z -= val;
+        x = round(x - val);
+        y = round(y - val);
+        z = round(z - val);
+    }
+
+    @Override
+    public void subtract(VectorBase source) {
+        if(source instanceof Vector3D){
+            x = round(x - source.getUnsafe(0));
+            y = round(y - source.getUnsafe(1));
+            z = round(z - source.getUnsafe(2));
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
+        }
     }
 
     @Override
     public VectorBase subtractCopy(double val) {
-        return new Vector3D(x - val, y - val, z - val);
+        return new Vector3D(round(x - val), round(y - val), round(z - val));
     }
 
     @Override
     public void multiply(double val) {
-        x *= val;
-        y *= val;
-        z *= val;
+        x = round(x * val);
+        y = round(y * val);
+        z = round(z * val);
+    }
+
+    @Override
+    public void multiply(VectorBase source) {
+        if(source instanceof Vector3D){
+            x = round(x * source.getUnsafe(0));
+            y = round(y * source.getUnsafe(1));
+            z = round(z * source.getUnsafe(2));
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
+        }
     }
 
     @Override
     public VectorBase multiplyCopy(double val) {
-        return new Vector3D(x * val, y * val, z * val);
+        return new Vector3D(round(x * val), round(y * val), round(z * val));
     }
 
     @Override
     public void divide(double val) {
-        x /= val;
-        y /= val;
-        z /= val;
+        x = round(x / val);
+        y = round(y / val);
+        z = round(z / val);
+    }
+
+    @Override
+    public void divide(VectorBase source) {
+        if(source instanceof Vector3D){
+            x = round(x / source.getUnsafe(0));
+            y = round(y / source.getUnsafe(1));
+            z = round(z / source.getUnsafe(2));
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
+        }
     }
 
     @Override
     public VectorBase divideCopy(double val) {
-        return new Vector3D(x / val, y / val, z / val);
+        return new Vector3D(round(x / val), round(y / val), round(z / val));
     }
 
     @Override

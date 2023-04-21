@@ -28,6 +28,8 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
      */
     private final int size;
 
+    private final int ROUND = 14;
+
     protected VectorBase(int size) {
         this.size = size;
     }
@@ -63,7 +65,7 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
      * @return The value at the specified index, or the value at the last index if the specified index is greater than the
      * {@code Vector}'s size
      */
-    public abstract double unsafeGet(int i);
+    public abstract double getUnsafe(int i);
 
     /**
      * Sets the value held at a specified index by the {@code Vector} to a specified value
@@ -85,7 +87,7 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
      * @return Whether the index was successfully set
      * @throws IllegalArgumentException If the input value is NaN
      */
-    public abstract boolean unsafeSet(int i, double val) throws IllegalArgumentException;
+    public abstract boolean setUnsafe(int i, double val) throws IllegalArgumentException;
 
     /**
      * Called to check if the {@code Vector} has a maximum magnitude, and if so, alter the values to keep it within the
@@ -130,6 +132,8 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
      */
     public abstract void add(double val);
 
+    public abstract void add(VectorBase source);
+
     /**
      * Adds the input value to every value in a copy of the {@code Vector}
      * @param val The value to add to the values
@@ -156,7 +160,7 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
      */
     public void addMultipleUnsafe(double val, int... indices) {
         for (int i : indices) {
-            unsafeSet(i, unsafeGet(i) + val);
+            setUnsafe(i, getUnsafe(i) + val);
         }
     }
 
@@ -165,6 +169,8 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
      * @param val The value to subtract from the values
      */
     public abstract void subtract(double val);
+
+    public abstract void subtract(VectorBase source);
 
     /**
      * Subtracts the input value from every value in a copy of the {@code Vector}
@@ -192,7 +198,7 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
      */
     public void subtractMultipleUnsafe(double val, int... indices) {
         for (int i : indices) {
-            unsafeSet(i, unsafeGet(i) - val);
+            setUnsafe(i, getUnsafe(i) - val);
         }
     }
 
@@ -201,6 +207,8 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
      * @param val The value to multiply the values by
      */
     public abstract void multiply(double val);
+
+    public abstract void multiply(VectorBase source);
 
     /**
      * Multiplies every value in a copy of the {@code Vector} by the input value
@@ -228,7 +236,7 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
      */
     public void multiplyMultipleUnsafe(double val, int... indices) {
         for (int i : indices) {
-            unsafeSet(i, unsafeGet(i) * val);
+            setUnsafe(i, getUnsafe(i) * val);
         }
     }
 
@@ -237,6 +245,8 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
      * @param val The value to divide the values by
      */
     public abstract void divide(double val);
+
+    public abstract void divide(VectorBase source);
 
     /**
      * Multiplies every value in a copy of the {@code Vector} by the input value
@@ -264,7 +274,7 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
      */
     public void divideMultipleUnsafe(double val, int... indices) {
         for (int i : indices) {
-            unsafeSet(i, unsafeGet(i) / val);
+            setUnsafe(i, getUnsafe(i) / val);
         }
     }
 
@@ -285,6 +295,10 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
         unit.setMax(1);
         unit.updateVals();
         return unit;
+    }
+
+    protected double round(double val){
+        return OpMain.roundToDecimalCount(val, ROUND);
     }
 
     /**

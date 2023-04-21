@@ -1,7 +1,9 @@
 package Matrices;
 
 import Bases.MatrixBase;
+import Bases.VectorBase;
 import Tools.ErrorMessages;
+import Vectors.Vector3D;
 
 public class Matrix33 extends MatrixBase {
 
@@ -102,6 +104,18 @@ public class Matrix33 extends MatrixBase {
     }
 
     @Override
+    public void setRow(int row, VectorBase v) {
+        boundsCheck(row, getRows(), ErrorMessages.MatrixErrors.HEIGHT_OFFENSE);
+        if(v instanceof Vector3D){
+            for (int i = 0; i < v.size(); i++) {
+                setUnsafe(row, i, v.getUnsafe(i));
+            }
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.vectorSizeMismatch(this, v));
+        }
+    }
+
+    @Override
     public double getSafe(int row, int col) throws IndexOutOfBoundsException {
         boundsCheck(row, col);
         switch (row) {
@@ -141,6 +155,11 @@ public class Matrix33 extends MatrixBase {
     }
 
     @Override
+    public VectorBase[] toVectorArray() {
+        return new VectorBase[]{VectorBase.of(v00, v01, v02), VectorBase.of(v10, v11, v12), VectorBase.of(v20, v21, v22)};
+    }
+
+    @Override
     public double[] getRowSafe(int row) {
         boundsCheck(row, getRows(), ErrorMessages.MatrixErrors.HEIGHT_OFFENSE);
         return switch (row) {
@@ -153,7 +172,7 @@ public class Matrix33 extends MatrixBase {
 
     @Override
     public double[] getRowUnsafe(int row) {
-        return switch(row){
+        return switch (row) {
             case 0 -> new double[]{v00, v01, v02};
             case 1 -> new double[]{v10, v11, v12};
             default -> new double[]{v20, v21, v22};
@@ -199,12 +218,17 @@ public class Matrix33 extends MatrixBase {
     }
 
     @Override
+    public void addRows(int row1, int row2) {
+
+    }
+
+    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
     }
 
     @Override
-    public void copy(MatrixBase mb){
+    public void copyVals(MatrixBase mb){
         if(mb instanceof Matrix33){
             v00 = mb.getUnsafe(0, 0); v01 = mb.getUnsafe(0, 1); v02 = mb.getUnsafe(0, 2);
             v10 = mb.getUnsafe(1, 0); v11 = mb.getUnsafe(1, 1); v12 = mb.getUnsafe(1, 2);

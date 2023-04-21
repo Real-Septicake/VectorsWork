@@ -53,7 +53,7 @@ public class Vector2D extends VectorBase {
      * {@inheritDoc}
      */
     @Override
-    public double unsafeGet(int i) {
+    public double getUnsafe(int i) {
         return (i == 0) ? x : y;
     }
 
@@ -81,7 +81,7 @@ public class Vector2D extends VectorBase {
      * {@inheritDoc}
      */
     @Override
-    public boolean unsafeSet(int i, double val) {
+    public boolean setUnsafe(int i, double val) {
         if (Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.VectorErrors.NAN_INPUT);
         if (i == 0) {
             x = val;
@@ -111,46 +111,86 @@ public class Vector2D extends VectorBase {
 
     @Override
     public void add(double val) {
-        x += val;
-        y += val;
+        x = round(x + val);
+        y = round(y + val);
+    }
+
+    @Override
+    public void add(VectorBase source) {
+        if(source instanceof Vector2D){
+            x = round(x + source.getUnsafe(0));
+            y = round(y + source.getUnsafe(1));
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
+        }
     }
 
     @Override
     public VectorBase addCopy(double val) {
-        return new Vector2D(x + val, y + val);
+        return new Vector2D(round(x + val), round(y + val));
     }
 
     @Override
     public void subtract(double val) {
-        x -= val;
-        y -= val;
+        x = round(x - val);
+        y = round(y - val);
+    }
+
+    @Override
+    public void subtract(VectorBase source) {
+        if(source instanceof Vector2D){
+            x = round(x - source.getUnsafe(0));
+            y = round(y - source.getUnsafe(1));
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
+        }
     }
 
     @Override
     public VectorBase subtractCopy(double val) {
-        return new Vector2D(x - val, y - val);
+        return new Vector2D(round(x - val), round(y - val));
     }
 
     @Override
     public void multiply(double val) {
-        x *= val;
-        y *= val;
+        x = round(x * val);
+        y = round(y * val);
+    }
+
+    @Override
+    public void multiply(VectorBase source) {
+        if(source instanceof Vector2D){
+            x = round(x * source.getUnsafe(0));
+            y = round(y * source.getUnsafe(1));
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
+        }
     }
 
     @Override
     public VectorBase multiplyCopy(double val) {
-        return new Vector2D(x * val, y * val);
+        return new Vector2D(round(x * val), round(y * val));
     }
 
     @Override
     public void divide(double val) {
-        x /= val;
-        y /= val;
+        x = round(x / val);
+        y = round(y / val);
+    }
+
+    @Override
+    public void divide(VectorBase source) {
+        if(source instanceof Vector2D){
+            x = round(x / source.getUnsafe(0));
+            y = round(y / source.getUnsafe(1));
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
+        }
     }
 
     @Override
     public VectorBase divideCopy(double val) {
-        return new Vector2D(x / val, y / val);
+        return new Vector2D(round(x / val), round(y / val));
     }
 
     @Override

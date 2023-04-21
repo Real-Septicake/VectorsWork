@@ -1,6 +1,7 @@
 package Matrices.AugmentedMatrices;
 
 import Bases.MatrixBase;
+import Bases.VectorBase;
 import Tools.ErrorMessages;
 
 import java.util.Arrays;
@@ -62,17 +63,19 @@ public class AugMatNMO {
     public void addRows(int row1, int row2){
         boundHigh(row1);
         boundHigh(row2);
-        for(int i = 0; i < COLSTOTAL; i++){
-            setUnsafe(row2, i, getUnsafe(row2, i) + getUnsafe(row1, i));
-        }
+        main.toVectorArray()[row2].add(row1);
     }
 
-    public void addRows(double[] row1, int row2){
-        arraySize(row1);
+    public void addRows(VectorBase[] row1, int row2){
+        vectorSize(row1[0].size() + row1[1].size());
         boundHigh(row2);
-        for(int i = 0; i < COLSTOTAL; i++) {
-            setUnsafe(row2, i, getSafe(row2, i) + row1[i]);
-        }
+        VectorBase copyMain = VectorBase.of(main.getRowSafe(row2));
+        copyMain.add(row1[0]);
+        main.setRow(row2, copyMain);
+
+        VectorBase copyAug = VectorBase.of(augment.getRowSafe(row2));
+        copyAug.add(row1[1]);
+        augment.setRow(row2, copyAug);
     }
 
     public void multiplyRow(int row, double val){
@@ -82,13 +85,15 @@ public class AugMatNMO {
         }
     }
 
-    public double[] falseMultiplyRow(int row, double val){
+    public VectorBase[] falseMultiplyRow(int row, double val){
         boundHigh(row);
-        double[] copy = getRowSafe(row);
-        for(int i = 0; i < COLSTOTAL; i++){
-            copy[i] *= val;
-        }
-        return copy;
+        VectorBase copyMain = main.getRowVector(row);
+        copyMain.multiply(val);
+
+        VectorBase copyAug = augment.getRowVector(row);
+        copyAug.multiply(val);
+
+        return new VectorBase[]{copyMain, copyAug};
     }
 
     public double getUnsafe(int row, int col){
@@ -164,8 +169,8 @@ public class AugMatNMO {
         if(check >= ROWS) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(ROWS, check, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
     }
 
-    public void arraySize(double[] a){
-        if(a.length != COLSTOTAL) throw new IllegalArgumentException(ErrorMessages.AugMatErrors.arraySizeMismatch(a, COLSTOTAL));
+    public void vectorSize(int a){
+        if(a != COLSTOTAL) throw new IllegalArgumentException(ErrorMessages.AugMatErrors.arraySizeMismatch(a, COLSTOTAL));
     }
 
     public double[][] toDoubleMatrix(){

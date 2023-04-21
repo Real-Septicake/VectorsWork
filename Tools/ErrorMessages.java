@@ -105,6 +105,10 @@ public class ErrorMessages {
             };
         }
 
+        public static String vectorSizeMismatch(MatrixBase offended, VectorBase offender){
+            return "Vector of length " + offender.size() + " cannot be copied to Matrix of width " + offended.getCols();
+        }
+
         public static String matrixCopySizeMismatch(MatrixBase offended, MatrixBase offender){
             return "Matrix of size " + offender.getRows() + "x" + offender.getCols() + " cannot be copied to Matrix of size " + offended.getRows() + "x" + offended.getCols();
         }
@@ -115,8 +119,8 @@ public class ErrorMessages {
             return "Cannot create Augmented Matrix from matrices of heights " + m1.getRows() + " and " + m2.getRows();
         }
 
-        public static String arraySizeMismatch(double[] a, int length){
-            return "Cannot multiply row of length " + length + " by array of length " + a.length;
+        public static String arraySizeMismatch(int a, int length){
+            return "Row of length " + length + " not compatible with array of length " + a;
         }
     }
 }

@@ -1,7 +1,9 @@
 package Matrices;
 
 import Bases.MatrixBase;
+import Bases.VectorBase;
 import Tools.ErrorMessages;
+import Vectors.Vector1D;
 
 public class Matrix11 extends MatrixBase {
     private double value;
@@ -47,6 +49,16 @@ public class Matrix11 extends MatrixBase {
     }
 
     @Override
+    public void setRow(int row, VectorBase v) {
+        boundsCheck(row, getRows(), ErrorMessages.MatrixErrors.HEIGHT_OFFENSE);
+        if(v instanceof Vector1D){
+            value = v.get(0);
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.vectorSizeMismatch(this, v));
+        }
+    }
+
+    @Override
     public double getSafe(int row, int col) throws IndexOutOfBoundsException {
         boundsCheck(row, col);
         return value;
@@ -55,6 +67,11 @@ public class Matrix11 extends MatrixBase {
     @Override
     public double getUnsafe(int row, int col) {
         return value;
+    }
+
+    @Override
+    public VectorBase[] toVectorArray() {
+        return new VectorBase[]{VectorBase.of(value)};
     }
 
     @Override
@@ -90,12 +107,17 @@ public class Matrix11 extends MatrixBase {
     }
 
     @Override
+    public void addRows(int row1, int row2) {
+
+    }
+
+    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
     }
 
     @Override
-    public void copy(MatrixBase mb){
+    public void copyVals(MatrixBase mb){
         if(mb instanceof Matrix11){
             value = getUnsafe(1, 1);
         }else{

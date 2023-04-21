@@ -29,6 +29,11 @@ public class Vector1D extends VectorBase {
         return new Vector1D(source.toDoubleArray());
     }
 
+    @Override
+    public double getMagnitude() {
+        return magnitude;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -42,7 +47,7 @@ public class Vector1D extends VectorBase {
      * {@inheritDoc}
      */
     @Override
-    public double unsafeGet(int i) {
+    public double getUnsafe(int i) {
         return magnitude;
     }
 
@@ -61,7 +66,7 @@ public class Vector1D extends VectorBase {
      * {@inheritDoc}
      */
     @Override
-    public boolean unsafeSet(int i, double val) {
+    public boolean setUnsafe(int i, double val) {
         if (Double.isNaN(val)) throw new IllegalArgumentException(ErrorMessages.VectorErrors.NAN_INPUT);
         magnitude = val;
         return magnitude == val;
@@ -85,42 +90,78 @@ public class Vector1D extends VectorBase {
 
     @Override
     public void add(double val) {
-        magnitude += val;
+        magnitude = round(magnitude + val);
+    }
+
+    @Override
+    public void add(VectorBase source) {
+        if(source instanceof Vector1D){
+            magnitude = round(magnitude + source.getMagnitude());
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
+        }
     }
 
     @Override
     public VectorBase addCopy(double val) {
-        return new Vector1D(magnitude + val);
+        return new Vector1D(round(magnitude + val));
     }
 
     @Override
     public void subtract(double val) {
-        magnitude -= val;
+        magnitude = round(magnitude - val);
+    }
+
+    @Override
+    public void subtract(VectorBase source) {
+        if(source instanceof Vector1D){
+            magnitude = round(magnitude - source.getMagnitude());
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
+        }
     }
 
     @Override
     public VectorBase subtractCopy(double val) {
-        return new Vector1D(magnitude - val);
+        return new Vector1D(round(magnitude - val));
     }
 
     @Override
     public void multiply(double val) {
-        magnitude *= val;
+        magnitude = round(magnitude * val);
+    }
+
+    @Override
+    public void multiply(VectorBase source) {
+        if(source instanceof Vector1D){
+            magnitude = round(magnitude * source.getMagnitude());
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
+        }
     }
 
     @Override
     public VectorBase multiplyCopy(double val) {
-        return new Vector1D(magnitude * val);
+        return new Vector1D(round(magnitude * val));
     }
 
     @Override
     public void divide(double val) {
-        magnitude /= val;
+        magnitude = round(magnitude / val);
+    }
+
+    @Override
+    public void divide(VectorBase source) {
+        if(source instanceof Vector1D){
+            magnitude = round(magnitude / source.getMagnitude());
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
+        }
     }
 
     @Override
     public VectorBase divideCopy(double val) {
-        return new Vector1D(magnitude / val);
+        return new Vector1D(round(magnitude / val));
     }
 
     @Override

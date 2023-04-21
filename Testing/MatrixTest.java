@@ -7,6 +7,8 @@ import java.util.Arrays;
 
 public class MatrixTest {
     public static void main(String[] args) {
+        double first = System.currentTimeMillis();
+
         MatrixBase m = MatrixBase.of(new double[][]{{16, 3, 7, 0, 12}, {0, 0, 0, 0, 0}});
         System.out.println("toString Test: \n" + m + "\nRows: " + m.getRows() + "\nColumns: " + m.getCols());
 
@@ -66,6 +68,8 @@ public class MatrixTest {
 
         MatrixBase copied = MatrixBase.of(new double[][]{{12, 16, 4, 36, 4}, {345, 987, 341, 77777, 0}});
         MatrixBase copy = MatrixBase.ofSize(2, 4);
-        
+
+        double second = System.currentTimeMillis();
+        System.out.println(second - first);
     }
 }
