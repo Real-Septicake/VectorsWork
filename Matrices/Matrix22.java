@@ -168,11 +168,6 @@ public class Matrix22 extends MatrixBase {
     }
 
     @Override
-    public void addRows(int row1, int row2) {
-
-    }
-
-    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
     }

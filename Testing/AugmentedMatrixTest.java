@@ -36,7 +36,7 @@ public class AugmentedMatrixTest {
         test.multiplyRow(0, val);
         System.out.println("Row After: " + Arrays.toString(test.getRowSafe(0)));
 
-        double mult = 1.0/2.0;
+        double mult = 1.0/3.0;
         System.out.println("\nFalse Multiply then Add");
         System.out.println("Row Before: " + Arrays.toString(test.getRowSafe(1)));
         System.out.println("Added Row Before Multiply: " + Arrays.toString(test.getRowSafe(0)));

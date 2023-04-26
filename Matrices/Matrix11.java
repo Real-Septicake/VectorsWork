@@ -108,7 +108,9 @@ public class Matrix11 extends MatrixBase {
 
     @Override
     public void addRows(int row1, int row2) {
-
+        boundsCheck(row1, getRows(), ErrorMessages.MatrixErrors.HEIGHT_OFFENSE);
+        boundsCheck(row2, getRows(), ErrorMessages.MatrixErrors.HEIGHT_OFFENSE);
+        multiply(2);
     }
 
     @Override

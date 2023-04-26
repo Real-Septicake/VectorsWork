@@ -63,7 +63,8 @@ public class AugMatNMO {
     public void addRows(int row1, int row2){
         boundHigh(row1);
         boundHigh(row2);
-        main.toVectorArray()[row2].add(row1);
+        main.addRows(row1, row2);
+        augment.addRows(row1, row2);
     }
 
     public void addRows(VectorBase[] row1, int row2){

@@ -5,6 +5,7 @@ import Matrices.Matrix22;
 import Matrices.Matrix33;
 import Matrices.MatrixNM;
 import Tools.ErrorMessages;
+import Tools.OpMain;
 import Tools.OpMatrices;
 
 import java.util.Arrays;
@@ -133,7 +134,13 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
         }
     }
 
-    public abstract void addRows(int row1, int row2);
+    public void addRows(int row1, int row2){
+        boundsCheck(row1, getRows(), ErrorMessages.MatrixErrors.HEIGHT_OFFENSE);
+        boundsCheck(row2, getRows(), ErrorMessages.MatrixErrors.HEIGHT_OFFENSE);
+        for(int i = 0; i < getCols(); i++){
+            setUnsafe(row2, i, OpMain.roundToDecimalCount(getUnsafe(row1, i) + getUnsafe(row2, i), ROUND_DECIMALS));
+        }
+    }
 
     /**
      * Similar to {@link Bases.MatrixBase#add(double)}, but returns a copy of this {@code Matrix}, leaving the original unchanged
