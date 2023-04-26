@@ -26,8 +26,7 @@ public class MatrixNM extends MatrixBase {
     }
 
     public MatrixNM(MatrixNM source){
-        super(source.getRows(), source.getCols());
-        data = source.getData();
+        this(source.toDoubleMatrix());
     }
 
     public boolean setSafe(int row, int col, double val) throws IndexOutOfBoundsException {
@@ -66,7 +65,11 @@ public class MatrixNM extends MatrixBase {
 
     @Override
     public VectorBase[] toVectorArray() {
-        return data.clone();
+        VectorBase[] clone = new VectorBase[getRows()];
+        for(int i = 0; i < getRows(); i++){
+            clone[i] = data[i].clone();
+        }
+        return clone;
     }
 
     @Override
@@ -142,14 +145,6 @@ public class MatrixNM extends MatrixBase {
         for(int i = 0; i < getRows(); i++){
             data[i].divide(val);
         }
-    }
-
-    public VectorBase[] getData(){
-        VectorBase[] clone = new VectorBase[data.length];
-        for(int i = 0; i < getRows(); i++){
-            clone[i] = data[i].clone();
-        }
-        return clone;
     }
 
     public double[][] toDoubleMatrix() {
