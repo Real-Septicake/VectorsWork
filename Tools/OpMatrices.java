@@ -1,6 +1,7 @@
 package Tools;
 
 import Bases.MatrixBase;
+import Matrices.Matrix11;
 
 /**
  * A class made specifically for operations pertaining to {@code Matrices}
@@ -88,5 +89,29 @@ public class OpMatrices extends OpMain {
             }
         }
         return m;
+    }
+
+    public static MatrixBase transpose(MatrixBase m){
+        double[][] trans = m.toDoubleMatrix();
+        for(int i = 0; i < m.getRows(); i++){
+            for(int j = i+1; j < m.getCols(); j++){
+                if(j > i){
+                    double temp = trans[i][j];
+                    trans[i][j] = trans[j][i];
+                    trans[j][i] = temp;
+                }
+            }
+        }
+        return MatrixBase.of(trans);
+    }
+
+    public static MatrixBase inverse(MatrixBase m){
+        if(m instanceof Matrix11){
+            return new Matrix11(1/m.getSafe(0,0));
+        }
+        MatrixBase inverse = OpMatrices.transpose(m.cofactorMatrix());
+        System.out.println(m.determinant());
+        inverse.multiply(1/m.determinant());
+        return inverse;
     }
 }

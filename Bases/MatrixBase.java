@@ -364,6 +364,12 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
 
     public abstract double determinant();
 
+    public abstract double minor(int row, int column);
+
+    public abstract MatrixBase minorMatrix();
+
+    public abstract MatrixBase cofactorMatrix();
+
     public MatrixBase getIdentityMatrix() throws IllegalCallerException {
         if(getCols() != getRows()) throw new IllegalCallerException("Matrix is not square");
         MatrixBase id = ofSize(getRows(), getCols());

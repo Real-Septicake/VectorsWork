@@ -223,6 +223,52 @@ public class Matrix33 extends MatrixBase {
     }
 
     @Override
+    public double minor(int row, int column) {
+        return switch (row) {
+            case 0 -> switch (column){
+                case 0 -> v11*v22 - v21*v12;
+                case 1 -> v10*v22 - v20*v12;
+                case 2 -> v10*v21 - v20*v11;
+                default -> throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, column, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+            };
+            case 1 -> switch (column){
+                case 0 -> v01*v22 - v21*v02;
+                case 1 -> v00*v22 - v20*v02;
+                case 2 -> v00*v21 - v20*v01;
+                default -> throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, column, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+            };
+            case 2 -> switch (column){
+                case 0 -> v01*v12 - v11*v02;
+                case 1 -> v00*v12 - v10*v02;
+                case 2 -> v00*v11 - v10*v01;
+                default -> throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, column, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+            };
+            default -> throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, column, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+        };
+    }
+
+    @Override
+    public MatrixBase minorMatrix() {
+        double[][] minor = new double[][]{
+                {minor(0, 0), minor(0, 1), minor(0, 2)},
+                {minor(1, 0), minor(1, 1), minor(1, 2)},
+                {minor(2, 0), minor(2, 1), minor(2, 2)},
+        };
+        return new Matrix33(minor);
+    }
+
+    @Override
+    public MatrixBase cofactorMatrix() {
+        double[][] cofactor = new double[3][3];
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                cofactor[i][j] = Math.pow(-1, i+j) * minor(i, j);
+            }
+        }
+        return new Matrix33(cofactor);
+    }
+
+    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
     }

@@ -147,6 +147,21 @@ public class Matrix11 extends MatrixBase {
     }
 
     @Override
+    public double minor(int row, int column) {
+        throw new IllegalCallerException("Method cannot be called from Matrix11");
+    }
+
+    @Override
+    public MatrixBase minorMatrix() {
+        throw new IllegalCallerException("Method cannot be called from Matrix11");
+    }
+
+    @Override
+    public MatrixBase cofactorMatrix() {
+        throw new IllegalCallerException("Method cannot be called from Matrix11");
+    }
+
+    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
     }

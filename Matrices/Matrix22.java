@@ -173,6 +173,35 @@ public class Matrix22 extends MatrixBase {
     }
 
     @Override
+    public double minor(int row, int column) {
+        return switch (row){
+            case 0 -> switch (column){
+                case 0 -> v11;
+                case 1 -> v10;
+                default -> throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, column, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+            };
+            case 1-> switch (column) {
+                case 0 -> v01;
+                case 1 -> v00;
+                default -> throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, column, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+            };
+            default -> throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, column, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+        };
+    }
+
+    @Override
+    public MatrixBase minorMatrix() {
+        double[][] minor = new double[][]{{minor(0,0), minor(0, 1)}, {minor(1, 0), minor(1, 1)}};
+        return new Matrix22(minor);
+    }
+
+    @Override
+    public MatrixBase cofactorMatrix() {
+        double[][] cofactor = new double[][]{{minor(0,0), -minor(0, 1)}, {-minor(1, 0), minor(1, 1)}};
+        return new Matrix22(cofactor);
+    }
+
+    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
     }

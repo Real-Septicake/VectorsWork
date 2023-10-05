@@ -5,8 +5,6 @@ import Bases.VectorBase;
 import Tools.ErrorMessages;
 import Tools.OpMatrices;
 
-import java.util.Arrays;
-
 public class MatrixNM extends MatrixBase {
     private final VectorBase[] data;
 
@@ -149,11 +147,40 @@ public class MatrixNM extends MatrixBase {
         }
     }
 
+    public double minor(int row, int column){
+        return MatrixBase.of(isolateForMinor(row, column)).determinant();
+    }
+
+    @Override
+    public MatrixBase minorMatrix() {
+        double[][] minor = new double[getRows()][getCols()];
+        for(int i = 0; i < getRows(); i++){
+            for(int j = 0; j < getCols(); j++){
+                minor[i][j] = minor(i, j);
+            }
+        }
+        return MatrixBase.of(minor);
+    }
+
+    @Override
+    public MatrixBase cofactorMatrix() {
+        double[][] cofactor = new double[getRows()][getCols()];
+        for(int i = 0; i < getRows(); i++){
+            for(int j = 0; j < getCols(); j++){
+                cofactor[i][j] = Math.pow(-1, i+j) * minor(i, j);
+            }
+        }
+        return MatrixBase.of(cofactor);
+    }
+
     @Override
     public double determinant() {
+        if(!(getCols() == getRows())){
+            throw new IllegalCallerException("Non-square matrix cannot have determinant");
+        }
         double det = 0;
         for(int i = 0; i < getCols(); i++){
-            det += Math.pow(-1, i) * getSafe(0, i) * MatrixBase.of(isolateForDeterminant(0, i)).determinant();
+            det += Math.pow(-1, i) * getSafe(0, i) * MatrixBase.of(isolateForMinor(0, i)).determinant();
         }
         return det;
     }
@@ -167,21 +194,22 @@ public class MatrixNM extends MatrixBase {
         return clone;
     }
 
-    private double[][] isolateForDeterminant(int row, int column){
+    private double[][] isolateForMinor(int row, int column){
         double[][] mat = new double[getRows()-1][getCols()-1];
-        int columnOffset = 0;
         int rowOffset = 0;
-        for(int i = 0; i < getCols(); i++){
-            if(i == column){
-                columnOffset = -1;
+        int columnOffset;
+        for(int i = 0; i < getRows(); i++){
+            columnOffset = 0;
+            if(i == row){
+                rowOffset = -1;
                 continue;
             }
-            for(int j = 0; j < getRows(); j++){
-                if(j == row){
-                    rowOffset = -1;
+            for(int j = 0; j < getCols(); j++){
+                if(j == column){
+                    columnOffset = -1;
                     continue;
                 }
-                mat[j+rowOffset][i+columnOffset] = getSafe(j, i);
+                mat[i+rowOffset][j+columnOffset] = getSafe(i, j);
             }
         }
         return mat;
