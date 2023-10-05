@@ -5,6 +5,8 @@ import Bases.VectorBase;
 import Tools.ErrorMessages;
 import Tools.OpMatrices;
 
+import java.util.Arrays;
+
 public class MatrixNM extends MatrixBase {
     private final VectorBase[] data;
 
@@ -147,6 +149,15 @@ public class MatrixNM extends MatrixBase {
         }
     }
 
+    @Override
+    public double determinant() {
+        double det = 0;
+        for(int i = 0; i < getCols(); i++){
+            det += Math.pow(-1, i) * getSafe(0, i) * MatrixBase.of(isolateForDeterminant(0, i)).determinant();
+        }
+        return det;
+    }
+
     public double[][] toDoubleMatrix() {
         int size = data.length;
         double[][] clone = new double[size][];
@@ -154,6 +165,26 @@ public class MatrixNM extends MatrixBase {
             clone[i] = data[i].toDoubleArray();
         }
         return clone;
+    }
+
+    private double[][] isolateForDeterminant(int row, int column){
+        double[][] mat = new double[getRows()-1][getCols()-1];
+        int columnOffset = 0;
+        int rowOffset = 0;
+        for(int i = 0; i < getCols(); i++){
+            if(i == column){
+                columnOffset = -1;
+                continue;
+            }
+            for(int j = 0; j < getRows(); j++){
+                if(j == row){
+                    rowOffset = -1;
+                    continue;
+                }
+                mat[j+rowOffset][i+columnOffset] = getSafe(j, i);
+            }
+        }
+        return mat;
     }
 
     @Override

@@ -180,18 +180,9 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
      * @throws IllegalArgumentException If the input {@code Matrix} is a different size than this {@code Matrix}
      */
     public void matrixAdd(MatrixBase m) throws IllegalArgumentException{
-        if (m.getRows() != getRows())
-            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixSizeMismatch(
-                    this,
-                    m,
-                    ErrorMessages.MatrixErrors.HEIGHT_OFFENSE,
-                    ErrorMessages.MatrixErrors.ADDITION_OFFENSE));
-        if(m.getCols() != getCols())
-            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixSizeMismatch(
-                    this,
-                    m,
-                    ErrorMessages.MatrixErrors.WIDTH_OFFENSE,
-                    ErrorMessages.MatrixErrors.ADDITION_OFFENSE));
+        if (m.getRows() != getRows() || m.getCols() != getCols()){
+            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixSizeMismatch(this, m, ErrorMessages.MatrixErrors.ADDITION_OFFENSE));
+        }
         for(int i = 0; i < getRows(); i++){
             for(int j = 0; j < getCols(); j++){
                 addAtSafe(i, j, m.getSafe(i, j));
@@ -261,18 +252,9 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
      * @throws IllegalArgumentException If the input {@code Matrix} is a different size than this {@code Matrix}
      */
     public void matrixSubtract(MatrixBase m){
-        if (m.getRows() != getRows())
-            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixSizeMismatch(
-                    this,
-                    m,
-                    ErrorMessages.MatrixErrors.HEIGHT_OFFENSE,
-                    ErrorMessages.MatrixErrors.SUBTRACTION_OFFENSE));
-        if(m.getCols() != getCols())
-            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixSizeMismatch(
-                    this,
-                    m,
-                    ErrorMessages.MatrixErrors.WIDTH_OFFENSE,
-                    ErrorMessages.MatrixErrors.SUBTRACTION_OFFENSE));
+        if (m.getRows() != getRows() || m.getCols() != getCols()){
+            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixSizeMismatch(this, m, ErrorMessages.MatrixErrors.SUBTRACTION_OFFENSE));
+        }
         for(int i = 0; i < getRows(); i++){
             for(int j = 0; j < getCols(); j++){
                 subtractAtSafe(i, j, m.getSafe(i, j));
@@ -379,6 +361,8 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
     public void divideAtUnsafe(int row, int col, double val){
         setUnsafe(row, col, getUnsafe(row, col) / val);
     }
+
+    public abstract double determinant();
 
     public MatrixBase getIdentityMatrix() throws IllegalCallerException {
         if(getCols() != getRows()) throw new IllegalCallerException("Matrix is not square");

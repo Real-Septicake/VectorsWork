@@ -107,10 +107,43 @@ public class Matrix11 extends MatrixBase {
     }
 
     @Override
+    public void add(double val) {
+        value += val;
+    }
+
+    @Override
     public void addRows(int row1, int row2) {
         boundsCheck(row1, getRows(), ErrorMessages.MatrixErrors.HEIGHT_OFFENSE);
         boundsCheck(row2, getRows(), ErrorMessages.MatrixErrors.HEIGHT_OFFENSE);
         multiply(2);
+    }
+
+    @Override
+    public void matrixAdd(MatrixBase m) throws IllegalArgumentException {
+        if(m instanceof Matrix11){
+            value += ((Matrix11) m).value;
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixSizeMismatch(this, m, ErrorMessages.MatrixErrors.ADDITION_OFFENSE));
+        }
+    }
+
+    @Override
+    public void subtract(double val) {
+        value -= val;
+    }
+
+    @Override
+    public void matrixSubtract(MatrixBase m) {
+        if(m instanceof Matrix11){
+            value -= ((Matrix11) m).value;
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixSizeMismatch(this, m, ErrorMessages.MatrixErrors.SUBTRACTION_OFFENSE));
+        }
+    }
+
+    @Override
+    public double determinant() {
+        return value;
     }
 
     @Override

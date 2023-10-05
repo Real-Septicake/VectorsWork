@@ -218,6 +218,11 @@ public class Matrix33 extends MatrixBase {
     }
 
     @Override
+    public double determinant() {
+        return v00*(v11*v22-v12*v21)-v01*(v10*v22-v20*v12)+v02*(v10*v21-v20*v11);
+    }
+
+    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
     }

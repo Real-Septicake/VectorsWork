@@ -168,6 +168,11 @@ public class Matrix22 extends MatrixBase {
     }
 
     @Override
+    public double determinant() {
+        return (v00*v11)-(v01*v10);
+    }
+
+    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
     }
