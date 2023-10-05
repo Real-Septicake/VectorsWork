@@ -126,14 +126,6 @@ public class VectorND extends VectorBase {
     }
 
     @Override
-    public void multiply(VectorBase source){
-        if(size() != source.size()) throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
-        for(int i = 0; i < size(); i++){
-            setUnsafe(i, round(getUnsafe(i) * source.getUnsafe(i)));
-        }
-    }
-
-    @Override
     public VectorBase multiplyCopy(double val) {
         VectorBase copy = of(toDoubleArray());
         copy.multiply(val);
@@ -144,14 +136,6 @@ public class VectorND extends VectorBase {
     public void divide(double val) {
         for (int i = 0; i < size(); i++) {
             vals[i] = round(vals[i] / val);
-        }
-    }
-
-    @Override
-    public void divide(VectorBase source){
-        if(size() != source.size()) throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
-        for(int i = 0; i < size(); i++){
-            setUnsafe(i, round(getUnsafe(i) / source.getUnsafe(i)));
         }
     }
 

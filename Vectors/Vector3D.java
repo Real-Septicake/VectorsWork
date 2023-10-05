@@ -193,17 +193,6 @@ public class Vector3D extends VectorBase {
     }
 
     @Override
-    public void multiply(VectorBase source) {
-        if(source instanceof Vector3D){
-            x = round(x * source.getUnsafe(0));
-            y = round(y * source.getUnsafe(1));
-            z = round(z * source.getUnsafe(2));
-        }else{
-            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
-        }
-    }
-
-    @Override
     public VectorBase multiplyCopy(double val) {
         return new Vector3D(round(x * val), round(y * val), round(z * val));
     }
@@ -213,17 +202,6 @@ public class Vector3D extends VectorBase {
         x = round(x / val);
         y = round(y / val);
         z = round(z / val);
-    }
-
-    @Override
-    public void divide(VectorBase source) {
-        if(source instanceof Vector3D){
-            x = round(x / source.getUnsafe(0));
-            y = round(y / source.getUnsafe(1));
-            z = round(z / source.getUnsafe(2));
-        }else{
-            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
-        }
     }
 
     @Override

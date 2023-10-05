@@ -23,12 +23,21 @@ public class Vector1D extends VectorBase {
         this.magnitude = values[0];
     }
 
-    public static Vector1D create(VectorBase source) {
+    /**
+     * Creates a {@code Vector1D} from the source {@code Vector}
+     * @param source Source {@code Vector} from which to make the {@code Vector1D}
+     * @throws IllegalArgumentException If the source {@code Vector} is not an instance of {@code Vector1D}
+     * @return The {@code Vector1D} created from the source {@code Vector}
+     */
+    public static Vector1D create(VectorBase source) throws IllegalArgumentException {
         if (source.size() != 1)
             throw new IllegalArgumentException(ErrorMessages.VectorErrors.sourceVectorTypeMismatch(new Vector1D(), source));
         return new Vector1D(source.toDoubleArray());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getMagnitude() {
         return magnitude;
@@ -132,15 +141,6 @@ public class Vector1D extends VectorBase {
     }
 
     @Override
-    public void multiply(VectorBase source) {
-        if(source instanceof Vector1D){
-            magnitude = round(magnitude * source.getMagnitude());
-        }else{
-            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
-        }
-    }
-
-    @Override
     public VectorBase multiplyCopy(double val) {
         return new Vector1D(round(magnitude * val));
     }
@@ -148,15 +148,6 @@ public class Vector1D extends VectorBase {
     @Override
     public void divide(double val) {
         magnitude = round(magnitude / val);
-    }
-
-    @Override
-    public void divide(VectorBase source) {
-        if(source instanceof Vector1D){
-            magnitude = round(magnitude / source.getMagnitude());
-        }else{
-            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
-        }
     }
 
     @Override

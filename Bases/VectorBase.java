@@ -15,10 +15,10 @@ import java.util.Arrays;
  */
 public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
     /**
-     * Max value that this {@code Vector}'s magnitude can be
+     * The maximum value that this {@code Vector}'s magnitude can be
      *
      * <p>
-     * <t>Default value is 0, which does not limit magnitude</t>
+     * <t>The default value is 0, which does not limit magnitude</t>
      * </p>
      */
     private double maxMagnitude = 0;
@@ -208,8 +208,6 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
      */
     public abstract void multiply(double val);
 
-    public abstract void multiply(VectorBase source);
-
     /**
      * Multiplies every value in a copy of the {@code Vector} by the input value
      * @param val The value to multiply the values by
@@ -245,8 +243,6 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
      * @param val The value to divide the values by
      */
     public abstract void divide(double val);
-
-    public abstract void divide(VectorBase source);
 
     /**
      * Multiplies every value in a copy of the {@code Vector} by the input value

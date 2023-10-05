@@ -158,16 +158,6 @@ public class Vector2D extends VectorBase {
     }
 
     @Override
-    public void multiply(VectorBase source) {
-        if(source instanceof Vector2D){
-            x = round(x * source.getUnsafe(0));
-            y = round(y * source.getUnsafe(1));
-        }else{
-            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
-        }
-    }
-
-    @Override
     public VectorBase multiplyCopy(double val) {
         return new Vector2D(round(x * val), round(y * val));
     }
@@ -176,16 +166,6 @@ public class Vector2D extends VectorBase {
     public void divide(double val) {
         x = round(x / val);
         y = round(y / val);
-    }
-
-    @Override
-    public void divide(VectorBase source) {
-        if(source instanceof Vector2D){
-            x = round(x / source.getUnsafe(0));
-            y = round(y / source.getUnsafe(1));
-        }else{
-            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
-        }
     }
 
     @Override

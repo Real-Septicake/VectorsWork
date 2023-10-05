@@ -80,13 +80,6 @@ public class Vector0D extends VectorBase {
     }
 
     @Override
-    public void multiply(VectorBase source) {
-        if(!(source instanceof Vector0D)){
-            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(INSTANCE, source));
-        }
-    }
-
-    @Override
     public VectorBase multiplyCopy(double val) {
         throw new IllegalCallerException(ErrorMessages.VectorErrors.ILLEGAL_0D_METHOD_CALL);
     }
@@ -94,13 +87,6 @@ public class Vector0D extends VectorBase {
     @Override
     public void divide(double val) {
         throw new IllegalCallerException(ErrorMessages.VectorErrors.ILLEGAL_0D_METHOD_CALL);
-    }
-
-    @Override
-    public void divide(VectorBase source) {
-        if(!(source instanceof Vector0D)){
-            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(INSTANCE, source));
-        }
     }
 
     @Override
