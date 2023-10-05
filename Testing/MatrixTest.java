@@ -71,5 +71,23 @@ public class MatrixTest {
 
         double second = System.currentTimeMillis();
         System.out.println(second - first);
+
+        MatrixBase det = MatrixBase.of(new double[][]{{0, 6, -2, -1, 5}, {0, 0, 0, -9, -7}, {0, 15, 35, 0, 0}, {0, -1, -11, -2, 1}, {-2, -2, 3, 0, -2}});
+        System.out.println("\nDeterminant:");
+        System.out.println(det.determinant()); // 2480
+
+        MatrixBase minor = MatrixBase.of(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+        System.out.println("\nMinor:");
+        System.out.println(minor.cofactorMatrix());
+
+        MatrixBase trans = MatrixBase.of(new double[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}});
+        System.out.println("\nTranspose:");
+        System.out.println("Before: " + trans);
+        System.out.println("After: " + OpMatrices.transpose(trans));
+
+        MatrixBase test = MatrixBase.of(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 2, 9}});
+        System.out.println("\nInverse:");
+        System.out.println("Original: "+test);
+        System.out.println("Inverse: "+OpMatrices.inverse(test));
     }
 }
