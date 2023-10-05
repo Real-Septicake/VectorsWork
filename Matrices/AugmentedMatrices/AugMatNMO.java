@@ -8,28 +8,28 @@ import java.util.Arrays;
 
 public class AugMatNMO {
 
-    private final int ROWS;
-    private final int COLSMAIN;
-    private final int COLSAUG;
-    private final int COLSTOTAL;
+    private final int ROW_COUNT;
+    private final int MAIN_COLUMN_COUNT;
+    private final int AUGMENTED_MATRIX_COLUMN_COUNT;
+    private final int TOTAL_COLUMN_COUNT;
 
     MatrixBase main;
     MatrixBase augment;
     public AugMatNMO(int row, int colMain, int colAug){
-        ROWS = row;
-        COLSMAIN = colMain;
-        COLSAUG = colAug;
-        COLSTOTAL = COLSMAIN + COLSAUG;
+        ROW_COUNT = row;
+        MAIN_COLUMN_COUNT = colMain;
+        AUGMENTED_MATRIX_COLUMN_COUNT = colAug;
+        TOTAL_COLUMN_COUNT = MAIN_COLUMN_COUNT + AUGMENTED_MATRIX_COLUMN_COUNT;
         this.main = MatrixBase.ofSize(row, colMain);
         this.augment = MatrixBase.ofSize(row, colAug);
     }
 
     public AugMatNMO(MatrixBase main, MatrixBase aug){
         if(main.getRows() != aug.getRows()) throw new IllegalArgumentException(ErrorMessages.AugMatErrors.matricesSizeMismatch(main, aug));
-        ROWS = main.getRows();
-        COLSMAIN = main.getCols();
-        COLSAUG = aug.getCols();
-        COLSTOTAL = COLSMAIN + COLSAUG;
+        ROW_COUNT = main.getRows();
+        MAIN_COLUMN_COUNT = main.getCols();
+        AUGMENTED_MATRIX_COLUMN_COUNT = aug.getCols();
+        TOTAL_COLUMN_COUNT = MAIN_COLUMN_COUNT + AUGMENTED_MATRIX_COLUMN_COUNT;
         this.main = main.clone();
         augment = aug.clone();
     }
@@ -37,24 +37,24 @@ public class AugMatNMO {
     public boolean setSafe(int row, int col, double val){
         boundHigh(row);
         boundWide(col);
-        if(col >= COLSMAIN){
-            col -= COLSMAIN;
+        if(col >= MAIN_COLUMN_COUNT){
+            col -= MAIN_COLUMN_COUNT;
             return augment.setSafe(row, col, val);
         }
         return main.setSafe(row, col, val);
     }
 
     public boolean setUnsafe(int row, int col, double val){
-        row = Math.min(row, ROWS);
-        col = Math.min(col, COLSTOTAL);
+        row = Math.min(row, ROW_COUNT);
+        col = Math.min(col, TOTAL_COLUMN_COUNT);
         return setSafe(row, col, val);
     }
 
     public double getSafe(int row, int col){
         boundHigh(row);
         boundWide(col);
-        if(col >= COLSMAIN){
-            col -= COLSMAIN;
+        if(col >= MAIN_COLUMN_COUNT){
+            col -= MAIN_COLUMN_COUNT;
             return augment.getSafe(row, col);
         }
         return main.getSafe(row, col);
@@ -81,7 +81,7 @@ public class AugMatNMO {
 
     public void multiplyRow(int row, double val){
         boundHigh(row);
-        for(int i = 0; i < COLSTOTAL; i++){
+        for(int i = 0; i < TOTAL_COLUMN_COUNT; i++){
             setUnsafe(row, i, getUnsafe(row, i) * val);
         }
     }
@@ -98,28 +98,28 @@ public class AugMatNMO {
     }
 
     public double getUnsafe(int row, int col){
-        row = Math.min(row, ROWS);
-        col = Math.min(col, COLSTOTAL);
+        row = Math.min(row, ROW_COUNT);
+        col = Math.min(col, TOTAL_COLUMN_COUNT);
         return getSafe(row, col);
     }
 
     public double[] getRowSafe(int row){
         boundHigh(row);
-        double[] copy = new double[COLSTOTAL];
-        System.arraycopy(main.getRowSafe(row), 0, copy, 0, COLSMAIN);
-        System.arraycopy(augment.getRowSafe(row), 0, copy, COLSMAIN, COLSAUG);
+        double[] copy = new double[TOTAL_COLUMN_COUNT];
+        System.arraycopy(main.getRowSafe(row), 0, copy, 0, MAIN_COLUMN_COUNT);
+        System.arraycopy(augment.getRowSafe(row), 0, copy, MAIN_COLUMN_COUNT, AUGMENTED_MATRIX_COLUMN_COUNT);
         return copy;
     }
 
     public double[] getRowUnsafe(int row){
-        row = Math.min(row, ROWS);
+        row = Math.min(row, ROW_COUNT);
         return getRowSafe(row);
     }
 
     public double[] getColSafe(int col){
         boundWide(col);
-        if(col >= COLSMAIN){
-            col -= COLSMAIN;
+        if(col >= MAIN_COLUMN_COUNT){
+            col -= MAIN_COLUMN_COUNT;
             return augment.getColSafe(col);
         }
         return main.getColSafe(col);
@@ -131,19 +131,19 @@ public class AugMatNMO {
     }
 
     public int getRows(){
-        return ROWS;
+        return ROW_COUNT;
     }
 
     public int getCols(){
-        return COLSTOTAL;
+        return TOTAL_COLUMN_COUNT;
     }
 
     public int getColsMain(){
-        return COLSMAIN;
+        return MAIN_COLUMN_COUNT;
     }
 
     public int getColsAug(){
-        return COLSAUG;
+        return AUGMENTED_MATRIX_COLUMN_COUNT;
     }
 
     public double[][] mainToDoubleMatrix(){
@@ -163,22 +163,22 @@ public class AugMatNMO {
     }
 
     public void boundWide(int check){
-        if(check >= COLSTOTAL) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(COLSMAIN + COLSAUG, check, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
+        if(check >= TOTAL_COLUMN_COUNT) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(MAIN_COLUMN_COUNT + AUGMENTED_MATRIX_COLUMN_COUNT, check, ErrorMessages.MatrixErrors.WIDTH_OFFENSE));
     }
 
     public void boundHigh(int check){
-        if(check >= ROWS) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(ROWS, check, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
+        if(check >= ROW_COUNT) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.indexOutOfBounds(ROW_COUNT, check, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
     }
 
     public void vectorSize(int a){
-        if(a != COLSTOTAL) throw new IllegalArgumentException(ErrorMessages.AugMatErrors.arraySizeMismatch(a, COLSTOTAL));
+        if(a != TOTAL_COLUMN_COUNT) throw new IllegalArgumentException(ErrorMessages.AugMatErrors.arraySizeMismatch(a, TOTAL_COLUMN_COUNT));
     }
 
     public double[][] toDoubleMatrix(){
-        double[][] clone = new double[ROWS][COLSTOTAL];
-        for(int i = 0; i < ROWS; i++){
-            System.arraycopy(main.getRowSafe(i), 0, clone[i], 0, COLSMAIN);
-            System.arraycopy(augment.getRowSafe(i), 0, clone[i], COLSMAIN, COLSAUG);
+        double[][] clone = new double[ROW_COUNT][TOTAL_COLUMN_COUNT];
+        for(int i = 0; i < ROW_COUNT; i++){
+            System.arraycopy(main.getRowSafe(i), 0, clone[i], 0, MAIN_COLUMN_COUNT);
+            System.arraycopy(augment.getRowSafe(i), 0, clone[i], MAIN_COLUMN_COUNT, AUGMENTED_MATRIX_COLUMN_COUNT);
         }
         return clone;
     }
@@ -186,13 +186,13 @@ public class AugMatNMO {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        for(int i = 0; i < ROWS; i++){
+        for(int i = 0; i < ROW_COUNT; i++){
             sb.append("[").
                     append(Arrays.toString(main.getRowSafe(i))).
                     append(" | ").
                     append(Arrays.toString(augment.getRowSafe(i))).
                     append("]");
-            if(i != ROWS - 1){
+            if(i != ROW_COUNT - 1){
                 sb.append(", ");
             }
         }
