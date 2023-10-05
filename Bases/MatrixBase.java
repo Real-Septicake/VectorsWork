@@ -19,8 +19,8 @@ import java.util.Arrays;
  * @author Septicake
  */
 public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
-    private final int COLS;
-    private final int ROWS;
+    private final int COLUMN_COUNT;
+    private final int ROW_COUNT;
 
     protected final int ROUND_DECIMALS = 14;
 
@@ -30,26 +30,26 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
      * @param cols The width of the {@code Matrix}
      */
     public MatrixBase(int rows, int cols) {
-        this.COLS = cols;
-        this.ROWS = rows;
+        this.COLUMN_COUNT = cols;
+        this.ROW_COUNT = rows;
     }
 
     /**
      * @return The width of this {@code Matrix}
      */
     public int getCols() {
-        return COLS;
+        return COLUMN_COUNT;
     }
 
     /**
      * @return The height of this {@code Matrix}
      */
     public int getRows() {
-        return ROWS;
+        return ROW_COUNT;
     }
 
     public int elementCount(){
-        return ROWS * COLS;
+        return ROW_COUNT * COLUMN_COUNT;
     }
 
     protected void boundsCheck(int i, int  size, int offense){
@@ -390,9 +390,9 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
     }
 
     public void copyVals(MatrixBase mb){
-        if(ROWS != mb.getRows() || COLS != mb.getCols()) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixCopySizeMismatch(this, mb));
-        for(int i = 0; i < ROWS; i++){
-            for(int j = 0; j < COLS; j++){
+        if(ROW_COUNT != mb.getRows() || COLUMN_COUNT != mb.getCols()) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixCopySizeMismatch(this, mb));
+        for(int i = 0; i < ROW_COUNT; i++){
+            for(int j = 0; j < COLUMN_COUNT; j++){
                 setUnsafe(i, j, getUnsafe(i, j));
             }
         }
