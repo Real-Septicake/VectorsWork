@@ -9,6 +9,10 @@ import Bases.MatrixBase;
  * @author Septicake
  */
 //TODO: Condense this, takes too long to call any method or value
+/*
+Should definitely look into creating custom errors, would allow for the switch from Java's errors
+to more descriptive ones.
+ */
 public class ErrorMessages {
     private ErrorMessages() {
     }
@@ -81,19 +85,11 @@ public class ErrorMessages {
             };
         }
 
-        public static String matrixSizeMismatch(MatrixBase offended, MatrixBase offender, int offense, int operation){
-            return switch(offense) {
-                case HEIGHT_OFFENSE -> switch(operation) {
-                    case ADDITION_OFFENSE -> "Matrix of height " + offender.getRows() + " cannot be added to Matrix of height " + offended.getRows();
-                    case SUBTRACTION_OFFENSE -> "Matrix of height " + offender.getRows() + " cannot be subtracted from Matrix of height " + offended.getRows();
-                    default -> throw new IllegalArgumentException(unknownOperation(operation));
-                };
-                case WIDTH_OFFENSE -> switch(operation) {
-                    case ADDITION_OFFENSE -> "Matrix of width " + offender.getCols() + " cannot be added to Matrix of width " + offended.getCols();
-                    case SUBTRACTION_OFFENSE -> "Matrix of width " + offender.getCols() + " cannot be subtracted from Matrix of width " + offended.getCols();
-                    default -> throw new IllegalArgumentException(unknownOperation(operation));
-                };
-                default -> throw new IllegalArgumentException(unknownOffense(offense));
+        public static String matrixSizeMismatch(MatrixBase offended, MatrixBase offender, int operation){
+            return switch(operation) {
+                case ADDITION_OFFENSE -> "Matrix of size "+offender.getRows()+"x"+offender.getCols()+" cannot be added to matrix of size "+offended.getRows()+"x"+offended.getCols();
+                case SUBTRACTION_OFFENSE -> "Matrix of size "+offender.getRows()+"x"+offender.getCols()+" cannot be subtracted from matrix of size "+offended.getRows()+"x"+offended.getCols();
+                default -> throw new IllegalArgumentException(unknownOperation(operation));
             };
         }
 
