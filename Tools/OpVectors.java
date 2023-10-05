@@ -47,6 +47,13 @@ public class OpVectors extends OpMain {
         return signSum(v.toDoubleArray());
     }
 
+    /**
+     * Checks to see if the difference of the values is within the specified threshold
+     * @param a1 First array of values
+     * @param a2 Second array of values
+     * @param threshold Threshold to use for comparison
+     * @return True if all values are within the specified threshold, otherwise false
+     */
     public static boolean equalValues(double[] a1, double[] a2, double threshold){
         if (a1.length != a2.length) throw new IllegalArgumentException(ErrorMessages.VectorErrors.arraySizeMismatch(a1, a2));
         for (int i = 0; i < a1.length; i++) {
@@ -55,24 +62,55 @@ public class OpVectors extends OpMain {
         return true;
     }
 
+    /**
+     * The same as {@link Tools.OpVectors#equalValues(double[], double[], double)}, but with 0 as the threshold.
+     * @param a1 First array of values
+     * @param a2 Second array of values
+     * @return True if all values are exactly equal, else false
+     */
     public static boolean equalValues(double[] a1, double[] a2) {
         return equalValues(a1, a2, 0);
     }
 
+    /**
+     * The same as {@link Tools.OpVectors#equalValues(double[], double[], double)}, but with {@code Vector}s as the input
+     * @param v1 First {@code Vector}
+     * @param v2 Second {@code Vector}
+     * @param threshold Threshold to use for comparison
+     * @return True if all values are within the specified threshold, otherwise false
+     */
     public static boolean equalValues(VectorBase v1, VectorBase v2, double threshold){
         if (v1.size() != v2.size()) throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(v1, v2));
         return equalValues(v1.toDoubleArray(), v2.toDoubleArray(), threshold);
     }
 
+    /**
+     * The same as {@link Tools.OpVectors#equalValues(double[], double[])}, but with {@code Vector}s as the inputs
+     * @param v1 First {@code Vector}
+     * @param v2 Second {@code Vector}
+     * @return True if all values are exactly equal, else false
+     */
     public static boolean equalValues(VectorBase v1, VectorBase v2) {
         if (v1.size() != v2.size()) throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(v1, v2));
         return equalValues(v1.toDoubleArray(), v2.toDoubleArray());
     }
 
+    /**
+     * Compares the magnitudes of two arrays
+     * @param a1 First array of values
+     * @param a2 Second array of values
+     * @return True if the magnitudes are equal, otherwise false
+     */
     public static boolean equalMagnitude(double[] a1, double[] a2) {
         return Math.sqrt(squareSum(a1)) == Math.sqrt(squareSum(a2));
     }
 
+    /**
+     * The same as {@link Tools.OpVectors#equalMagnitude(double[], double[])}, but with {@code Vector}s as the inputs
+     * @param v1 First {@code Vector}
+     * @param v2 Second {@code Vector}
+     * @return True if the magnitudes are equal, otherwise false
+     */
     public static boolean equalMagnitude(VectorBase v1, VectorBase v2) {
         return equalMagnitude(v1.toDoubleArray(), v2.toDoubleArray());
     }
