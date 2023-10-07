@@ -219,4 +219,18 @@ public class MatrixNM extends MatrixBase {
     public MatrixBase clone() {
         return new MatrixNM(this);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof MatrixNM m &&(m.getRows() == getRows() && m.getCols() == getCols())){
+            for(int i = 0; i < getRows(); i++){
+                for(int j = 0; j < getCols(); j++){
+                    if (!valEqual(data[i].getUnsafe(j), m.data[j].getUnsafe(j))) return false;
+                }
+            }
+            return false;
+        }else{
+            return super.equals(obj);
+        }
+    }
 }

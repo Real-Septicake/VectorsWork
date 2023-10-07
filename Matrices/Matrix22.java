@@ -225,4 +225,16 @@ public class Matrix22 extends MatrixBase {
     public MatrixBase clone() {
         return new Matrix22(this);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Matrix22 m){
+            boolean ret = valEqual(v00, m.v00);
+            ret = ret && valEqual(v01, m.v01);
+            ret = ret && valEqual(v10, m.v10);
+            return ret && valEqual(v11, m.v11);
+        }else{
+            return super.equals(obj);
+        }
+    }
 }

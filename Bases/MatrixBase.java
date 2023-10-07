@@ -451,6 +451,10 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
      */
     public abstract double[][] toDoubleMatrix();
 
+    protected boolean valEqual(double v1, double v2) {
+        return Math.abs(v1 - v2) < 1e-8;
+    }
+
     @Override
     public abstract MatrixBase clone();
 

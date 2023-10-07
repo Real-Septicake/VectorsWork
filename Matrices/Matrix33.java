@@ -293,4 +293,21 @@ public class Matrix33 extends MatrixBase {
     public MatrixBase clone() {
         return new Matrix33(this);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Matrix33 m){
+            boolean ret = valEqual(v00, m.v00);
+            ret = ret && valEqual(v01, m.v01);
+            ret = ret && valEqual(v02, m.v02);
+            ret = ret && valEqual(v10, m.v10);
+            ret = ret && valEqual(v11, m.v11);
+            ret = ret && valEqual(v12, m.v12);
+            ret = ret && valEqual(v20, m.v20);
+            ret = ret && valEqual(v21, m.v21);
+            return ret && valEqual(v22, m.v22);
+        }else{
+            return super.equals(obj);
+        }
+    }
 }

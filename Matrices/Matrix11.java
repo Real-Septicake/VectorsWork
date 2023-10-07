@@ -27,7 +27,7 @@ public class Matrix11 extends MatrixBase {
     }
 
     public Matrix11(Matrix11 source){
-        this(source.toDoubleMatrix());
+        this(source.value);
     }
 
     @Override
@@ -183,5 +183,14 @@ public class Matrix11 extends MatrixBase {
     @Override
     public MatrixBase clone() {
         return new Matrix11(value);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Matrix11 m) {
+            return valEqual(value, m.value);
+        }else{
+            return super.equals(obj);
+        }
     }
 }
