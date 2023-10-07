@@ -110,7 +110,6 @@ public class OpMatrices extends OpMain {
             return new Matrix11(1/m.getSafe(0,0));
         }
         MatrixBase inverse = OpMatrices.transpose(m.cofactorMatrix());
-        System.out.println(m.determinant());
         inverse.multiply(1/m.determinant());
         return inverse;
     }
