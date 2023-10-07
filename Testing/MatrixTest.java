@@ -89,5 +89,6 @@ public class MatrixTest {
         System.out.println("\nInverse:");
         System.out.println("Original: "+test);
         System.out.println("Inverse: "+OpMatrices.inverse(test));
+        System.out.println("Inverse of inverse: "+OpMatrices.inverse(OpMatrices.inverse(test)));
     }
 }
