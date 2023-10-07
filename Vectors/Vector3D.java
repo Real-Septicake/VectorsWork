@@ -1,9 +1,7 @@
 package Vectors;
 
 import Bases.VectorBase;
-import Tools.ErrorMessages;
-import Tools.OpMain;
-import Tools.OpVectors;
+import Tools.*;
 
 public class Vector3D extends VectorBase {
 
@@ -220,5 +218,14 @@ public class Vector3D extends VectorBase {
     @Override
     public VectorBase clone() {
         return new Vector3D(x, y, z);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Vector3D v){
+            return OpMain.valEqual(x, v.x) && OpMain.valEqual(y, v.y) && OpMain.valEqual(z, v.z);
+        }else{
+            return super.equals(obj);
+        }
     }
 }

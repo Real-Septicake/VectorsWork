@@ -98,4 +98,13 @@ public class Vector0D extends VectorBase {
     public VectorBase clone() {
         return INSTANCE;
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof Vector0D){
+            return true;
+        }else{
+            return super.equals(obj);
+        }
+    }
 }

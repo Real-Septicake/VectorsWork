@@ -2,6 +2,7 @@ package Vectors;
 
 import Bases.VectorBase;
 import Tools.ErrorMessages;
+import Tools.OpMain;
 
 public class Vector1D extends VectorBase {
 
@@ -169,5 +170,14 @@ public class Vector1D extends VectorBase {
     @Override
     public VectorBase clone() {
         return new Vector1D(magnitude);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Vector1D v){
+            return OpMain.valEqual(magnitude, v.magnitude);
+        }else{
+            return super.equals(obj);
+        }
     }
 }
