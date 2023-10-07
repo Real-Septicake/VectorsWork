@@ -3,6 +3,7 @@ package Matrices;
 import Bases.MatrixBase;
 import Bases.VectorBase;
 import Tools.ErrorMessages;
+import Tools.OpMain;
 import Vectors.Vector1D;
 
 public class Matrix11 extends MatrixBase {
@@ -188,7 +189,7 @@ public class Matrix11 extends MatrixBase {
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Matrix11 m) {
-            return valEqual(value, m.value);
+            return OpMain.valEqual(value, m.value);
         }else{
             return super.equals(obj);
         }

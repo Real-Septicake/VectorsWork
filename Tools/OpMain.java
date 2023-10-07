@@ -70,4 +70,8 @@ public class OpMain {
         val *= Math.pow(10, count);
         return (double)Math.round(val) / Math.pow(10, count);
     }
+
+    public static boolean valEqual(double v1, double v2) {
+        return Math.abs(v1 - v2) < 1e-8;
+    }
 }

@@ -3,6 +3,7 @@ package Matrices;
 import Bases.MatrixBase;
 import Bases.VectorBase;
 import Tools.ErrorMessages;
+import Tools.OpMain;
 import Tools.OpMatrices;
 
 public class MatrixNM extends MatrixBase {
@@ -225,7 +226,7 @@ public class MatrixNM extends MatrixBase {
         if(obj instanceof MatrixNM m &&(m.getRows() == getRows() && m.getCols() == getCols())){
             for(int i = 0; i < getRows(); i++){
                 for(int j = 0; j < getCols(); j++){
-                    if (!valEqual(data[i].getUnsafe(j), m.data[j].getUnsafe(j))) return false;
+                    if (!OpMain.valEqual(data[i].getUnsafe(j), m.data[j].getUnsafe(j))) return false;
                 }
             }
             return false;

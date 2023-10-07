@@ -3,6 +3,7 @@ package Matrices;
 import Bases.MatrixBase;
 import Bases.VectorBase;
 import Tools.ErrorMessages;
+import Tools.OpMain;
 import Vectors.Vector2D;
 
 public class Matrix22 extends MatrixBase {
@@ -229,10 +230,10 @@ public class Matrix22 extends MatrixBase {
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Matrix22 m){
-            boolean ret = valEqual(v00, m.v00);
-            ret = ret && valEqual(v01, m.v01);
-            ret = ret && valEqual(v10, m.v10);
-            return ret && valEqual(v11, m.v11);
+            boolean ret = OpMain.valEqual(v00, m.v00);
+            ret = ret && OpMain.valEqual(v01, m.v01);
+            ret = ret && OpMain.valEqual(v10, m.v10);
+            return ret && OpMain.valEqual(v11, m.v11);
         }else{
             return super.equals(obj);
         }
