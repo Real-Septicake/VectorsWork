@@ -69,7 +69,7 @@ public class OpVectors extends OpMain {
      * @return True if all values are exactly equal, else false
      */
     public static boolean equalValues(double[] a1, double[] a2) {
-        return equalValues(a1, a2, 1E-8);
+        return equalValues(a1, a2, 1E-10);
     }
 
     /**

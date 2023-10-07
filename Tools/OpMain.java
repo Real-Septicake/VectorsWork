@@ -72,6 +72,6 @@ public class OpMain {
     }
 
     public static boolean valEqual(double v1, double v2) {
-        return Math.abs(v1 - v2) < 1e-8;
+        return Math.abs(v1 - v2) < 1e-10;
     }
 }
