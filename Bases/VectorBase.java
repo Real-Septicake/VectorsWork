@@ -319,7 +319,7 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
             case 1 -> new Vector1D();
             case 2 -> new Vector2D();
             case 3 -> new Vector3D();
-            default -> new VectorND();
+            default -> new VectorND(new double[size]);
         };
     }
 
