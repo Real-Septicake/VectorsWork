@@ -161,7 +161,7 @@ public class Matrix33 extends MatrixBase {
     }
 
     @Override
-    public double[] getRowSafe(int row) {
+    public double[] getRowSafe(int row) throws IndexOutOfBoundsException {
         boundsCheck(row, getRows(), ErrorMessages.MatrixErrors.HEIGHT_OFFENSE);
         return switch (row) {
             case 0 -> new double[]{v00, v01, v02};

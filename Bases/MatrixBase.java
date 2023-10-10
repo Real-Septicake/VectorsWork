@@ -9,6 +9,8 @@ import Tools.OpMain;
 import Tools.OpMatrices;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * A class for creating and altering double precision matrices
@@ -18,7 +20,7 @@ import java.util.Arrays;
  *
  * @author Septicake
  */
-public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
+public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable, Iterable<VectorBase> {
     private final int COLUMN_COUNT;
     private final int ROW_COUNT;
 
@@ -52,7 +54,7 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
         return ROW_COUNT * COLUMN_COUNT;
     }
 
-    protected void boundsCheck(int i, int  size, int offense){
+    protected void boundsCheck(int i, int size, int offense) throws IndexOutOfBoundsException{
         switch (offense) {
             case 0 -> {
                 if (i >= size || i < 0)
@@ -106,11 +108,11 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
 
     public abstract VectorBase[] toVectorArray();
 
-    public abstract double[] getRowSafe(int row);
+    public abstract double[] getRowSafe(int row) throws IndexOutOfBoundsException;
 
     public abstract double[] getRowUnsafe(int row);
 
-    public VectorBase getRowVector(int row) {
+    public VectorBase getRowVector(int row) throws IndexOutOfBoundsException {
         return VectorBase.of(getRowSafe(row));
     }
 
@@ -461,5 +463,31 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
 
     public String toString() {
         return getRows() + "x" + getCols() + " Matrix: " + Arrays.deepToString(toDoubleMatrix());
+    }
+
+    @Override
+    public Iterator<VectorBase> iterator() {
+        return new MatrixItr();
+    }
+
+    private class MatrixItr implements Iterator<VectorBase> {
+        private int currPos = 0;
+
+        protected MatrixItr(){
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currPos < getRows();
+        }
+
+        @Override
+        public VectorBase next() {
+            try{
+                return getRowVector(currPos++);
+            }catch (IndexOutOfBoundsException e){
+                throw new NoSuchElementException(e);
+            }
+        }
     }
 }

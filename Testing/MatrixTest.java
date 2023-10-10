@@ -1,8 +1,11 @@
 package Testing;
 
 import Bases.MatrixBase;
+import Bases.VectorBase;
 import Tools.OpMatrices;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MatrixTest {
@@ -66,11 +69,13 @@ public class MatrixTest {
         System.out.println("Matrix 2 sum: " + OpMatrices.sum(comp2));
         System.out.println("Compare: " + comp1.compareTo(comp2));
 
-        MatrixBase copied = MatrixBase.of(new double[][]{{12, 16, 4, 36, 4}, {345, 987, 341, 77777, 0}});
+        MatrixBase copied = MatrixBase.of(new double[][]{{12, 16, 4, 36}, {345, 987, 341, 77777}});
         MatrixBase copy = MatrixBase.ofSize(2, 4);
+        copy.copyVals(copied);
+        System.out.println("\n"+copy+"\n");
 
         double second = System.currentTimeMillis();
-        System.out.println(second - first);
+        System.out.println("Time: " + (second - first));
 
         MatrixBase det = MatrixBase.of(new double[][]{{0, 6, -2, -1, 5}, {0, 0, 0, -9, -7}, {0, 15, 35, 0, 0}, {0, -1, -11, -2, 1}, {-2, -2, 3, 0, -2}});
         System.out.println("\nDeterminant:");
@@ -90,5 +95,16 @@ public class MatrixTest {
         System.out.println("Original: "+test);
         System.out.println("Inverse: "+OpMatrices.inverse(test));
         System.out.println("Inverse of inverse: "+OpMatrices.inverse(OpMatrices.inverse(test)));
+
+        System.out.println("\nInverse Equal:");
+        System.out.println("Epsilon: "+"0.0000000001");
+        System.out.println("Result: "+test.equals(OpMatrices.inverse(OpMatrices.inverse(test))));
+
+        MatrixBase forEach = MatrixBase.of(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+        for (VectorBase v : forEach){
+            for (double d : v){
+                System.out.println(d);
+            }
+        }
     }
 }

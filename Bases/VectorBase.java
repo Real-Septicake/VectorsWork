@@ -5,6 +5,9 @@ import Tools.OpMain;
 import Vectors.*;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.function.Consumer;
 
 //TODO: REALLY gonna have to organize this stuff
 
@@ -13,7 +16,7 @@ import java.util.Arrays;
  *
  * @author Septicake
  */
-public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
+public abstract class VectorBase implements Comparable<VectorBase>, Cloneable, Iterable<Double> {
     /**
      * The maximum value that this {@code Vector}'s magnitude can be
      *
@@ -329,5 +332,35 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable {
     public String toString() {
         updateVals();
         return this.getClass().getSimpleName() + ": " + Arrays.toString(toDoubleArray());
+    }
+
+    @Override
+    public Iterator<Double> iterator() {
+        return new VectorItr();
+    }
+
+    private class VectorItr implements Iterator<Double> {
+        private int currPos = 0;
+        protected VectorItr(){
+        }
+
+        @Override
+        public void forEachRemaining(Consumer<? super Double> action) {
+            Iterator.super.forEachRemaining(action);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currPos < size();
+        }
+
+        @Override
+        public Double next() {
+            try{
+                return get(currPos++);
+            }catch(IndexOutOfBoundsException e){
+                throw new NoSuchElementException(e);
+            }
+        }
     }
 }

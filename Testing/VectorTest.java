@@ -48,5 +48,10 @@ public class VectorTest {
         VectorBase unit = unitTest.getUnit();
         System.out.println("Unit Output: " + unit);
         System.out.println("Unit Magnitude: " + unit.getMagnitude());
+
+        VectorBase forEach = VectorBase.of(1, 4, 6, 8, 10);
+        for(double d : forEach){
+            System.out.println(d);
+        }
     }
 }

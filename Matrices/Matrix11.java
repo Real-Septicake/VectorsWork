@@ -76,7 +76,7 @@ public class Matrix11 extends MatrixBase {
     }
 
     @Override
-    public double[] getRowSafe(int row) {
+    public double[] getRowSafe(int row) throws IndexOutOfBoundsException {
         if(row != 0) throw new IndexOutOfBoundsException(ErrorMessages.MatrixErrors.indexOutOfBounds(this, row, ErrorMessages.MatrixErrors.HEIGHT_OFFENSE));
         return new double[]{value};
     }
