@@ -7,7 +7,6 @@ import Vectors.*;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.function.Consumer;
 
 //TODO: REALLY gonna have to organize this stuff
 
@@ -342,11 +341,6 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable, I
     private class VectorItr implements Iterator<Double> {
         private int currPos = 0;
         protected VectorItr(){
-        }
-
-        @Override
-        public void forEachRemaining(Consumer<? super Double> action) {
-            Iterator.super.forEachRemaining(action);
         }
 
         @Override
