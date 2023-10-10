@@ -383,7 +383,7 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable {
         if(ROW_COUNT != mb.getRows() || COLUMN_COUNT != mb.getCols()) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixCopySizeMismatch(this, mb));
         for(int i = 0; i < ROW_COUNT; i++){
             for(int j = 0; j < COLUMN_COUNT; j++){
-                setUnsafe(i, j, getUnsafe(i, j));
+                setSafe(i, j, mb.getSafe(i, j));
             }
         }
     }
