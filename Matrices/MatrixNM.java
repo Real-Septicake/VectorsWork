@@ -104,8 +104,7 @@ public class MatrixNM extends MatrixBase {
 
     @Override
     public double[] getColUnsafe(int col) {
-        col = Math.min(col, getCols());
-        return getColSafe(col);
+        return getColSafe(Math.min(col, getCols()));
     }
 
     @Override
