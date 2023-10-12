@@ -270,6 +270,11 @@ public class Matrix33 extends MatrixBase {
     }
 
     @Override
+    public double trace() {
+        return v00 + v11 + v22;
+    }
+
+    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
     }

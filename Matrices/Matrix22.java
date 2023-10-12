@@ -203,6 +203,11 @@ public class Matrix22 extends MatrixBase {
     }
 
     @Override
+    public double trace() {
+        return v00 + v11;
+    }
+
+    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
     }

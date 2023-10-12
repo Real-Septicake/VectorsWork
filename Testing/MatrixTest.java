@@ -3,9 +3,6 @@ package Testing;
 import Bases.MatrixBase;
 import Bases.VectorBase;
 import Tools.OpMatrices;
-
-import java.util.AbstractList;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MatrixTest {
@@ -101,10 +98,16 @@ public class MatrixTest {
         System.out.println("Result: "+test.equals(OpMatrices.inverse(OpMatrices.inverse(test))));
 
         MatrixBase forEach = MatrixBase.of(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+        System.out.println("\nIteration:");
         for (VectorBase v : forEach){
             for (double d : v){
-                System.out.println(d);
+                System.out.print(d + " ");
             }
+            System.out.println();
         }
+
+        System.out.println("\nTrace:");
+        System.out.println("Matrix: " + test);
+        System.out.println("Trace: " + test.trace());
     }
 }

@@ -163,6 +163,11 @@ public class Matrix11 extends MatrixBase {
     }
 
     @Override
+    public double trace() {
+        return value;
+    }
+
+    @Override
     public MatrixBase getIdentityMatrix(){
         return IDENTITY;
     }

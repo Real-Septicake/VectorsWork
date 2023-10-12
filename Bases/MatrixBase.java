@@ -372,6 +372,8 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable, I
 
     public abstract MatrixBase cofactorMatrix();
 
+    public abstract double trace();
+
     public MatrixBase getIdentityMatrix() throws IllegalCallerException {
         if(getCols() != getRows()) throw new IllegalCallerException("Matrix is not square");
         MatrixBase id = ofSize(getRows(), getCols());

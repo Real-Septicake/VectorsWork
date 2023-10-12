@@ -174,6 +174,19 @@ public class MatrixNM extends MatrixBase {
     }
 
     @Override
+    public double trace() throws IllegalCallerException {
+        if(getCols() == getRows()){
+            double value = 0;
+            for(int i = 0; i < getCols(); i++){
+                value += getSafe(i, i);
+            }
+            return value;
+        }else{
+            throw new IllegalCallerException("Cannot get trace of non-square matrix");
+        }
+    }
+
+    @Override
     public double determinant() {
         if(!(getCols() == getRows())){
             throw new IllegalCallerException("Non-square matrix cannot have determinant");
