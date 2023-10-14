@@ -121,8 +121,8 @@ public class Matrix11 extends MatrixBase {
 
     @Override
     public void matrixAdd(MatrixBase m) throws IllegalArgumentException {
-        if(m instanceof Matrix11){
-            value += ((Matrix11) m).value;
+        if(m instanceof Matrix11 mm){
+            value += mm.value;
         }else{
             throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixSizeMismatch(this, m, ErrorMessages.MatrixErrors.ADDITION_OFFENSE));
         }
@@ -135,8 +135,8 @@ public class Matrix11 extends MatrixBase {
 
     @Override
     public void matrixSubtract(MatrixBase m) {
-        if(m instanceof Matrix11){
-            value -= ((Matrix11) m).value;
+        if(m instanceof Matrix11 mm){
+            value -= mm.value;
         }else{
             throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixSizeMismatch(this, m, ErrorMessages.MatrixErrors.SUBTRACTION_OFFENSE));
         }
