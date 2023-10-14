@@ -364,16 +364,38 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable, I
         setUnsafe(row, col, getUnsafe(row, col) / val);
     }
 
+    /**
+     * @return The determinant of the {@code Matrix}
+     */
     public abstract double determinant();
 
+    /**
+     * @param row Row to find the minor of
+     * @param column Column to find the minor of
+     * @return The minor of the specified indices
+     */
     public abstract double minor(int row, int column);
 
+    /**
+     * @return A {@code Matrix} comprised of the minors at each position
+     */
     public abstract MatrixBase minorMatrix();
 
+    /**
+     * @return A {@code Matrix} comprised of the cofactors at each position
+     */
     public abstract MatrixBase cofactorMatrix();
 
-    public abstract double trace();
+    /**
+     * @return The trace of a square {@code Matrix}
+     * @throws IllegalCallerException If the calling {@code Matrix} is not square
+     */
+    public abstract double trace() throws IllegalCallerException;
 
+    /**
+     * @return The identity matrix of a square {@code Matrix}
+     * @throws IllegalCallerException If the calling {@code Matrix} is not square
+     */
     public MatrixBase getIdentityMatrix() throws IllegalCallerException {
         if(getCols() != getRows()) throw new IllegalCallerException("Matrix is not square");
         MatrixBase id = ofSize(getRows(), getCols());
@@ -383,7 +405,12 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable, I
         return id;
     }
 
-    public void copyVals(MatrixBase mb){
+    /**
+     * Copies the values of the input {@code Matrix} to the calling {@code Matrix}
+     * @param mb The {@code Matrix} to copy the values of
+     * @throws IllegalArgumentException If the {@code Matrices} are not the same size
+     */
+    public void copyVals(MatrixBase mb) throws IllegalArgumentException{
         if(ROW_COUNT != mb.getRows() || COLUMN_COUNT != mb.getCols()) throw new IllegalArgumentException(ErrorMessages.MatrixErrors.matrixCopySizeMismatch(this, mb));
         for(int i = 0; i < ROW_COUNT; i++){
             for(int j = 0; j < COLUMN_COUNT; j++){
@@ -401,6 +428,12 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable, I
         return of(mb.toDoubleMatrix());
     }
 
+    /**
+     * Creates a {@code Matrix} of the specified size
+     * @param rows The number of rows for the returned {@code Matrix}
+     * @param cols The number of columns for the returned {@code Matrix}
+     * @return A {@code Matrix} of the specified size
+     */
     public static MatrixBase ofSize(int rows, int cols){
         if(rows == 1 && cols == 1){
             return new Matrix11();
@@ -413,7 +446,13 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable, I
         }
     }
 
-    public static MatrixBase of(double[]... vals){
+    /**
+     * Creates a {@code Matrix} with the values of the input matrix
+     * @param vals The matrix to create the {@code Matrix} from
+     * @return A {@code Matrix} comprised of the values of the input matrix
+     * @throws IllegalArgumentException If input matrix is not uniform
+     */
+    public static MatrixBase of(double[]... vals) throws IllegalArgumentException{
         OpMatrices.confirmRect(vals);
         if(vals.length == 1 && vals[0].length == 1){
             return new Matrix11(vals);
@@ -426,6 +465,11 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable, I
         }
     }
 
+    /**
+     * Creates a {@code Matrix} from the values from the array of {@code Vector}s
+     * @param vals The array of {@code Vectors} to copy the values from
+     * @return A {@code Matrix}
+     */
     public static MatrixBase of(VectorBase... vals){
         double[][] copy = new double[vals.length][];
         for(int i = 0; i < vals.length; i++){
@@ -450,8 +494,7 @@ public abstract class MatrixBase implements Comparable<MatrixBase>, Cloneable, I
     }
 
     /**
-     * Returns a matrix with the same values as this {@code Matrix}
-     * @return a double matrix with the same values as this {@code Matrix}
+     * @return A double matrix with the same values as this {@code Matrix}
      */
     public abstract double[][] toDoubleMatrix();
 

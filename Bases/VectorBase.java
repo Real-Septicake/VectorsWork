@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 //TODO: REALLY gonna have to organize this stuff
 
 /**
- * Base abstract class for all Vectors
+ * Base abstract class for all {@code Vectors}
  *
  * @author Septicake
  */
@@ -276,7 +276,7 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable, I
         }
     }
 
-    public void fill(double val) throws IllegalArgumentException{
+    public void fill(double val) throws IllegalArgumentException {
         NaNCheck(val);
         for(int i = 0; i < size(); i++){
             set(i, val);
