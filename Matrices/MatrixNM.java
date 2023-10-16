@@ -81,8 +81,7 @@ public class MatrixNM extends MatrixBase {
 
     @Override
     public double[] getRowUnsafe(int row) {
-        row = Math.min(row, getRows());
-        return data[row].toDoubleArray();
+        return data[Math.min(row, getRows())].toDoubleArray();
     }
 
     @Override
