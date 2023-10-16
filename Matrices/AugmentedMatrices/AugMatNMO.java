@@ -5,8 +5,10 @@ import Bases.VectorBase;
 import Tools.ErrorMessages;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class AugMatNMO {
+public class AugMatNMO implements Iterable<VectorBase>{
 
     private final int ROW_COUNT;
     private final int MAIN_COLUMN_COUNT;
@@ -198,5 +200,37 @@ public class AugMatNMO {
         }
         sb.append("]");
         return sb.toString();
+    }
+
+    @Override
+    public Iterator<VectorBase> iterator() {
+        return new AugMatItr();
+    }
+
+    private class AugMatItr implements Iterator<VectorBase> {
+        int currPos = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currPos < ROW_COUNT;
+        }
+
+        @Override
+        public VectorBase next() {
+            try{
+                return VectorBase.of(joinArrays(main.getRowSafe(currPos), augment.getRowSafe(currPos++)));
+            }catch(IndexOutOfBoundsException e){
+                throw new NoSuchElementException(e);
+            }
+        }
+
+        public double[] joinArrays(double[] a1, double[] a2){
+            double[] a = new double[a1.length + a2.length];
+            System.arraycopy(a1, 0, a, 0, a1.length);
+            if (a.length - a1.length >= 0) {
+                System.arraycopy(a2, 0, a, a1.length, a2.length);
+            }
+            return a;
+        }
     }
 }

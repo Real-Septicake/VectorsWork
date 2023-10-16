@@ -1,5 +1,6 @@
 package Testing;
 
+import Bases.VectorBase;
 import Matrices.AugmentedMatrices.AugMatNMO;
 import Matrices.MatrixNM;
 
@@ -58,5 +59,14 @@ public class AugmentedMatrixTest {
         solve.addRows(solve.falseMultiplyRow(0, -3), 1);
         System.out.println("\n\n" + solve);
         System.out.println(solve.getAugClone());
+
+        AugMatNMO itr = new AugMatNMO(new MatrixNM(new double[][]{{-3, 3, -6}, {-5, 1, -4}, {-2, -6, -1}}), new MatrixNM(new double[][]{{-3}, {5}, {9}}));
+        System.out.println("\nIteration");
+        for(VectorBase v : itr){
+            for(double d : v){
+                System.out.print(d + " ");
+            }
+            System.out.println();
+        }
     }
 }
