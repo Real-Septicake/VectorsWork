@@ -87,6 +87,11 @@ public class MatrixTest {
         System.out.println("Before: " + trans);
         System.out.println("After: " + OpMatrices.transpose(trans));
 
+        MatrixBase nonSquareTrans = MatrixBase.of(new double[][]{{1,2}, {3,4}, {5, 6}});
+        System.out.println("\nNon-Square Transpose:");
+        System.out.println("Before: " + nonSquareTrans);
+        System.out.println("After: " + OpMatrices.transpose(nonSquareTrans));
+
         MatrixBase test = MatrixBase.of(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 2, 9}});
         System.out.println("\nInverse:");
         System.out.println("Original: "+test);

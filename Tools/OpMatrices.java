@@ -92,15 +92,10 @@ public class OpMatrices extends OpMain {
     }
 
     public static MatrixBase transpose(MatrixBase m){
-        double[][] trans = m.toDoubleMatrix();
-        for(int i = 0; i < m.getRows(); i++){
-            for(int j = i+1; j < m.getCols(); j++){
-                if(j > i){
-                    double temp = trans[i][j];
-                    trans[i][j] = trans[j][i];
-                    trans[j][i] = temp;
-                }
-            }
+        double[][] trans = new double[m.getCols()][m.getRows()];
+        for(int i = 0; i < m.getCols(); i++){
+            double[] col = m.getColSafe(i);
+            trans[i] = col;
         }
         return MatrixBase.of(trans);
     }
