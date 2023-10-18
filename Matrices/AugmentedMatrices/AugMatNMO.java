@@ -176,6 +176,10 @@ public class AugMatNMO implements Iterable<VectorBase>{
         if(a != TOTAL_COLUMN_COUNT) throw new IllegalArgumentException(ErrorMessages.AugMatErrors.arraySizeMismatch(a, TOTAL_COLUMN_COUNT));
     }
 
+    public MatrixBase toMatrixBase(){
+        return MatrixBase.of(toDoubleMatrix());
+    }
+
     public double[][] toDoubleMatrix(){
         double[][] clone = new double[ROW_COUNT][TOTAL_COLUMN_COUNT];
         for(int i = 0; i < ROW_COUNT; i++){

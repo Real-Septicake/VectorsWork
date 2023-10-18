@@ -3,6 +3,7 @@ package Testing;
 import Bases.VectorBase;
 import Matrices.AugmentedMatrices.AugMatNMO;
 import Matrices.MatrixNM;
+import Tools.OpMatrices;
 
 import java.util.Arrays;
 
@@ -68,5 +69,8 @@ public class AugmentedMatrixTest {
             }
             System.out.println();
         }
+
+        System.out.println("\nRow Echelon:");
+        System.out.println(OpMatrices.rowEchelon(itr.toMatrixBase()));
     }
 }
