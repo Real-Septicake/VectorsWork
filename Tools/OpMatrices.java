@@ -1,6 +1,7 @@
 package Tools;
 
 import Bases.MatrixBase;
+import Bases.VectorBase;
 import Matrices.Matrix11;
 
 /**
@@ -107,5 +108,40 @@ public class OpMatrices extends OpMain {
         MatrixBase inverse = OpMatrices.transpose(m.cofactorMatrix());
         inverse.multiply(1/m.determinant());
         return inverse;
+    }
+
+    public static MatrixBase rowEchelon(MatrixBase m){
+        MatrixBase r = m.clone();
+
+        int h = 0, k = 0;
+        while(h < r.getRows() && k < m.getCols()){
+            int i_max = 0;
+            for(int i = 0; i < m.getRows(); i++){
+                if(Math.abs(r.getSafe(i, k)) > Math.abs(r.getSafe(i_max, k))){
+                    i_max = i;
+                }
+            }
+
+            if(r.getSafe(i_max, k) == 0){
+                k++;
+            }else{
+                VectorBase temp = r.getRowVector(i_max);
+                r.setRow(i_max, r.getRowVector(h));
+                r.setRow(h, temp);
+
+                for(int i = h+1; i < m.getRows(); i++){
+                    double f = r.getSafe(i, k) / r.getSafe(h, k);
+                    r.setSafe(i, k, 0);
+                    for(int j = k+1; j < m.getCols(); j++){
+                        double v = r.getSafe(i, j) - r.getSafe(h, j) * f;
+                        r.setSafe(i, j, v);
+                    }
+                }
+            }
+
+            h++; k++;
+        }
+
+        return r;
     }
 }
