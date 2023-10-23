@@ -184,6 +184,17 @@ public class Vector3D extends VectorBase {
     }
 
     @Override
+    public VectorBase subtractCopy(VectorBase source) {
+        if(source instanceof Vector3D){
+            Vector3D v = (Vector3D) this.clone();
+            v.subtract(source);
+            return v;
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
+        }
+    }
+
+    @Override
     public void multiply(double val) {
         x = round(x * val);
         y = round(y * val);

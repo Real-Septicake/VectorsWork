@@ -181,6 +181,8 @@ public abstract class VectorBase implements Comparable<VectorBase>, Cloneable, I
      */
     public abstract VectorBase subtractCopy(double val);
 
+    public abstract VectorBase subtractCopy(VectorBase source);
+
     /**
      * Subtracts the input value from the values at specified indices
      * @param val The value to subtract from the indices

@@ -75,6 +75,15 @@ public class Vector0D extends VectorBase {
     }
 
     @Override
+    public VectorBase subtractCopy(VectorBase source) {
+        if(!(source instanceof Vector0D)){
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(INSTANCE, source));
+        }else{
+            return INSTANCE;
+        }
+    }
+
+    @Override
     public void multiply(double val) {
         throw new IllegalCallerException(ErrorMessages.VectorErrors.ILLEGAL_0D_METHOD_CALL);
     }

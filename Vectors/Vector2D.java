@@ -153,6 +153,17 @@ public class Vector2D extends VectorBase {
     }
 
     @Override
+    public VectorBase subtractCopy(VectorBase source) {
+        if(source instanceof Vector2D){
+            Vector2D v = (Vector2D) this.clone();
+            v.subtract(source);
+            return v;
+        }else{
+            throw new IllegalArgumentException(ErrorMessages.VectorErrors.vectorSizeMismatch(this, source));
+        }
+    }
+
+    @Override
     public void multiply(double val) {
         x = round(x * val);
         y = round(y * val);

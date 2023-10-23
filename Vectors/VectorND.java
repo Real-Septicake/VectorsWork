@@ -119,6 +119,13 @@ public class VectorND extends VectorBase {
     }
 
     @Override
+    public VectorBase subtractCopy(VectorBase source) {
+        VectorND v = (VectorND) this.clone();
+        v.subtract(source);
+        return v;
+    }
+
+    @Override
     public void multiply(double val) {
         for (int i = 0; i < size(); i++) {
             vals[i] = round(vals[i] * val);
